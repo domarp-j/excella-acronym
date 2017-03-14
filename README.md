@@ -1,1 +1,1 @@
-# Excella Acronym Slackbot
+# Excella Acronyms
