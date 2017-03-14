@@ -1,1 +1,1 @@
-# Excella Acronyms Slack Boat
+# Excella Acronym Slackbot

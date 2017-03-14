@@ -1,19 +1,26 @@
 {
-  "name": "excella-acronym",
+  "name": "excella-acronym-slackbot",
   "version": "1.0.0",
-  "description": "A Slack bot for Excella that provides the meanings of acronyms upon request",
+  "description": "Don't know the meaning of an Excella acronym? This Slack bot can help!",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/domarp-j/excella-acronym.git"
+    "url": "git+https://github.com/domarp-j/excella-acronym-slackbot.git"
   },
-  "author": "",
+  "keywords": [
+    "excella",
+    "acronym",
+    "slackbot",
+    "node",
+    "mongodb"
+  ],
+  "author": "TBD",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/domarp-j/excella-acronym/issues"
+    "url": "https://github.com/domarp-j/excella-acronym-slackbot/issues"
   },
-  "homepage": "https://github.com/domarp-j/excella-acronym#readme"
+  "homepage": "https://github.com/domarp-j/excella-acronym-slackbot#readme"
 }
