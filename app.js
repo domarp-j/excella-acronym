@@ -15,12 +15,10 @@ var bot_token = process.env.BOT_TOKEN || '';
 var rtm = new RtmClient(bot_token);
 
 //
-// TEST
+// Register messages & do stuff
 //
 rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
   text = message.text || '';
   words = text.split(' ');
 })
 rtm.start();
-
-// TODO: figure out how to get bot data from token above
