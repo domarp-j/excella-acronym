@@ -18,7 +18,8 @@ var rtm = new RtmClient(bot_token);
 // TEST
 //
 rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
-  console.log(message);
+  text = message.text || '';
+  words = text.split(' ');
 })
 rtm.start();
 
