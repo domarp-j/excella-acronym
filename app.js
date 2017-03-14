@@ -4,6 +4,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 
+var Acronym = require('./db/models/acronym')
+
 // ====================
 // App Setup
 // ====================

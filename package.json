@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/domarp-j/excella-acronym-slackbot.git"
+    "url": "git+https://github.com/domarp-j/excella-acronyms.git"
   },
   "keywords": [
     "excella",
@@ -20,9 +20,9 @@
   "author": "TBD",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/domarp-j/excella-acronym-slackbot/issues"
+    "url": "https://github.com/domarp-j/excella-acronyms/issues"
   },
-  "homepage": "https://github.com/domarp-j/excella-acronym-slackbot#readme",
+  "homepage": "https://github.com/domarp-j/excella-acronyms#readme",
   "dependencies": {
     "@slack/client": "^3.8.1",
     "body-parser": "^1.17.1",
