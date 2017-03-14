@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/domarp-j/excella-acronym-slackbot#readme",
   "dependencies": {
-    "@slack/client": "^3.8.1"
+    "@slack/client": "^3.8.1",
+    "dotenv-safe": "^4.0.3"
   }
 }
