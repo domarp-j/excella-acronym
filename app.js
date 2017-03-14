@@ -1,13 +1,25 @@
 //
 // Configure dotenv-safe to handle ENV variables
 //
-require('dotenv-safe').config();
+require('dotenv-safe').load();
 
-console.log(process.env.TEST);
+//
+// Slack DK for Node.js setup
+//
+var RtmClient = require('@slack/client').RtmClient;
+var CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS
+var RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 
-// var RtmClient = require('@slack/client').RtmClient;
-// var CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS
+var bot_token = process.env.SLACK_BOT_TOKEN || '';
+
+var rtm = new RtmClient(bot_token);
+
 //
-// var bot_token = process.env.SLACK_BOT_TOKEN || '';
+// TEST
 //
-// var rtm = new RtmClient(bot_token);
+rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
+  console.log(message);
+})
+rtm.start();
+
+// TODO: figure out how to get bot data from token above
