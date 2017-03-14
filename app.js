@@ -1,7 +1,7 @@
 //
 // Configure dotenv-safe to handle ENV variables
 //
-require('dotenv-safe').load();
+require('dotenv-safe').config();
 
 console.log(process.env.TEST);
 
