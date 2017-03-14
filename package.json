@@ -2,7 +2,7 @@
   "name": "excella-acronym-slackbot",
   "version": "1.0.0",
   "description": "Don't know the meaning of an Excella acronym? This Slack bot can help!",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +29,7 @@
     "dotenv-safe": "^4.0.3",
     "express": "^4.15.2",
     "lodash": "^4.17.4",
+    "mongodb": "^2.2.24",
     "mongoose": "^4.9.0"
   }
 }
