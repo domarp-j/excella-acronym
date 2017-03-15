@@ -38,8 +38,8 @@ exports.post = function(request, response) {
     response.json({
       message: 'Added new acronym to the database',
       acronym: {
-        name: acronym.name.toLowerCase(),
-        meaning: acronym.meaning.toLowerCase()
+        name: acronym.name.toUpperCase(),
+        meaning: acronym.meaning.toUpperCase()
       }
     });
   });
