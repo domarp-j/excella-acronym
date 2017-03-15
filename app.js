@@ -13,7 +13,7 @@ var db = require('./database/connection');
 var Acronym = require('./models/acronym');
 
 // Controllers
-var acronymsController = require('./controllers/acronyms');
+var acronymsController = require('./controllers/acronym');
 
 // ====================
 // App Setup

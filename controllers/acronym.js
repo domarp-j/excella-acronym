@@ -5,6 +5,12 @@
 var Acronym = require('../models/acronym');
 
 // ====================
+// Helpers
+// ====================
+
+var acronymHelper = require('../helpers/acronym');
+
+// ====================
 // RESTful Methods
 // ====================
 
@@ -14,8 +20,8 @@ exports.get = function(request, response) {
     if (error) response.send(error);
 
     response.json({
-      message: 'Success! Here are all of the acronyms currently in the database.',
-      acronyms
+      message: 'Success! Here are all of the Excella acronyms currently in the database.',
+      acronyms: acronymHelper.stripId(acronyms)
     });
   });
 }
@@ -34,17 +40,17 @@ exports.post = function(request, response) {
     return;
   }
 
-  acronym.name = request.body.name;
-  acronym.meaning = request.body.meaning;
+  acronym.name = request.body.name.toUpperCase();
+  acronym.meaning = acronymHelper.capitalize(request.body.meaning);
 
   acronym.save(function(error) {
     if (error) response.send(error);
 
     response.json({
-      message: 'Success! A new acronym has been added to the database.',
+      message: 'Success! A new Excella acronym has been added to the database.',
       acronym: {
-        name: acronym.name.toUpperCase(),
-        meaning: acronym.meaning.toUpperCase()
+        name: acronym.name,
+        meaning: acronym.meaning
       }
     });
   });
@@ -52,12 +58,14 @@ exports.post = function(request, response) {
 
 // Show
 exports.show = function(request, response) {
-  Acronym.find({ name: request.params.name }, function(error, acronyms) {
+  name = request.params.name.toUpperCase();
+
+  Acronym.find({ name: name }, function(error, acronyms) {
     if (error) response.send(error);
 
     response.json({
-      message: 'Success! Here are all of the acronyms with the name ' + request.params.name + '.',
-      acronyms
+      message: 'Success! Here are all of the Excella acronym meanings for ' + name + '.',
+      acronyms: acronymHelper.stripId(acronyms)
     });
   });
 }
