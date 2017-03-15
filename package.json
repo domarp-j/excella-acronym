@@ -1,7 +1,7 @@
 {
   "name": "excella-acronym-slackbot",
   "version": "1.0.0",
-  "description": "Don't know the meaning of an Excella acronym? This Slack bot can help!",
+  "description": "A Node.js & MongoDB API that handles Excella acronyms",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,9 +20,9 @@
   "author": "TBD",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/domarp-j/excella-acronyms/issues"
+    "url": "https://github.com/domarp-j/excella-acronym-api/issues"
   },
-  "homepage": "https://github.com/domarp-j/excella-acronyms#readme",
+  "homepage": "https://github.com/domarp-j/excella-acronym-api#readme",
   "dependencies": {
     "@slack/client": "^3.8.1",
     "body-parser": "^1.17.1",
