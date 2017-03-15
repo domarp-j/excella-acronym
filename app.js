@@ -24,13 +24,13 @@ var port = process.env.PORT || 8080;
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  res.json({ message: 'hello world!' });
+  res.json({ message: 'Welcome to the Excella Acronyms API!' });
 });
 
 // ====================
 // Register Routes
 // ====================
-app.use('/api', router);
+app.use('/', router);
 
 // ====================
 // Run Server
