@@ -14,7 +14,7 @@ exports.get = function(request, response) {
     if (error) response.send(error);
 
     response.json({
-      message: 'Success! Here are all of the acronyms currently in the database',
+      message: 'Success! Here are all of the acronyms currently in the database.',
       acronyms
     });
   });
@@ -25,7 +25,12 @@ exports.post = function(request, response) {
   var acronym = new Acronym();
 
   if (!request.body.name || !request.body.meaning) {
-    response.send({ message: 'Warning! Acronym is not properly defined' });
+    response.send({
+      message: 'Warning! Acronym is not properly defined. Please check your parameters.',
+      name: request.body.name || 'undefined',
+      meaning: request.body.meaning || 'undefined'
+    });
+
     return;
   }
 
@@ -36,7 +41,7 @@ exports.post = function(request, response) {
     if (error) response.send(error);
 
     response.json({
-      message: 'Success! A new acronym has been added to the database',
+      message: 'Success! A new acronym has been added to the database.',
       acronym: {
         name: acronym.name.toUpperCase(),
         meaning: acronym.meaning.toUpperCase()
@@ -51,7 +56,7 @@ exports.show = function(request, response) {
     if (error) response.send(error);
 
     response.json({
-      message: 'Success! Here are all of the acronyms with the name ' + request.params.name,
+      message: 'Success! Here are all of the acronyms with the name ' + request.params.name + '.',
       acronyms
     });
   });
