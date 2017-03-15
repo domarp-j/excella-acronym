@@ -47,9 +47,11 @@ router.route('/acronyms/:name')
 // ====================
 // Register Routes
 // ====================
+
 app.use('/', router);
 
 // ====================
 // Run Server
 // ====================
+
 app.listen(port);
