@@ -30,11 +30,18 @@ router.get('/', function(request, response) {
 });
 
 router.route('/acronyms')
+  .get(function(request, response) {
+    Acronym.find(function(error, acronyms) {
+      if (error) response.send(error);
+      response.json(acronyms);
+    })
+  })
+
   .post(function(request, response) {
     var acronym = new Acronym();
 
     if (!request.body.name || !request.body.meaning) {
-      response.send({ message: 'Invalid parameters' });
+      response.send({ message: 'Invalid parameters for acronym name and/or meaning' });
       return;
     }
 
@@ -43,8 +50,8 @@ router.route('/acronyms')
 
     acronym.save(function(error) {
       if (error) response.send(error);
-      response.json({ message: 'Added new acronym to the database.' });
-    })
+      response.json({ message: 'Added new acronym to the database' });
+    });
   });
 
 // ====================
