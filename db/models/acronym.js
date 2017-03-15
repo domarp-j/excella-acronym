@@ -1,11 +1,13 @@
 // ====================
-// Modules
+// Module Dependencies
 // ====================
+
 var mongoose = require('mongoose');
 
 // ====================
 // Schema
 // ====================
+
 var Schema = mongoose.Schema;
 
 var AcronymSchema = new Schema({
