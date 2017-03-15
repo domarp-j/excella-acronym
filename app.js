@@ -13,13 +13,16 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
+// ====================
+// Port
+// ====================
 var port = process.env.PORT || 8080;
-
-var router = express.Router();
 
 // ====================
 // API Routes
 // ====================
+var router = express.Router();
+
 router.get('/', function(req, res) {
   res.json({ message: 'hello world!' });
 });
