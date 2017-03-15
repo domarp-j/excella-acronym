@@ -33,7 +33,10 @@ router.route('/acronyms')
   .get(function(request, response) {
     Acronym.find(function(error, acronyms) {
       if (error) response.send(error);
-      response.json(acronyms);
+      response.json({
+        message: 'Here are all of the acronyms currently in the database',
+        acronyms
+      });
     })
   })
 
@@ -41,7 +44,7 @@ router.route('/acronyms')
     var acronym = new Acronym();
 
     if (!request.body.name || !request.body.meaning) {
-      response.send({ message: 'Invalid parameters for acronym name and/or meaning' });
+      response.send({ message: 'Acronym is not properly defined' });
       return;
     }
 
@@ -50,7 +53,24 @@ router.route('/acronyms')
 
     acronym.save(function(error) {
       if (error) response.send(error);
-      response.json({ message: 'Added new acronym to the database' });
+      response.json({
+        message: 'Added new acronym to the database',
+        acronym: {
+          name: acronym.name.toLowerCase(),
+          meaning: acronym.meaning.toLowerCase()
+        }
+      });
+    });
+  });
+
+router.route('/acronyms/:name')
+  .get(function(request, response) {
+    Acronym.find({ name: request.params.name }, function(error, acronyms) {
+      if (error) response.send(error);
+      response.json({
+        message: 'All acronyms with name ' + request.params.name, 
+        acronyms
+      });
     });
   });
 
