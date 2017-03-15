@@ -14,19 +14,20 @@ var acronymHelper = require('../helpers/acronym');
 // RESTful Methods
 // ====================
 
-// Index
+// GET Index
 exports.get = function(request, response) {
   Acronym.find(function(error, acronyms) {
     if (error) response.send(error);
 
     response.json({
       message: 'Success! Here are all of the Excella acronyms currently in the database.',
+      count: acronyms.length,
       acronyms: acronymHelper.stripId(acronyms)
     });
   });
 }
 
-// Post
+// POST Create
 exports.post = function(request, response) {
   var acronym = new Acronym();
 
@@ -48,15 +49,13 @@ exports.post = function(request, response) {
 
     response.json({
       message: 'Success! A new Excella acronym has been added to the database.',
-      acronym: {
-        name: acronym.name,
-        meaning: acronym.meaning
-      }
+      count: 1,
+      acronym: acronymHelper.stripId([acronym])
     });
   });
 }
 
-// Show
+// GET Show
 exports.show = function(request, response) {
   name = request.params.name.toUpperCase();
 
@@ -65,6 +64,7 @@ exports.show = function(request, response) {
 
     response.json({
       message: 'Success! Here are all of the Excella acronym meanings for ' + name + '.',
+      count: acronyms.length,
       acronyms: acronymHelper.stripId(acronyms)
     });
   });

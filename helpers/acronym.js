@@ -2,6 +2,7 @@
 // Helpers
 // ====================
 
+// Capitalize the first letter in every word of a given phrase
 exports.capitalize = function(phrase) {
   phrase = phrase.split(' ');
 
@@ -12,15 +13,16 @@ exports.capitalize = function(phrase) {
   return phrase.join(' ');
 }
 
+// Return list of acronyms without _id field
 exports.stripId = function(acronyms) {
-  acronymsNew = [];
+  acronymsNoId = [];
 
   acronyms.forEach(function(acronym) {
-    acronymsNew.push({
+    acronymsNoId.push({
       name: acronym.name,
       meaning: acronym.meaning
     })
   });
 
-  return acronymsNew; 
+  return acronymsNoId;
 }
