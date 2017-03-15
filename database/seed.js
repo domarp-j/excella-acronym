@@ -2,7 +2,7 @@
 var mongoose = require('./connection');
 
 // Define Model
-var Acronym = require('./models/acronym');
+var Acronym = require('../models/acronym');
 
 // Seed Data
 var data = [

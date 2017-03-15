@@ -2,7 +2,7 @@
 // Models
 // ====================
 
-var Acronym = require('../db/models/acronym');
+var Acronym = require('../models/acronym');
 
 // ====================
 // RESTful Methods
@@ -14,10 +14,10 @@ exports.get = function(request, response) {
     if (error) response.send(error);
 
     response.json({
-      message: 'Here are all of the acronyms currently in the database',
+      message: 'Success! Here are all of the acronyms currently in the database',
       acronyms
     });
-  })
+  });
 }
 
 // Post
@@ -25,7 +25,7 @@ exports.post = function(request, response) {
   var acronym = new Acronym();
 
   if (!request.body.name || !request.body.meaning) {
-    response.send({ message: 'Acronym is not properly defined' });
+    response.send({ message: 'Warning! Acronym is not properly defined' });
     return;
   }
 
@@ -36,7 +36,7 @@ exports.post = function(request, response) {
     if (error) response.send(error);
 
     response.json({
-      message: 'Added new acronym to the database',
+      message: 'Success! A new acronym has been added to the database',
       acronym: {
         name: acronym.name.toUpperCase(),
         meaning: acronym.meaning.toUpperCase()
@@ -51,7 +51,7 @@ exports.show = function(request, response) {
     if (error) response.send(error);
 
     response.json({
-      message: 'All acronyms with name ' + request.params.name,
+      message: 'Success! Here are all of the acronyms with the name ' + request.params.name,
       acronyms
     });
   });

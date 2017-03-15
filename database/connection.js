@@ -3,7 +3,7 @@
 // ====================
 
 var mongoose = require('mongoose');
-var Acronym = require('./models/acronym');
+var Acronym = require('../models/acronym');
 
 // ====================
 // Mongoose Config
