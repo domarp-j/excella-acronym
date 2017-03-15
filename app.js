@@ -4,7 +4,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 
-var Acronym = require('./db/models/acronym')
+var db = require('./db/connection');
+
+var Acronym = require('./db/models/acronym');
 
 // ====================
 // App Setup
@@ -14,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 // ====================
-// Port
+// Port Setup
 // ====================
 var port = process.env.PORT || 8080;
 
@@ -23,9 +25,27 @@ var port = process.env.PORT || 8080;
 // ====================
 var router = express.Router();
 
-router.get('/', function(req, res) {
-  res.json({ message: 'Welcome to the Excella Acronyms API!' });
+router.get('/', function(request, response) {
+  response.json({ message: 'Welcome to the Excella Acronyms API!' });
 });
+
+router.route('/acronyms')
+  .post(function(request, response) {
+    var acronym = new Acronym();
+
+    if (!request.body.name || !request.body.meaning) {
+      response.send({ message: 'Invalid parameters' });
+      return;
+    }
+
+    acronym.name = request.body.name;
+    acronym.meaning = request.body.meaning;
+
+    acronym.save(function(error) {
+      if (error) response.send(error);
+      response.json({ message: 'Added new acronym to the database.' });
+    })
+  });
 
 // ====================
 // Register Routes
