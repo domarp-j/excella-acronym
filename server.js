@@ -13,7 +13,7 @@ var db = require('./app/database/connection');
 var Acronym = require('./app/models/acronym');
 
 // Controllers
-var acronymsController = require('./app/controllers/acronym');
+var AcronymController = require('./app/controllers/acronym');
 
 // ====================
 // App Setup
@@ -39,10 +39,10 @@ router.get('/', function(request, response) {
 
 // API Routes
 router.route('/acronyms')
-  .get(acronymsController.get)
-  .post(acronymsController.post);
+  .get(AcronymController.get)
+  .post(AcronymController.post);
 router.route('/acronyms/:name')
-  .get(acronymsController.show);
+  .get(AcronymController.show);
 
 // ====================
 // Register Routes
