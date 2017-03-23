@@ -7,13 +7,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 // Database
-var db = require('./database/connection');
+var db = require('./app/database/connection');
 
 // Models
-var Acronym = require('./models/acronym');
+var Acronym = require('./app/models/acronym');
 
 // Controllers
-var acronymsController = require('./controllers/acronym');
+var acronymsController = require('./app/controllers/acronym');
 
 // ====================
 // App Setup

@@ -1,8 +1,8 @@
 {
-  "name": "excella-acronym-slackbot",
+  "name": "excella-acronym-api",
   "version": "1.0.0",
   "description": "A Node.js & MongoDB API that handles Excella acronyms",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +13,6 @@
   "keywords": [
     "excella",
     "acronym",
-    "slackbot",
     "node",
     "mongodb"
   ],
@@ -35,6 +34,8 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "sinon": "^2.1.0",
+    "sinon-mongoose": "^1.3.0"
   }
 }

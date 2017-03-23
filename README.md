@@ -27,7 +27,7 @@ Note: The app has not yet been deployed. In the development environment, it will
 * Make sure that you `$ cd` into the excella-acronym-api directory
 * Run `$ npm install` to install all of the Node.js packages & libraries
 * Run `$ node database/seeds.js` to seed test data for the database (optional)
-* Run `$ node .` or `$ node app.js` to run the server
+* Run `$ node .` or `$ node server.js` to run the server
 
 ## License
 
