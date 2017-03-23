@@ -15,7 +15,7 @@ The Excella Acronym API provides quick and easy access to all of the acronyms fr
 
 ## Using the API
 
-Note: The app has not yet been deployed. In the development environment, it will run by default on `localhost:8080`
+Note: The app has not yet been deployed. In the development environment, it will run by default on `localhost:8080`.
 
 * `GET /acronyms` returns all of the acronyms currently within the database
 * `GET /acronyms/:name` returns all acronyms with the given name parameter
