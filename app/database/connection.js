@@ -2,8 +2,8 @@
 // Modules
 // ====================
 
-var mongoose = require('mongoose');
-var Acronym = require('../models/acronym');
+let mongoose = require('mongoose');
+let Acronym = require('../models/acronym');
 
 // ====================
 // Mongoose Config

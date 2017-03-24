@@ -1,17 +1,17 @@
 //
 // Require connection
 //
-var mongoose = require('./connection');
+let mongoose = require('./connection');
 
 //
 // Define Model
 //
-var Acronym = require('../models/acronym');
+let Acronym = require('../models/acronym');
 
 //
 // Seed Data
 //
-var data = [
+let data = [
   {
     name: 'ATM',
     meaning: 'At The Moment',

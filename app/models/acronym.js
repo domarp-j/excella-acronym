@@ -2,15 +2,15 @@
 // Modules
 // ====================
 
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
 // ====================
 // Schema
 // ====================
 
-var Schema = mongoose.Schema;
+let Schema = mongoose.Schema;
 
-var acronymSchema = new Schema({
+let acronymSchema = new Schema({
   name: { type: String, required: true },
   meaning: { type: String, required: true },
 }, { timestamps: true });

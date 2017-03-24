@@ -2,9 +2,9 @@
 // Third-Party Modules
 // ====================
 
-var chai = require('chai');
-var chaiHttp = require('chai-http');
-var mongoose = require('mongoose');
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let mongoose = require('mongoose');
 
 // ====================
 // Internal Modules
@@ -13,12 +13,12 @@ var mongoose = require('mongoose');
 //
 // Models
 //
-var Acronym = require('../../app/models/acronym');
+let Acronym = require('../../app/models/acronym');
 
 //
 // Server
 //
-var server = require('../server');
+let server = require('../server');
 
 // ====================
 // Setup
@@ -27,9 +27,13 @@ var server = require('../server');
 //
 // Assertions
 //
-var expect = chai.expect;
+let expect = chai.expect;
 
 //
 // Chai HTTP
 //
 chai.use(chaiHttp);
+
+// ====================
+// Tests
+// ====================

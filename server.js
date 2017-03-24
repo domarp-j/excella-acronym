@@ -2,8 +2,8 @@
 // Third-Party Modules
 // ====================
 
-var express = require('express');
-var bodyParser = require('body-parser');
+let express = require('express');
+let bodyParser = require('body-parser');
 
 // ====================
 // Internal Modules
@@ -12,34 +12,34 @@ var bodyParser = require('body-parser');
 //
 // Database
 //
-var db = require('./app/database/connection');
+let db = require('./app/database/connection');
 
 //
 // Models
 //
-var Acronym = require('./app/models/acronym');
+let Acronym = require('./app/models/acronym');
 
 //
 // Controllers
 //
-var AcronymController = require('./app/controllers/acronym');
+let AcronymController = require('./app/controllers/acronym');
 
 // ====================
 // App Setup
 // ====================
 
-var app = express();
+let app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;
+let port = process.env.PORT || 8080;
 
 // ====================
 // Routing
 // ====================
 
-var router = express.Router();
+let router = express.Router();
 
 //
 // Base Route

@@ -2,7 +2,7 @@
 // Module Dependencies
 // ====================
 
-var _ = require('lodash');
+let _ = require('lodash');
 
 // ====================
 // Helpers
@@ -23,11 +23,11 @@ exports.capitalize = (phrase) => {
 // Strip list of acronym objects so that they only have names & meanings
 //
 exports.strip = (acronyms) => {
-  var validKey = (value, key) => {
+  let validKey = (value, key) => {
     return _.includes(['name', 'meaning'], key)
   }
 
-  var stripAcronym = (acronym) => {
+  let stripAcronym = (acronym) => {
     return _.pickBy(acronym, validKey);
   }
 

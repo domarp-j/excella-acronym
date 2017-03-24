@@ -2,13 +2,13 @@
 // Models
 // ====================
 
-var Acronym = require('../models/acronym');
+let Acronym = require('../models/acronym');
 
 // ====================
 // Helpers
 // ====================
 
-var acronymHelper = require('../helpers/acronym');
+let acronymHelper = require('../helpers/acronym');
 
 // ====================
 // RESTful Methods
@@ -33,7 +33,7 @@ exports.get = (request, response) => {
 // POST Create
 //
 exports.post = (request, response) => {
-  var acronym = new Acronym();
+  let acronym = new Acronym();
 
   if (!request.body.name || !request.body.meaning) {
     response.send({
