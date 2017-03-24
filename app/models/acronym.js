@@ -10,13 +10,18 @@ let mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
 
-let acronymSchema = new Schema({
-  name: { type: String, required: true },
-  meaning: { type: String, required: true },
-}, { timestamps: true });
+let AcronymSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    meaning: { type: String, required: true },
+  },
+  {
+    timestamps: true
+  }
+);
 
 // ====================
 // Export
 // ====================
 
-module.exports = mongoose.model('Acronym', acronymSchema)
+module.exports = mongoose.model('Acronym', AcronymSchema)
