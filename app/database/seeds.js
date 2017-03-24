@@ -1,10 +1,16 @@
+//
 // Require connection
+//
 var mongoose = require('./connection');
 
+//
 // Define Model
+//
 var Acronym = require('../models/acronym');
 
+//
 // Seed Data
+//
 var data = [
   {
     name: 'ATM',
@@ -29,7 +35,10 @@ var data = [
   }
 ]
 
+//
 // Reset & Seed
+// WARNING: Running this seed removes all current entries in the database!
+//
 console.log('Removing all acronyms...')
 Acronym.remove({}).then(function() {
   console.log('Adding seed data acronyms...')

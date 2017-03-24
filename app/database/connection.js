@@ -1,5 +1,5 @@
 // ====================
-// Module Dependencies
+// Modules
 // ====================
 
 var mongoose = require('mongoose');

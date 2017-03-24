@@ -14,7 +14,9 @@ var acronymHelper = require('../helpers/acronym');
 // RESTful Methods
 // ====================
 
+//
 // GET Index
+//
 exports.get = function(request, response) {
   Acronym.find(function(error, acronyms) {
     if (error) response.send(error);
@@ -27,7 +29,9 @@ exports.get = function(request, response) {
   });
 }
 
+//
 // POST Create
+//
 exports.post = function(request, response) {
   var acronym = new Acronym();
 
@@ -55,7 +59,9 @@ exports.post = function(request, response) {
   });
 }
 
+//
 // GET Show
+//
 exports.show = function(request, response) {
   name = request.params.name.toUpperCase();
 

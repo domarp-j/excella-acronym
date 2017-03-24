@@ -1,18 +1,27 @@
 // ====================
-// Module Dependencies
+// Third-Party Modules
 // ====================
 
-// Third-Party Modules
 var express = require('express');
 var bodyParser = require('body-parser');
 
+// ====================
+// Internal Modules
+// ====================
+
+//
 // Database
+//
 var db = require('./app/database/connection');
 
+//
 // Models
+//
 var Acronym = require('./app/models/acronym');
 
+//
 // Controllers
+//
 var AcronymController = require('./app/controllers/acronym');
 
 // ====================
@@ -32,12 +41,16 @@ var port = process.env.PORT || 8080;
 
 var router = express.Router();
 
+//
 // Base Route
+//
 router.get('/', function(request, response) {
   response.json({ message: 'Welcome to the Excella Acronyms API!' });
 });
 
+//
 // API Routes
+//
 router.route('/acronyms')
   .get(AcronymController.get)
   .post(AcronymController.post);

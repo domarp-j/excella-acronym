@@ -23,17 +23,6 @@ exports.capitalize = function(phrase) {
 // Strip list of acronym objects so that they only have names & meanings
 //
 exports.strip = function(acronyms) {
-  // acronymsNoId = [];
-  //
-  // acronyms.forEach(function(acronym) {
-  //   acronymsNoId.push({
-  //     name: acronym.name,
-  //     meaning: acronym.meaning
-  //   })
-  // });
-  //
-  // return acronymsNoId;
-
   var validKey = function(value, key) {
     return _.includes(['name', 'meaning'], key)
   }

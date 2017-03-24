@@ -3,12 +3,19 @@
 // ====================
 
 // Third-Party Modules
-var sinon = require('sinon');
 var chai = require('chai');
+var chaiHttp = require('chai-http');
 var mongoose = require('mongoose');
 
 // Models
 var Acronym = require('../../app/models/acronym');
+
+// Server
+var server = require('../server');
+
+// ====================
+// Setup
+// ====================
 
 // Assertions
 var expect = chai.expect;
