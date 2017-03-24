@@ -11,7 +11,7 @@ var _ = require('lodash');
 //
 // Capitalize the first letter in every word of a given phrase
 //
-exports.capitalize = function(phrase) {
+exports.capitalize = (phrase) => {
   words = phrase.split(' ');
 
   words = _.map(words, _.capitalize)
@@ -22,12 +22,12 @@ exports.capitalize = function(phrase) {
 //
 // Strip list of acronym objects so that they only have names & meanings
 //
-exports.strip = function(acronyms) {
-  var validKey = function(value, key) {
+exports.strip = (acronyms) => {
+  var validKey = (value, key) => {
     return _.includes(['name', 'meaning'], key)
   }
 
-  var stripAcronym = function(acronym) {
+  var stripAcronym = (acronym) => {
     return _.pickBy(acronym, validKey);
   }
 

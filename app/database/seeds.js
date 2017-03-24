@@ -40,14 +40,14 @@ var data = [
 // WARNING: Running this seed removes all current entries in the database!
 //
 console.log('Removing all acronyms...')
-Acronym.remove({}).then(function() {
+Acronym.remove({}).then(() => {
   console.log('Adding seed data acronyms...')
-  data.forEach(function(acronym, index) {
-    Acronym.collection.insert(acronym).then(function() {
+  data.forEach((acronym, index) => {
+    Acronym.collection.insert(acronym).then(() => {
       if (index === data.length - 1) {
         console.log('Done!');
         process.exit();
       }
     });
   })
-}).catch(function(error) { console.log(error); })
+}).catch((error) => { console.log(error); })

@@ -44,7 +44,7 @@ var router = express.Router();
 //
 // Base Route
 //
-router.get('/', function(request, response) {
+router.get('/', (request, response) => {
   response.json({ message: 'Welcome to the Excella Acronyms API!' });
 });
 
@@ -67,6 +67,6 @@ app.use('/', router);
 // Run Server
 // ====================
 
-app.listen(port, function() {
+app.listen(port, () => {
   console.log('The API is currently running on localhost:/' + port);
 });

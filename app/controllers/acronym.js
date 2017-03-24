@@ -17,8 +17,8 @@ var acronymHelper = require('../helpers/acronym');
 //
 // GET Index
 //
-exports.get = function(request, response) {
-  Acronym.find(function(error, acronyms) {
+exports.get = (request, response) => {
+  Acronym.find((error, acronyms) => {
     if (error) response.send(error);
 
     response.json({
@@ -32,7 +32,7 @@ exports.get = function(request, response) {
 //
 // POST Create
 //
-exports.post = function(request, response) {
+exports.post = (request, response) => {
   var acronym = new Acronym();
 
   if (!request.body.name || !request.body.meaning) {
@@ -48,7 +48,7 @@ exports.post = function(request, response) {
   acronym.name = request.body.name.toUpperCase();
   acronym.meaning = acronymHelper.capitalize(request.body.meaning);
 
-  acronym.save(function(error) {
+  acronym.save((error) => {
     if (error) response.send(error);
 
     response.json({
@@ -62,10 +62,10 @@ exports.post = function(request, response) {
 //
 // GET Show
 //
-exports.show = function(request, response) {
+exports.show = (request, response) => {
   name = request.params.name.toUpperCase();
 
-  Acronym.find({ name: name }, function(error, acronyms) {
+  Acronym.find({ name: name }, (error, acronyms) => {
     if (error) response.send(error);
 
     response.json({
