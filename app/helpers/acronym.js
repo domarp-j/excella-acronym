@@ -1,28 +1,46 @@
 // ====================
+// Module Dependencies
+// ====================
+
+var _ = require('lodash');
+
+// ====================
 // Helpers
 // ====================
 
+//
 // Capitalize the first letter in every word of a given phrase
+//
 exports.capitalize = function(phrase) {
-  phrase = phrase.split(' ');
+  words = phrase.split(' ');
 
-  phrase.forEach(function(word, index) {
-    phrase[index] = word[0].toUpperCase() + word.slice(1);
-  });
+  words = _.map(words, _.capitalize)
 
-  return phrase.join(' ');
+  return words.join(' ');
 }
 
-// Return list of acronyms without _id field
-exports.stripId = function(acronyms) {
-  acronymsNoId = [];
+//
+// Strip list of acronym objects so that they only have names & meanings
+//
+exports.strip = function(acronyms) {
+  // acronymsNoId = [];
+  //
+  // acronyms.forEach(function(acronym) {
+  //   acronymsNoId.push({
+  //     name: acronym.name,
+  //     meaning: acronym.meaning
+  //   })
+  // });
+  //
+  // return acronymsNoId;
 
-  acronyms.forEach(function(acronym) {
-    acronymsNoId.push({
-      name: acronym.name,
-      meaning: acronym.meaning
-    })
-  });
+  var validKey = function(value, key) {
+    return _.includes(['name', 'meaning'], key)
+  }
 
-  return acronymsNoId;
+  var stripAcronym = function(acronym) {
+    return _.pickBy(acronym, validKey);
+  }
+
+  return _.map(acronyms, stripAcronym);
 }
