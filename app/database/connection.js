@@ -5,6 +5,8 @@
 let mongoose = require('mongoose');
 let Acronym = require('../models/acronym');
 
+require('dotenv-safe').load();
+
 // ====================
 // Mongoose Config
 // ====================

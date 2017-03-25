@@ -6,6 +6,8 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let mongoose = require('mongoose');
 
+require('dotenv-safe').load();
+
 // ====================gi
 // Internal Modules
 // ====================
