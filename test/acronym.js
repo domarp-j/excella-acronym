@@ -35,6 +35,7 @@ let should = chai.should();
 // Port
 //
 let port = process.env.PORT || 8080;
+let address = `http://localhost:${port}`
 
 //
 // Chai HTTP
@@ -95,7 +96,7 @@ describe('Acronym', () => {
   //
   describe('GET /acronym', () => {
     it('should be status 200', (done) => {
-      chai.request(`http://localhost:${port}`)
+      chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
           response.should.have.status(200);
@@ -104,7 +105,7 @@ describe('Acronym', () => {
     });
 
     it('should return an object with the correct properties', (done) => {
-      chai.request(`http://localhost:${port}`)
+      chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
           response.body.should.be.a('object');
@@ -115,12 +116,25 @@ describe('Acronym', () => {
         });
     });
 
-    it('should return all of the acronyms as an array of objects', (done) => {
-      chai.request(`http://localhost:${port}`)
+    it('should return all acronyms as an array of objects', (done) => {
+      chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
           response.body.acronyms.should.be.a('array');
           response.body.acronyms.should.have.length(testData.length);
+          done();
+        });
+    });
+
+    it('should return acronym objects with just the name & meaning', (done) => {
+      chai.request(address)
+        .get('/acronyms')
+        .end((error, response) => {
+          response.body.acronyms.forEach(acronym => {
+            Object.keys(acronym).length.should.equal(2);
+            acronym.should.have.property('name');
+            acronym.should.have.property('meaning');
+          });
           done();
         });
     });
