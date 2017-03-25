@@ -32,17 +32,17 @@ let server = require('../server');
 let should = chai.should();
 
 //
-// Chai HTTP
-//
-chai.use(chaiHttp);
-
-//
 // Port
 //
 let port = process.env.PORT || 8080;
 
+//
+// Chai HTTP
+//
+chai.use(chaiHttp);
+
 // ====================
-// Tests
+// Test Parameters
 // ====================
 
 //
@@ -72,10 +72,11 @@ let testData = [
   }
 ]
 
-//
+// ====================
 // Testing
-//
-describe('Acronyms -', () => {
+// ====================
+
+describe('Acronym', () => {
   //
   // Seed database with test data before all tests
   //
@@ -93,11 +94,33 @@ describe('Acronyms -', () => {
   // GET Index
   //
   describe('GET /acronym', () => {
-    it('should get all acronyms', (done) => {
+    it('should be status 200', (done) => {
       chai.request(`http://localhost:${port}`)
         .get('/acronyms')
         .end((error, response) => {
           response.should.have.status(200);
+          done();
+        });
+    });
+
+    it('should return an object with the correct properties', (done) => {
+      chai.request(`http://localhost:${port}`)
+        .get('/acronyms')
+        .end((error, response) => {
+          response.body.should.be.a('object');
+          response.body.should.have.property('message');
+          response.body.should.have.property('count');
+          response.body.should.have.property('acronyms');
+          done();
+        });
+    });
+
+    it('should return all of the acronyms as an array of objects', (done) => {
+      chai.request(`http://localhost:${port}`)
+        .get('/acronyms')
+        .end((error, response) => {
+          response.body.acronyms.should.be.a('array');
+          response.body.acronyms.should.have.length(testData.length);
           done();
         });
     });
