@@ -68,5 +68,5 @@ app.use('/', router);
 // ====================
 
 app.listen(port, () => {
-  console.log('The API is currently running on localhost:/' + port);
+  console.log('The API is currently running on localhost:' + port);
 });

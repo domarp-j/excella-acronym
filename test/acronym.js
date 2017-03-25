@@ -6,7 +6,7 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let mongoose = require('mongoose');
 
-// ====================
+// ====================gi
 // Internal Modules
 // ====================
 
@@ -27,12 +27,17 @@ let server = require('../server');
 //
 // Assertions
 //
-let expect = chai.expect;
+let should = chai.should();
 
 //
 // Chai HTTP
 //
 chai.use(chaiHttp);
+
+//
+// Port
+//
+let port = process.env.PORT || 8080;
 
 // ====================
 // Tests
@@ -68,7 +73,7 @@ let testData = [
 //
 // Testing
 //
-describe('Acronyms', () => {
+describe('Acronyms -', () => {
   //
   // Seed database with test data before all tests
   //
@@ -76,9 +81,23 @@ describe('Acronyms', () => {
     Acronym.remove({}, (err) => {
       testData.forEach((acronym, index) => {
         Acronym.collection.insert(acronym).then(() => {
-          if (index === data.length - 1) done();
+          if (index === testData.length - 1) done();
         });
       })
+    });
+  });
+
+  //
+  // GET Index
+  //
+  describe('GET /acronym', () => {
+    it('should get all acronyms', (done) => {
+      chai.request(`http://localhost:${port}`)
+        .get('/acronyms')
+        .end((error, response) => {
+          response.should.have.status(200);
+          done();
+        });
     });
   });
 })
