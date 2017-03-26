@@ -78,7 +78,7 @@ let testData = [
 //
 let newAcronym = {
   name: 'SCALP',
-  neaming: 'Skin Connective Tissue Aponeurosis Loose Connective Tissue Pericranium'
+  meaning: 'Skin, Connective Tissue, Aponeurosis, Loose Connective Tissue, Pericranium'
 };
 
 // ====================
@@ -164,12 +164,25 @@ describe('Acronym', () => {
 
     it('should return an object with the correct properties', done => {
       chai.request(address)
-        .get('/acronyms')
+        .post('/acronyms')
+        .send(newAcronym)
         .end((error, response) => {
           response.body.should.be.a('object');
           response.body.should.have.property('message');
-          response.body.should.have.property('count');
-          response.body.should.have.property('acronyms');
+          response.body.should.have.property('acronym');
+          done();
+        });
+    });
+
+    it('should return an object with the correct properties', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send(newAcronym)
+        .end((error, response) => {
+          response.body.acronym.should.have.property('name');
+          response.body.acronym.should.have.property('meaning');
+          response.body.acronym.name.should.equal(newAcronym.name);
+          response.body.acronym.meaning.should.equal(newAcronym.meaning); 
           done();
         });
     });

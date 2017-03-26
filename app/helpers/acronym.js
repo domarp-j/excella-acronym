@@ -20,16 +20,19 @@ exports.capitalize = (phrase) => {
 };
 
 //
-// Strip list of acronym objects so that they only have names & meanings
+// Strip an acronym object so that it only has name & meaning properties
 //
-exports.strip = (acronyms) => {
+exports.strip = (acronym) => {
   let validKey = (value, key) => {
     return _.includes(['name', 'meaning'], key);
   };
 
-  let stripAcronym = (acronym) => {
-    return _.pickBy(acronym, validKey);
-  };
+  return _.pickBy(acronym, validKey);
+};
 
-  return _.map(acronyms, stripAcronym);
+//
+// Strip an array of acronym objects
+//
+exports.stripAll = (acronyms) => {
+  return _.map(acronyms, exports.strip);
 };

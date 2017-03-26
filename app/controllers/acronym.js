@@ -24,7 +24,7 @@ exports.get = (request, response) => {
     response.json({
       message: 'Success! Here are all of the Excella acronyms currently in the database.',
       count: acronyms.length,
-      acronyms: acronymHelper.strip(acronyms)
+      acronyms: acronymHelper.stripAll(acronyms)
     });
   });
 };
@@ -53,8 +53,7 @@ exports.post = (request, response) => {
 
     response.json({
       message: 'Success! A new Excella acronym has been added to the database.',
-      count: 1,
-      acronym: acronymHelper.strip([acronym])
+      acronym: acronymHelper.strip(acronym)
     });
   });
 };
@@ -71,7 +70,7 @@ exports.show = (request, response) => {
     response.json({
       message: `Success! Here are all of the Excella acronym meanings for ${name}`,
       count: acronyms.length,
-      acronyms: acronymHelper.strip(acronyms)
+      acronyms: acronymHelper.stripAll(acronyms)
     });
   });
 };
