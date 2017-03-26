@@ -7,6 +7,8 @@ The Excella Acronym API provides quick and easy access to all of the acronyms fr
 * Created as a RESTful API using Node.js and Express
 * MongoDB is utilized for data storage
 * [Mongoose](http://mongoosejs.com/) is used as the MongoDB ORM
+* Tested with [Mocha](https://github.com/mochajs/mocha) and [Chai](https://github.com/chaijs/chai)
+* Linting performed with [ESLint](https://github.com/eslint/eslint)
 
 ## Requirements
 
@@ -29,6 +31,11 @@ Note: The app has not yet been deployed. In the development environment, it will
 * Run `$ npm install` to install all of the Node.js packages & libraries
 * Run `$ node database/seeds.js` to seed test data for the database (optional)
 * Run `$ node .` or `$ node server.js` to run the server
+
+## Maintenance
+
+* Run `$ npm test` to run test suite
+* Run `$ ./node_modules/.bin/eslint .` to run linter
 
 ## License
 

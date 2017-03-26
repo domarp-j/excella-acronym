@@ -35,7 +35,7 @@ let should = chai.should();
 // Port
 //
 let port = process.env.PORT || 8080;
-let address = `http://localhost:${port}`
+let address = `http://localhost:${port}`;
 
 //
 // Chai HTTP
@@ -71,7 +71,7 @@ let testData = [
     createdAt: Date.now(),
     updatedAt: Date.now()
   }
-]
+];
 
 //
 // New Acronym
@@ -95,7 +95,7 @@ describe('Acronym', () => {
         Acronym.collection.insert(acronym).then(() => {
           if (index === testData.length - 1) done();
         });
-      })
+      });
     });
   });
 
@@ -174,4 +174,4 @@ describe('Acronym', () => {
         });
     });
   });
-})
+});

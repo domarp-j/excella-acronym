@@ -33,15 +33,15 @@ let data = [
     createdAt: Date.now(),
     updatedAt: Date.now()
   }
-]
+];
 
 //
 // Reset & Seed
 // WARNING: Running this seed removes all current entries in the database!
 //
-console.log('Removing all acronyms...')
+console.log('Removing all acronyms...');
 Acronym.remove({}).then(() => {
-  console.log('Adding seed data acronyms...')
+  console.log('Adding seed data acronyms...');
   data.forEach((acronym, index) => {
     Acronym.collection.insert(acronym).then(() => {
       if (index === data.length - 1) {
@@ -49,5 +49,5 @@ Acronym.remove({}).then(() => {
         process.exit();
       }
     });
-  })
-}).catch((error) => { console.log(error); })
+  });
+}).catch((error) => { console.log(error); });

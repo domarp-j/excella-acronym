@@ -1,7 +1,11 @@
 env:
   es6: true
   node: true
+  mocha: true
+  # browser: true
 extends: 'eslint:recommended'
+parserOptions:
+  sourceType: module
 rules:
   indent:
     - error
@@ -15,3 +19,5 @@ rules:
   semi:
     - error
     - always
+  no-console: off
+  no-unused-vars: off

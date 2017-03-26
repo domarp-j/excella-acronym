@@ -24,4 +24,4 @@ let AcronymSchema = new Schema(
 // Export
 // ====================
 
-module.exports = mongoose.model('Acronym', AcronymSchema)
+module.exports = mongoose.model('Acronym', AcronymSchema);

@@ -27,7 +27,7 @@ exports.get = (request, response) => {
       acronyms: acronymHelper.strip(acronyms)
     });
   });
-}
+};
 
 //
 // POST Create
@@ -57,13 +57,13 @@ exports.post = (request, response) => {
       acronym: acronymHelper.strip([acronym])
     });
   });
-}
+};
 
 //
 // GET Show
 //
 exports.show = (request, response) => {
-  name = request.params.name.toUpperCase();
+  let name = request.params.name.toUpperCase();
 
   Acronym.find({ name: name }, (error, acronyms) => {
     if (error) response.send(error);
@@ -74,4 +74,4 @@ exports.show = (request, response) => {
       acronyms: acronymHelper.strip(acronyms)
     });
   });
-}
+};
