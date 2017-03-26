@@ -73,6 +73,14 @@ let testData = [
   }
 ]
 
+//
+// New Acronym
+//
+let newAcronym = {
+  name: 'SCALP',
+  neaming: 'Skin Connective Tissue Aponeurosis Loose Connective Tissue Pericranium'
+};
+
 // ====================
 // Testing
 // ====================
@@ -81,7 +89,7 @@ describe('Acronym', () => {
   //
   // Seed database with test data before all tests
   //
-  beforeEach(done => {
+  beforeEach((done) => {
     Acronym.remove({}, err => {
       testData.forEach((acronym, index) => {
         Acronym.collection.insert(acronym).then(() => {
@@ -95,7 +103,7 @@ describe('Acronym', () => {
   // GET Index
   //
   describe('GET /acronym (Index)', () => {
-    it('should be status 200', done => {
+    it('should be status 200', (done) => {
       chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
@@ -104,7 +112,7 @@ describe('Acronym', () => {
         });
     });
 
-    it('should return an object with the correct properties', done => {
+    it('should return an object with the correct properties', (done) => {
       chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
@@ -116,7 +124,7 @@ describe('Acronym', () => {
         });
     });
 
-    it('should return all acronyms as an array of objects', done => {
+    it('should return all acronyms as an array of objects', (done) => {
       chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
@@ -126,7 +134,7 @@ describe('Acronym', () => {
         });
     });
 
-    it('should return acronym objects with just the name & meaning', done => {
+    it('should return acronym objects with just the name & meaning', (done) => {
       chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
@@ -144,17 +152,26 @@ describe('Acronym', () => {
   // POST Create
   //
   describe('POST /acronym (Create)', () => {
-    // beforeEach(done => {
-    //
-    // });
-    //
-    // it('should be status 200', (done) => {
-    //   chai.request(address)
-    //     .post('/acronyms')
-    //     .end((error, response) => {
-    //       response.should.have.status(200);
-    //       done();
-    //     });
-    // });
+    it('should be status 200', (done) => {
+      chai.request(address)
+        .post('/acronyms')
+        .send(newAcronym)
+        .end((error, response) => {
+          response.should.have.status(200);
+          done();
+        });
+    });
+
+    it('should return an object with the correct properties', done => {
+      chai.request(address)
+        .get('/acronyms')
+        .end((error, response) => {
+          response.body.should.be.a('object');
+          response.body.should.have.property('message');
+          response.body.should.have.property('count');
+          response.body.should.have.property('acronyms');
+          done();
+        });
+    });
   });
 })
