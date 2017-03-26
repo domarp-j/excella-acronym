@@ -11,6 +11,7 @@ The Excella Acronym API provides quick and easy access to all of the acronyms fr
 ## Requirements
 
 * Node.js
+* Node Package Manager (NPM)
 * MongoDB
 
 ## Using the API
