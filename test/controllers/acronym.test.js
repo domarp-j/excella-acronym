@@ -15,12 +15,12 @@ require('dotenv-safe').load();
 //
 // Models
 //
-let Acronym = require('../app/models/acronym');
+let Acronym = require('../../app/models/acronym');
 
 //
 // Server
 //
-let server = require('../server');
+let server = require('../../server');
 
 // ====================
 // Setup
@@ -81,8 +81,8 @@ describe('Acronym', () => {
   //
   // Seed database with test data before all tests
   //
-  beforeEach((done) => {
-    Acronym.remove({}, (err) => {
+  beforeEach(done => {
+    Acronym.remove({}, err => {
       testData.forEach((acronym, index) => {
         Acronym.collection.insert(acronym).then(() => {
           if (index === testData.length - 1) done();
@@ -94,8 +94,8 @@ describe('Acronym', () => {
   //
   // GET Index
   //
-  describe('GET /acronym', () => {
-    it('should be status 200', (done) => {
+  describe('GET /acronym (Index)', () => {
+    it('should be status 200', done => {
       chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
@@ -104,7 +104,7 @@ describe('Acronym', () => {
         });
     });
 
-    it('should return an object with the correct properties', (done) => {
+    it('should return an object with the correct properties', done => {
       chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
@@ -116,7 +116,7 @@ describe('Acronym', () => {
         });
     });
 
-    it('should return all acronyms as an array of objects', (done) => {
+    it('should return all acronyms as an array of objects', done => {
       chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
@@ -126,7 +126,7 @@ describe('Acronym', () => {
         });
     });
 
-    it('should return acronym objects with just the name & meaning', (done) => {
+    it('should return acronym objects with just the name & meaning', done => {
       chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
@@ -138,5 +138,23 @@ describe('Acronym', () => {
           done();
         });
     });
+  });
+
+  //
+  // POST Create
+  //
+  describe('POST /acronym (Create)', () => {
+    // beforeEach(done => {
+    //
+    // });
+    //
+    // it('should be status 200', (done) => {
+    //   chai.request(address)
+    //     .post('/acronyms')
+    //     .end((error, response) => {
+    //       response.should.have.status(200);
+    //       done();
+    //     });
+    // });
   });
 })

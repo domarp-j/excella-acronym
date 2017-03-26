@@ -48,7 +48,7 @@ exports.post = (request, response) => {
   acronym.name = request.body.name.toUpperCase();
   acronym.meaning = acronymHelper.capitalize(request.body.meaning);
 
-  acronym.save((error) => {
+  acronym.save(error => {
     if (error) response.send(error);
 
     response.json({
@@ -69,7 +69,7 @@ exports.show = (request, response) => {
     if (error) response.send(error);
 
     response.json({
-      message: 'Success! Here are all of the Excella acronym meanings for ' + name + '.',
+      message: `Success! Here are all of the Excella acronym meanings for ${name}`,
       count: acronyms.length,
       acronyms: acronymHelper.strip(acronyms)
     });
