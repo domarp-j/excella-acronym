@@ -73,10 +73,12 @@ let testData = [
   }
 ];
 
+
+
 //
-// New Acronym
+// Valid Acronym
 //
-let newAcronym = {
+let validAcronym = {
   name: 'SCALP',
   meaning: 'Skin, Connective Tissue, Aponeurosis, Loose Connective Tissue, Pericranium'
 };
@@ -87,7 +89,7 @@ let newAcronym = {
 
 describe('Acronym', () => {
   //
-  // Seed database with test data before all tests
+  // Test Database Seeding
   //
   beforeEach((done) => {
     Acronym.remove({}, err => {
@@ -112,12 +114,11 @@ describe('Acronym', () => {
         });
     });
 
-    it('should return an object with the correct properties', (done) => {
+    it('should return a JSON object with the "count" and "acronyms" properties', (done) => {
       chai.request(address)
         .get('/acronyms')
         .end((error, response) => {
           response.body.should.be.a('object');
-          response.body.should.have.property('message');
           response.body.should.have.property('count');
           response.body.should.have.property('acronyms');
           done();
@@ -155,36 +156,85 @@ describe('Acronym', () => {
     it('should be status 200', (done) => {
       chai.request(address)
         .post('/acronyms')
-        .send(newAcronym)
+        .send(validAcronym)
         .end((error, response) => {
           response.should.have.status(200);
           done();
         });
     });
 
-    it('should return an object with the correct properties', done => {
+    it('should return a JSON object with an "acronym" property', done => {
       chai.request(address)
         .post('/acronyms')
-        .send(newAcronym)
+        .send(validAcronym)
         .end((error, response) => {
           response.body.should.be.a('object');
-          response.body.should.have.property('message');
           response.body.should.have.property('acronym');
           done();
         });
     });
 
-    it('should return an object with the correct properties', done => {
+    it('should return the newly-added acronym as an object', done => {
       chai.request(address)
         .post('/acronyms')
-        .send(newAcronym)
+        .send(validAcronym)
         .end((error, response) => {
           response.body.acronym.should.have.property('name');
           response.body.acronym.should.have.property('meaning');
-          response.body.acronym.name.should.equal(newAcronym.name);
-          response.body.acronym.meaning.should.equal(newAcronym.meaning); 
+          response.body.acronym.name.should.equal(validAcronym.name);
+          response.body.acronym.meaning.should.equal(validAcronym.meaning);
           done();
         });
     });
+
+    it('should add a valid acronym to the database', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send(validAcronym)
+        .end((error, response) => {
+          Acronym.find().exec((error, acronyms) => {
+            acronyms.length.should.equal(testData.length + 1);
+            done();
+          });
+        });
+    });
+
+    it('should not add an acronym without a valid "name" parameter', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send({ name: undefined, meaning: "Meaning" })
+        .end((error, response) => {
+          Acronym.find().exec((error, acronyms) => {
+            acronyms.length.should.equal(testData.length);
+            done();
+          });
+        });
+    });
+
+    it('should not add an acronym without a valid "meaning" parameter', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send({ name: "NAME", meaning: undefined })
+        .end((error, response) => {
+          Acronym.find().exec((error, acronyms) => {
+            acronyms.length.should.equal(testData.length);
+            done();
+          });
+        });
+    });
+  });
+
+  //
+  // GET Show
+  //
+  describe('GET /acronym/:name (Show)', () => {
+    // it('should be status 200', (done) => {
+    //   chai.request(address)
+    //     .get(`/acronyms/${}`)
+    //     .end((error, response) => {
+    //       response.should.have.status(200);
+    //       done();
+    //     });
+    // });
   });
 });
