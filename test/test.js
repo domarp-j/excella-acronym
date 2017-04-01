@@ -1,2 +1,9 @@
+//
+// Controllers
+//
 require('./controllers/acronym');
-require('./helpers/acronym'); 
+
+//
+// Helpers
+//
+require('./helpers/acronym');
