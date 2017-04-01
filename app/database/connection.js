@@ -13,6 +13,6 @@ require('dotenv-safe').load();
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017');
+mongoose.connect(process.env.MONGODB_URI);
 
 module.exports = { mongoose };

@@ -5,6 +5,7 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let mongoose = require('mongoose');
+let Mockgoose = require('mockgoose').Mockgoose;
 
 require('dotenv-safe').load();
 
@@ -34,13 +35,25 @@ let should = chai.should();
 //
 // Port
 //
-let port = process.env.PORT || 8080;
+let port = process.env.PORT;
 let address = `http://localhost:${port}`;
 
 //
 // Chai HTTP
 //
 chai.use(chaiHttp);
+
+//
+// Mockgoose (Test Database Connection)
+//
+let mockgoose = new Mockgoose(mongoose);
+before((done) => {
+  mockgoose.prepareStorage().then(() => {
+    mongoose.createConnection(process.env.MONGODB_URI_TEST, (error) => {
+      done(error);
+    });
+  });
+});
 
 // ====================
 // Test Parameters
@@ -90,7 +103,7 @@ describe('Acronym Controller', () => {
   // Test Database Seeding
   //
   beforeEach((done) => {
-    Acronym.remove({}, err => {
+    mockgoose.helper.reset().then(() => {
       testData.forEach((acronym, index) => {
         Acronym.collection.insert(acronym).then(() => {
           if (index === testData.length - 1) done();

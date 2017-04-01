@@ -35,7 +35,7 @@ let app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-let port = process.env.PORT || 8080;
+let port = process.env.PORT;
 
 // ====================
 // Routing
