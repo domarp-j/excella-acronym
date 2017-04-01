@@ -4,7 +4,8 @@
   "description": "A Node.js & MongoDB API that handles Excella acronyms",
   "main": "server.js",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha --timeout 5000"
+    "test": "node ./node_modules/mocha/bin/mocha --timeout 5000",
+    "linter": "./node_modules/.bin/eslint ."
   },
   "repository": {
     "type": "git",

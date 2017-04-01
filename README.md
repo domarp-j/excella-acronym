@@ -35,7 +35,7 @@ Note: The app has not yet been deployed. In the development environment, it will
 ## Maintenance
 
 * Run `$ npm test` to run test suite
-* Run `$ ./node_modules/.bin/eslint .` to run linter
+* Run `$ npm run linter` to run linter
 
 ## License
 

@@ -73,8 +73,6 @@ let testData = [
   }
 ];
 
-
-
 //
 // Valid Acronym
 //
@@ -82,6 +80,9 @@ let validAcronym = {
   name: 'SCALP',
   meaning: 'Skin, Connective Tissue, Aponeurosis, Loose Connective Tissue, Pericranium'
 };
+
+//
+//
 
 // ====================
 // Testing
@@ -202,7 +203,7 @@ describe('Acronym', () => {
     it('should not add an acronym without a valid "name" parameter', done => {
       chai.request(address)
         .post('/acronyms')
-        .send({ name: undefined, meaning: "Meaning" })
+        .send({ name: undefined, meaning: 'Meaning' })
         .end((error, response) => {
           Acronym.find().exec((error, acronyms) => {
             acronyms.length.should.equal(testData.length);
@@ -214,7 +215,7 @@ describe('Acronym', () => {
     it('should not add an acronym without a valid "meaning" parameter', done => {
       chai.request(address)
         .post('/acronyms')
-        .send({ name: "NAME", meaning: undefined })
+        .send({ name: 'NAME', meaning: undefined })
         .end((error, response) => {
           Acronym.find().exec((error, acronyms) => {
             acronyms.length.should.equal(testData.length);
@@ -227,14 +228,14 @@ describe('Acronym', () => {
   //
   // GET Show
   //
-  describe('GET /acronym/:name (Show)', () => {
-    // it('should be status 200', (done) => {
-    //   chai.request(address)
-    //     .get(`/acronyms/${}`)
-    //     .end((error, response) => {
-    //       response.should.have.status(200);
-    //       done();
-    //     });
-    // });
-  });
+  // describe('GET /acronym/:name (Show)', () => {
+  //   it('should be status 200', (done) => {
+  //     chai.request(address)
+  //       .get(`/acronyms/${}`)
+  //       .end((error, response) => {
+  //         response.should.have.status(200);
+  //         done();
+  //       });
+  //   });
+  // });
 });
