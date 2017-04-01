@@ -1,1 +1,2 @@
-require('./controllers/acronym'); 
+require('./controllers/acronym');
+require('./helpers/acronym'); 

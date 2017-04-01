@@ -103,7 +103,7 @@ describe('Acronym Controller', () => {
   // Test Database Seeding
   //
   beforeEach((done) => {
-    mockgoose.helper.reset().then(() => {
+    Acronym.remove({}, err => {
       testData.forEach((acronym, index) => {
         Acronym.collection.insert(acronym).then(() => {
           if (index === testData.length - 1) done();
