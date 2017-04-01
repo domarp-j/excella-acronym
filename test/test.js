@@ -1,1 +1,1 @@
-require('./controllers/acronym.test'); 
+require('./controllers/acronym'); 
