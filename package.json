@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/domarp-j/excella-acronym-api#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
     "dotenv-safe": "^4.0.3",
     "express": "^4.15.2",

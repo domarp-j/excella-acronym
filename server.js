@@ -25,6 +25,7 @@ let Acronym = require('./app/models/acronym');
 // Controllers
 //
 let AcronymController = require('./app/controllers/acronym');
+let AuthController = require('./app/controllers/auth')
 
 // ====================
 // App Setup
@@ -53,6 +54,8 @@ router.get('/', (request, response) => {
 //
 // API Routes
 //
+router.route('/authenticate')
+  .post(AuthController.create)
 router.route('/acronyms')
   .get(AcronymController.index)
   .post(AcronymController.create);
