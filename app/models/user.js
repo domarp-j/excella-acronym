@@ -15,6 +15,7 @@ let UserSchema = new Schema(
   {
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
+    admin: { type: Boolean, required: true }
   },
   {
     timestamps: true
@@ -34,6 +35,7 @@ UserSchema.pre('save', (next) => {
     bcrypt.hash(user.password, saltRounds, (error, hash) => {
       if (error) return next(error);
       user.password = hash;
+      console.log(hash); 
       next();
     });
   } else {

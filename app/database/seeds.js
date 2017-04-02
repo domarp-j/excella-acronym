@@ -1,17 +1,21 @@
-//
-// Require connection
-//
+// ====================
+// Modules
+// ====================
+
 let mongoose = require('./connection');
 
-//
-// Define Model
-//
-let Acronym = require('../models/acronym');
+// ====================
+// Models
+// ====================
 
-//
+let Acronym = require('../models/acronym');
+let User = require('../models/user');
+
+// ====================
 // Seed Data
-//
-let data = [
+// ====================
+
+let acronymData = [
   {
     name: 'ATM',
     meaning: 'At The Moment',
@@ -35,19 +39,36 @@ let data = [
   }
 ];
 
-//
-// Reset & Seed
-// WARNING: Running this seed removes all current entries in the database!
-//
-console.log('Removing all acronyms...');
-Acronym.remove({}).then(() => {
-  console.log('Adding seed data acronyms...');
-  data.forEach((acronym, index) => {
-    Acronym.collection.insert(acronym).then(() => {
-      if (index === data.length - 1) {
-        console.log('Done!');
-        process.exit();
-      }
+let userData = [
+  {
+    email: 'hello.world@example.com',
+    password: 'blahblah',
+    admin: false,
+    createdAt: Date.now(),
+    updatedAt: Date.now()
+  }
+];
+
+// ====================
+// Seeding
+// ====================
+
+var seed = (model, data) => {
+  model.remove({}).then(() => {
+    data.forEach((item, index) => {
+      model.collection.insert(item).then(() => {
+        if (index === data.length - 1) {
+          process.exit();
+        }
+      });
     });
-  });
-}).catch((error) => { console.log(error); });
+  }).catch((error) => { console.log(error); });
+};
+
+console.log('Seeding acronym data...');
+seed(Acronym, acronymData);
+
+console.log('Seeding user data...');
+seed(User, userData);
+
+console.log('Done!');
