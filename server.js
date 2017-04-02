@@ -54,8 +54,8 @@ router.get('/', (request, response) => {
 // API Routes
 //
 router.route('/acronyms')
-  .get(AcronymController.get)
-  .post(AcronymController.post);
+  .get(AcronymController.index)
+  .post(AcronymController.create);
 router.route('/acronyms/:name')
   .get(AcronymController.show);
 
