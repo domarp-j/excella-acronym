@@ -17,7 +17,7 @@ let acronymHelper = require('../helpers/acronym');
 //
 // GET Index
 //
-exports.get = (request, response) => {
+exports.index = (request, response) => {
   Acronym.find((error, acronyms) => {
     if (error) response.send(error);
 
@@ -32,7 +32,7 @@ exports.get = (request, response) => {
 //
 // POST Create
 //
-exports.post = (request, response) => {
+exports.create = (request, response) => {
   let acronym = new Acronym();
 
   if (!request.body.name || !request.body.meaning) {
