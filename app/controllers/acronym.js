@@ -46,7 +46,7 @@ exports.create = (request, response) => {
   }
 
   acronym.name = request.body.name.toUpperCase();
-  acronym.meaning = acronymHelper.capitalize(request.body.meaning);
+  acronym.meaning = request.body.meaning;
 
   acronym.save((error) => {
     if (error) response.send(error);

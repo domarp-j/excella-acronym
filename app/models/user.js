@@ -28,19 +28,18 @@ let UserSchema = new Schema(
 
 let saltRounds = 10;
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function(next) {
   let user = this;
 
   if (user.isModified('password') || user.isNew()) {
     bcrypt.hash(user.password, saltRounds, (error, hash) => {
       if (error) return next(error);
       user.password = hash;
-      console.log(hash);
       next();
     });
   } else {
     return next();
-  }
+  };
 });
 
 // ====================
