@@ -25,15 +25,18 @@ let AcronymSchema = new Schema(
 // Before Actions
 // ====================
 
-AcronymSchema.pre('save', function(next) {
+AcronymSchema.pre('save', function(next) { // can't use => here!
   let acronym = this;
+
+  if (acronym.isModified('name') || acronym.isNew()) {
+    acronym.name = acronym.name.toUpperCase();
+  }
 
   if (acronym.isModified('meaning') || acronym.isNew()) {
     acronym.meaning = acronymHelper.capitalize(acronym.meaning);
-    next();
-  } else {
-    return next();
-  };
+  }
+
+  next();
 });
 
 // ====================

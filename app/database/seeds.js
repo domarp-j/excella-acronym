@@ -42,7 +42,7 @@ let acronymData = [
 let userData = [
   {
     email: 'hello.world@example.com',
-    password: 'blahblah',
+    password: 'testing',
     admin: false,
     createdAt: Date.now(),
     updatedAt: Date.now()
