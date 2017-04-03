@@ -60,8 +60,8 @@ router.route('/acronyms')
   .post(AcronymController.create);
 router.route('/acronyms/:name')
   .get(AcronymController.show);
-router.route('/users')
-  .get(UserController.index)
+// router.route('/users')
+  // .get(UserController.index)
 
 // ====================
 // Register Routes
