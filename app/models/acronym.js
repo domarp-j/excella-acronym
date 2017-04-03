@@ -25,7 +25,7 @@ let AcronymSchema = new Schema(
 // Before Actions
 // ====================
 
-AcronymSchema.pre('save', function(next) { // can't use => here!
+AcronymSchema.pre('save', function(next) { // can't use '=>' here!
   let acronym = this;
 
   if (acronym.isModified('name') || acronym.isNew()) {

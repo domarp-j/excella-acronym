@@ -28,7 +28,7 @@ let UserSchema = new Schema(
 
 let saltRounds = 10;
 
-UserSchema.pre('save', function(next) { // can't use => here!
+UserSchema.pre('save', function(next) { // can't use '=>' here!
   let user = this;
 
   if (user.isModified('password') || user.isNew()) {

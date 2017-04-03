@@ -39,15 +39,15 @@ let acronymData = [
   }
 ];
 
-let userData = [
-  {
-    email: 'hello.world@example.com',
-    password: 'testing',
-    admin: false,
-    createdAt: Date.now(),
-    updatedAt: Date.now()
-  }
-];
+// let userData = [
+//   {
+//     email: 'hello.world@example.com',
+//     password: 'testing',
+//     admin: false,
+//     createdAt: Date.now(),
+//     updatedAt: Date.now()
+//   }
+// ];
 
 // ====================
 // Seeding
@@ -68,7 +68,7 @@ var seed = (model, data) => {
 console.log('Seeding acronym data...');
 seed(Acronym, acronymData);
 
-console.log('Seeding user data...');
-seed(User, userData);
+// console.log('Seeding user data...');
+// seed(User, userData);
 
 console.log('Done!');
