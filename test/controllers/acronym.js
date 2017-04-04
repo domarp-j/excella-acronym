@@ -49,8 +49,8 @@ chai.use(chaiHttp);
 let mockgoose = new Mockgoose(mongoose);
 before((done) => {
   mockgoose.prepareStorage().then(() => {
-    mongoose.createConnection(process.env.MONGODB_URI_TEST, (error) => {
-      done(error);
+    mongoose.createConnection(process.env.MONGODB_URI_TEST, (err) => {
+      done(err);
     });
   });
 });
@@ -119,8 +119,8 @@ describe('Acronym Controller', () => {
     it('should be status 200', (done) => {
       chai.request(address)
         .get('/acronyms')
-        .end((error, response) => {
-          response.should.have.status(200);
+        .end((err, res) => {
+          res.should.have.status(200);
           done();
         });
     });
@@ -128,10 +128,10 @@ describe('Acronym Controller', () => {
     it('should return a JSON object with the "count" and "acronyms" properties', (done) => {
       chai.request(address)
         .get('/acronyms')
-        .end((error, response) => {
-          response.body.should.be.a('object');
-          response.body.should.have.property('count');
-          response.body.should.have.property('acronyms');
+        .end((err, res) => {
+          res.body.should.be.a('object');
+          res.body.should.have.property('count');
+          res.body.should.have.property('acronyms');
           done();
         });
     });
@@ -139,9 +139,9 @@ describe('Acronym Controller', () => {
     it('should return all acronyms as an array of objects', (done) => {
       chai.request(address)
         .get('/acronyms')
-        .end((error, response) => {
-          response.body.acronyms.should.be.a('array');
-          response.body.acronyms.should.have.length(testData.length);
+        .end((err, res) => {
+          res.body.acronyms.should.be.a('array');
+          res.body.acronyms.should.have.length(testData.length);
           done();
         });
     });
@@ -149,8 +149,8 @@ describe('Acronym Controller', () => {
     it('should return acronym objects with just the name & meaning', (done) => {
       chai.request(address)
         .get('/acronyms')
-        .end((error, response) => {
-          response.body.acronyms.forEach(acronym => {
+        .end((err, res) => {
+          res.body.acronyms.forEach(acronym => {
             Object.keys(acronym).length.should.equal(2);
             acronym.should.have.property('name');
             acronym.should.have.property('meaning');
@@ -168,8 +168,8 @@ describe('Acronym Controller', () => {
       chai.request(address)
         .post('/acronyms')
         .send(validAcronym)
-        .end((error, response) => {
-          response.should.have.status(200);
+        .end((err, res) => {
+          res.should.have.status(200);
           done();
         });
     });
@@ -178,9 +178,9 @@ describe('Acronym Controller', () => {
       chai.request(address)
         .post('/acronyms')
         .send(validAcronym)
-        .end((error, response) => {
-          response.body.should.be.a('object');
-          response.body.should.have.property('acronym');
+        .end((err, res) => {
+          res.body.should.be.a('object');
+          res.body.should.have.property('acronym');
           done();
         });
     });
@@ -189,11 +189,11 @@ describe('Acronym Controller', () => {
       chai.request(address)
         .post('/acronyms')
         .send(validAcronym)
-        .end((error, response) => {
-          response.body.acronym.should.have.property('name');
-          response.body.acronym.should.have.property('meaning');
-          response.body.acronym.name.should.equal(validAcronym.name);
-          response.body.acronym.meaning.should.equal(validAcronym.meaning);
+        .end((err, res) => {
+          res.body.acronym.should.have.property('name');
+          res.body.acronym.should.have.property('meaning');
+          res.body.acronym.name.should.equal(validAcronym.name);
+          res.body.acronym.meaning.should.equal(validAcronym.meaning);
           done();
         });
     });
@@ -202,8 +202,8 @@ describe('Acronym Controller', () => {
       chai.request(address)
         .post('/acronyms')
         .send(validAcronym)
-        .end((error, response) => {
-          Acronym.find().exec((error, acronyms) => {
+        .end((err, res) => {
+          Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testData.length + 1);
             done();
           });
@@ -214,8 +214,8 @@ describe('Acronym Controller', () => {
       chai.request(address)
         .post('/acronyms')
         .send({ name: undefined, meaning: 'Meaning' })
-        .end((error, response) => {
-          Acronym.find().exec((error, acronyms) => {
+        .end((err, res) => {
+          Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testData.length);
             done();
           });
@@ -226,8 +226,8 @@ describe('Acronym Controller', () => {
       chai.request(address)
         .post('/acronyms')
         .send({ name: 'NAME', meaning: undefined })
-        .end((error, response) => {
-          Acronym.find().exec((error, acronyms) => {
+        .end((err, res) => {
+          Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testData.length);
             done();
           });
@@ -242,8 +242,8 @@ describe('Acronym Controller', () => {
     it('should be status 200', (done) => {
       chai.request(address)
         .get('/acronyms/lol')
-        .end((error, response) => {
-          response.should.have.status(200);
+        .end((err, res) => {
+          res.should.have.status(200);
           done();
         });
     });
@@ -251,10 +251,10 @@ describe('Acronym Controller', () => {
     it('should return a JSON object with the "count" and "acronyms" properties', (done) => {
       chai.request(address)
         .get('/acronyms/lol')
-        .end((error, response) => {
-          response.body.should.be.a('object');
-          response.body.should.have.property('count');
-          response.body.should.have.property('acronyms');
+        .end((err, res) => {
+          res.body.should.be.a('object');
+          res.body.should.have.property('count');
+          res.body.should.have.property('acronyms');
           done();
         });
     });
@@ -262,9 +262,9 @@ describe('Acronym Controller', () => {
     it('should return all matching acronyms as an array of objects', (done) => {
       chai.request(address)
         .get('/acronyms/lol')
-        .end((error, response) => {
-          response.body.acronyms.should.be.a('array');
-          response.body.acronyms.should.have.length(1);
+        .end((err, res) => {
+          res.body.acronyms.should.be.a('array');
+          res.body.acronyms.should.have.length(1);
           done();
         });
     });
@@ -272,9 +272,9 @@ describe('Acronym Controller', () => {
     it('should return all matching acronyms as an array of objects, regardless of caps', (done) => {
       chai.request(address)
         .get('/acronyms/LOL')
-        .end((error, response) => {
-          response.body.acronyms.should.be.a('array');
-          response.body.acronyms.should.have.length(1);
+        .end((err, res) => {
+          res.body.acronyms.should.be.a('array');
+          res.body.acronyms.should.have.length(1);
           done();
         });
     });
@@ -282,9 +282,9 @@ describe('Acronym Controller', () => {
     it('should return more than one matching acronym, if necessary, as an array of objects', (done) => {
       chai.request(address)
         .get('/acronyms/atm')
-        .end((error, response) => {
-          response.body.acronyms.should.be.a('array');
-          response.body.acronyms.should.have.length(2);
+        .end((err, res) => {
+          res.body.acronyms.should.be.a('array');
+          res.body.acronyms.should.have.length(2);
           done();
         });
     });
@@ -292,8 +292,8 @@ describe('Acronym Controller', () => {
     it('should return matching acronym objects with just the name & meaning', (done) => {
       chai.request(address)
         .get('/acronyms/lol')
-        .end((error, response) => {
-          response.body.acronyms.forEach(acronym => {
+        .end((err, res) => {
+          res.body.acronyms.forEach(acronym => {
             Object.keys(acronym).length.should.equal(2);
             acronym.should.have.property('name');
             acronym.should.have.property('meaning');

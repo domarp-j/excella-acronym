@@ -17,11 +17,11 @@ let appHelper = require('../helpers/app');
 //
 // GET Index
 //
-exports.index = (request, response) => {
-  Acronym.find((error, acronyms) => {
-    if (error) response.send(error);
+exports.index = (req, res) => {
+  Acronym.find((err, acronyms) => {
+    if (err) res.send(err);
 
-    response.json({
+    res.json({
       success: true,
       message: 'Here are all of the Excella acronyms currently in the database.',
       count: acronyms.length,
@@ -33,24 +33,23 @@ exports.index = (request, response) => {
 //
 // POST Create
 //
-exports.create = (request, response) => {
-  if (!request.body.name || !request.body.meaning) {
-    response.send({
+exports.create = (req, res) => {
+  if (!req.body.name || !req.body.meaning) {
+    res.send({
       success: false,
       message: 'Acronym is not properly defined. Please ensure that "name" & "meaning" parameters are valid.',
-      name: request.body.name || 'undefined',
-      meaning: request.body.meaning || 'undefined'
+      name: req.body.name || 'undefined',
+      meaning: req.body.meaning || 'undefined'
     });
   } else {
     let acronym = new Acronym();
 
-    acronym.name = request.body.name;
-    acronym.meaning = request.body.meaning;
+    acronym.name = req.body.name;
+    acronym.meaning = req.body.meaning;
 
-    acronym.save((error) => {
-      if (error) response.send(error);
-
-      response.json({
+    acronym.save((err) => {
+      if (err) res.send(err);req
+      res.json({
         success: true,
         message: 'A new Excella acronym has been added to the database.',
         acronym: appHelper.strip(acronym, ['name', 'meaning'])
@@ -62,13 +61,13 @@ exports.create = (request, response) => {
 //
 // GET Show
 //
-exports.show = (request, response) => {
-  let name = request.params.name.toUpperCase();
+exports.show = (req, res) => {
+  let name = req.params.name.toUpperCase();
 
-  Acronym.find({ name: name }, (error, acronyms) => {
-    if (error) response.send(error);
+  Acronym.find({ name: name }, (err, acronyms) => {
+    if (err) res.send(err);
 
-    response.json({
+    res.json({
       success: true,
       message: `Here are all of the Excella acronym meanings for ${name}`,
       count: acronyms.length,

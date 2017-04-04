@@ -46,8 +46,8 @@ let router = express.Router();
 //
 // Base Route
 //
-router.get('/', (request, response) => {
-  response.json({ message: 'Welcome to the Excella Acronyms API!' });
+router.get('/', (req, res) => {
+  res.json({ message: 'Welcome to the Excella Acronyms API!' });
 });
 
 //

@@ -51,7 +51,7 @@ var seed = (model, data) => {
         }
       });
     });
-  }).catch((error) => { console.log(error); });
+  }).catch((err) => { console.log(err); });
 };
 
 console.log('Seeding acronym data...');
