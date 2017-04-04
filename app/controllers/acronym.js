@@ -43,7 +43,7 @@ exports.create = (request, response) => {
     });
 
     return;
-  }
+  };
 
   acronym.name = request.body.name;
   acronym.meaning = request.body.meaning;

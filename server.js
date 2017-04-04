@@ -60,8 +60,8 @@ router.route('/acronyms')
   .post(AcronymController.create);
 router.route('/acronyms/:name')
   .get(AcronymController.show);
-// router.route('/users')
-  // .get(UserController.index)
+router.route('/users')
+  .post(UserController.create)
 
 // ====================
 // Register Routes
@@ -74,5 +74,5 @@ app.use('/', router);
 // ====================
 
 app.listen(port, () => {
-  console.log(`The API is currently running on localhost: ${port}` );
+  console.log(`The API is currently running on localhost: ${port}.` );
 });
