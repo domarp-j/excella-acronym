@@ -24,21 +24,17 @@
   },
   "homepage": "https://github.com/domarp-j/excella-acronym-api#readme",
   "dependencies": {
-    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
     "dotenv-safe": "^4.0.3",
     "express": "^4.15.2",
-    "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.24",
-    "mongoose": "^4.9.0",
-    "passport": "^0.3.2"
+    "mongoose": "^4.9.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "eslint": "^3.18.0",
-    "eslint-config-google": "^0.7.1",
     "mocha": "^3.2.0",
     "mockgoose": "^7.1.0"
   }
