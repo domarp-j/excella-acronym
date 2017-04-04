@@ -43,7 +43,6 @@ let acronymData = [
 //   {
 //     email: 'hello.world@example.com',
 //     password: 'testing',
-//     admin: false,
 //     createdAt: Date.now(),
 //     updatedAt: Date.now()
 //   }

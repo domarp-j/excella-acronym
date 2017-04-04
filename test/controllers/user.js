@@ -66,13 +66,11 @@ let testData = [
   {
     email: 'hello.world@example.com',
     password: 'testing',
-    admin: true,
     createdAt: Date.now(),
     updatedAt: Date.now()
   }, {
     email: 'goodbye.world@example.com',
     password: 'gnitset',
-    admin: false,
     createdAt: Date.now(),
     updatedAt: Date.now()
   }
@@ -138,14 +136,13 @@ describe('User Controller', () => {
         });
     });
 
-    it('should return user objects with just the email & admin properties', (done) => {
+    it('should return user objects with just the email property', (done) => {
       chai.request(address)
         .get('/users')
         .end((error, response) => {
           response.body.users.forEach(user => {
-            Object.keys(user).length.should.equal(2);
+            Object.keys(user).length.should.equal(1);
             user.should.have.property('email');
-            user.should.have.property('admin');
           });
           done();
         });

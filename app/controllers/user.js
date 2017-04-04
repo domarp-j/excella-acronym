@@ -24,7 +24,7 @@ exports.index = (request, response) => {
     response.json({
       message: 'Success! Here are all of the users currently in the database.',
       count: users.length,
-      users: appHelper.stripAll(users, ['email', 'admin'])
+      users: appHelper.stripAll(users, ['email'])
     });
   });
 };
@@ -41,10 +41,9 @@ exports.create = (request, response) => {
     });
   } else {
     let user = new User();
-    
+
     user.email = request.body.email;
     user.password = request.body.password;
-    user.admin = false;
 
     user.save((error) => {
       if (error) response.send(error);
