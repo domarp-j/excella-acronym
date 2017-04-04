@@ -3,7 +3,7 @@
 // ====================
 
 let mongoose = require('mongoose');
-let acronymHelper = require('../helpers/acronym');
+let appHelper = require('../helpers/app');
 
 // ====================
 // Schema
@@ -33,7 +33,7 @@ AcronymSchema.pre('save', function(next) { // can't use '=>' here!
   }
 
   if (acronym.isModified('meaning') || acronym.isNew()) {
-    acronym.meaning = acronymHelper.capitalize(acronym.meaning);
+    acronym.meaning = appHelper.capitalize(acronym.meaning);
   }
 
   next();

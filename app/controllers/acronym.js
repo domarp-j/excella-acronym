@@ -8,7 +8,7 @@ let Acronym = require('../models/acronym');
 // Helpers
 // ====================
 
-let acronymHelper = require('../helpers/acronym');
+let appHelper = require('../helpers/app');
 
 // ====================
 // RESTful Methods
@@ -24,7 +24,7 @@ exports.index = (request, response) => {
     response.json({
       message: 'Success! Here are all of the Excella acronyms currently in the database.',
       count: acronyms.length,
-      acronyms: acronymHelper.stripAll(acronyms)
+      acronyms: appHelper.stripAll(acronyms, ['name', 'meaning'])
     });
   });
 };
@@ -53,7 +53,7 @@ exports.create = (request, response) => {
 
     response.json({
       message: 'Success! A new Excella acronym has been added to the database.',
-      acronym: acronymHelper.strip(acronym)
+      acronym: appHelper.strip(acronym, ['name', 'meaning'])
     });
   });
 };
@@ -70,7 +70,7 @@ exports.show = (request, response) => {
     response.json({
       message: `Success! Here are all of the Excella acronym meanings for ${name}`,
       count: acronyms.length,
-      acronyms: acronymHelper.stripAll(acronyms)
+      acronyms: appHelper.stripAll(acronyms, ['name', 'meaning'])
     });
   });
 };

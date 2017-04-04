@@ -11,7 +11,7 @@ let chai = require('chai');
 //
 // Helper
 //
-let acronymHelper = require('../../app/helpers/acronym');
+let appHelper = require('../../app/helpers/app');
 
 // ====================
 // Setup
@@ -28,7 +28,7 @@ let should = chai.should();
 
 describe('Acronym Helpers', () => {
   describe('capitalize', () => {
-    let phrase = acronymHelper.capitalize('this is a phrase');
+    let phrase = appHelper.capitalize('this is a phrase');
 
     it('should capitalize the first letter in a phrase', (done) => {
       phrase.should.equal('This Is A Phrase');
@@ -37,12 +37,12 @@ describe('Acronym Helpers', () => {
   });
 
   describe('strip', () => {
-    let obj = acronymHelper.strip({
+    let obj = appHelper.strip({
       name: 'ATM',
       meaning: 'At The Moment',
       useless: 'useless',
       alsoUseless: 'alsoUseless'
-    });
+    }, ['name', 'meaning']);
 
     it('should strip an object so it only has the name & meaning', (done) => {
       Object.keys(obj).length.should.equal(2);
@@ -53,7 +53,7 @@ describe('Acronym Helpers', () => {
   });
 
   describe('stripAll', () => {
-    let objArray = acronymHelper.stripAll([{
+    let objArray = appHelper.stripAll([{
       name: 'ATM',
       meaning: 'At The Moment',
       useless: 'useless',
@@ -63,7 +63,7 @@ describe('Acronym Helpers', () => {
       meaning: 'Laugh Out Loud',
       pointless: 'pointless',
       soPointless: 'soPointless'
-    }]);
+    }], ['name', 'meaning']);
 
     it('should strip an array of objects', (done) => {
       objArray.forEach(obj => {

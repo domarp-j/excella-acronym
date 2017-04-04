@@ -6,4 +6,4 @@ require('./controllers/acronym');
 //
 // Helpers
 //
-require('./helpers/acronym');
+require('./helpers/app');
