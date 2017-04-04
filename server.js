@@ -26,7 +26,7 @@ let User = require('./app/models/user');
 // Controllers
 //
 let AcronymController = require('./app/controllers/acronym');
-let UserController = require('./app/controllers/user')
+let UserController = require('./app/controllers/user');
 
 // ====================
 // App Setup
@@ -62,7 +62,7 @@ router.route('/acronyms/:name')
   .get(AcronymController.show);
 router.route('/users')
   .get(UserController.index)
-  .post(UserController.create)
+  .post(UserController.create);
 
 // ====================
 // Register Routes

@@ -43,7 +43,7 @@ exports.create = (request, response) => {
     });
 
     return;
-  };
+  }
 
   user.email = request.body.email;
   user.password = request.body.password;

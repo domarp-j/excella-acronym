@@ -39,7 +39,7 @@ UserSchema.pre('save', function(next) { // can't use '=>' here!
     });
   } else {
     return next();
-  };
+  }
 });
 
 // ====================

@@ -241,7 +241,7 @@ describe('Acronym Controller', () => {
   describe('GET /acronyms/:name (Show)', () => {
     it('should be status 200', (done) => {
       chai.request(address)
-        .get(`/acronyms/lol`)
+        .get('/acronyms/lol')
         .end((error, response) => {
           response.should.have.status(200);
           done();
