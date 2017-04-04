@@ -33,8 +33,6 @@ exports.index = (request, response) => {
 // POST Create
 //
 exports.create = (request, response) => {
-  let acronym = new Acronym();
-
   if (!request.body.name || !request.body.meaning) {
     response.send({
       message: 'Warning! Acronym is not properly defined. Please check your parameters.',
@@ -42,6 +40,8 @@ exports.create = (request, response) => {
       meaning: request.body.meaning || 'undefined'
     });
   } else {
+    let acronym = new Acronym();
+
     acronym.name = request.body.name;
     acronym.meaning = request.body.meaning;
 

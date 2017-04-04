@@ -33,8 +33,6 @@ exports.index = (request, response) => {
 // POST Create
 //
 exports.create = (request, response) => {
-  let user = new User();
-
   if (!request.body.email || !request.body.password) {
     response.send({
       message: 'Warning! User is not properly defined. Please check your parameters.',
@@ -42,6 +40,8 @@ exports.create = (request, response) => {
       password: request.body.password ? '******' : 'undefined'
     });
   } else {
+    let user = new User();
+    
     user.email = request.body.email;
     user.password = request.body.password;
     user.admin = false;
