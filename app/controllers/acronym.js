@@ -41,21 +41,19 @@ exports.create = (request, response) => {
       name: request.body.name || 'undefined',
       meaning: request.body.meaning || 'undefined'
     });
+  } else {
+    acronym.name = request.body.name;
+    acronym.meaning = request.body.meaning;
 
-    return;
-  }
+    acronym.save((error) => {
+      if (error) response.send(error);
 
-  acronym.name = request.body.name;
-  acronym.meaning = request.body.meaning;
-
-  acronym.save((error) => {
-    if (error) response.send(error);
-
-    response.json({
-      message: 'Success! A new Excella acronym has been added to the database.',
-      acronym: appHelper.strip(acronym, ['name', 'meaning'])
+      response.json({
+        message: 'Success! A new Excella acronym has been added to the database.',
+        acronym: appHelper.strip(acronym, ['name', 'meaning'])
+      });
     });
-  });
+  }
 };
 
 //

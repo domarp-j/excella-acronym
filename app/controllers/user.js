@@ -41,20 +41,18 @@ exports.create = (request, response) => {
       email: request.body.email || 'undefined',
       password: request.body.password ? '******' : 'undefined'
     });
+  } else {
+    user.email = request.body.email;
+    user.password = request.body.password;
+    user.admin = false;
 
-    return;
-  }
+    user.save((error) => {
+      if (error) response.send(error);
 
-  user.email = request.body.email;
-  user.password = request.body.password;
-  user.admin = false;
-
-  user.save((error) => {
-    if (error) response.send(error);
-
-    response.json({
-      message: 'Success! A new user has been added to the database.',
-      email: request.body.email
+      response.json({
+        message: 'Success! A new user has been added to the database.',
+        email: request.body.email
+      });
     });
-  });
+  }
 };
