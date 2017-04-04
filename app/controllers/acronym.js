@@ -22,7 +22,8 @@ exports.index = (request, response) => {
     if (error) response.send(error);
 
     response.json({
-      message: 'Success! Here are all of the Excella acronyms currently in the database.',
+      success: true,
+      message: 'Here are all of the Excella acronyms currently in the database.',
       count: acronyms.length,
       acronyms: appHelper.stripAll(acronyms, ['name', 'meaning'])
     });
@@ -35,7 +36,8 @@ exports.index = (request, response) => {
 exports.create = (request, response) => {
   if (!request.body.name || !request.body.meaning) {
     response.send({
-      message: 'Warning! Acronym is not properly defined. Please check your parameters.',
+      success: false,
+      message: 'Acronym is not properly defined. Please ensure that "name" & "meaning" parameters are valid.',
       name: request.body.name || 'undefined',
       meaning: request.body.meaning || 'undefined'
     });
@@ -49,7 +51,8 @@ exports.create = (request, response) => {
       if (error) response.send(error);
 
       response.json({
-        message: 'Success! A new Excella acronym has been added to the database.',
+        success: true,
+        message: 'A new Excella acronym has been added to the database.',
         acronym: appHelper.strip(acronym, ['name', 'meaning'])
       });
     });
@@ -66,7 +69,8 @@ exports.show = (request, response) => {
     if (error) response.send(error);
 
     response.json({
-      message: `Success! Here are all of the Excella acronym meanings for ${name}`,
+      success: true,
+      message: `Here are all of the Excella acronym meanings for ${name}`,
       count: acronyms.length,
       acronyms: appHelper.stripAll(acronyms, ['name', 'meaning'])
     });
