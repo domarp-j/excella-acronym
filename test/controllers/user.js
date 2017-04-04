@@ -72,7 +72,7 @@ let testData = [
   }, {
     email: 'goodbye.world@example.com',
     password: 'gnitset',
-    admin: false, 
+    admin: false,
     createdAt: Date.now(),
     updatedAt: Date.now()
   }
@@ -155,75 +155,72 @@ describe('User Controller', () => {
   //
   // POST Create
   //
-  // describe('POST /users (Create)', () => {
-  //   it('should be status 200', (done) => {
-  //     chai.request(address)
-  //       .post('/users')
-  //       .send(validUser)
-  //       .end((error, response) => {
-  //         response.should.have.status(200);
-  //         done();
-  //       });
-  //   });
-  //
-  //   it('should return a JSON object with a "user" property', done => {
-  //     chai.request(address)
-  //       .post('/acronyms')
-  //       .send(validAcronym)
-  //       .end((error, response) => {
-  //         response.body.should.be.a('object');
-  //         response.body.should.have.property('acronym');
-  //         done();
-  //       });
-  //   });
-  //
-  //   it('should return the newly-added acronym as an object', done => {
-  //     chai.request(address)
-  //       .post('/acronyms')
-  //       .send(validAcronym)
-  //       .end((error, response) => {
-  //         response.body.acronym.should.have.property('name');
-  //         response.body.acronym.should.have.property('meaning');
-  //         response.body.acronym.name.should.equal(validAcronym.name);
-  //         response.body.acronym.meaning.should.equal(validAcronym.meaning);
-  //         done();
-  //       });
-  //   });
-  //
-  //   it('should add a valid acronym to the database', done => {
-  //     chai.request(address)
-  //       .post('/acronyms')
-  //       .send(validAcronym)
-  //       .end((error, response) => {
-  //         Acronym.find().exec((error, acronyms) => {
-  //           acronyms.length.should.equal(testData.length + 1);
-  //           done();
-  //         });
-  //       });
-  //   });
-  //
-  //   it('should not add an acronym without a valid "name" parameter', done => {
-  //     chai.request(address)
-  //       .post('/acronyms')
-  //       .send({ name: undefined, meaning: 'Meaning' })
-  //       .end((error, response) => {
-  //         Acronym.find().exec((error, acronyms) => {
-  //           acronyms.length.should.equal(testData.length);
-  //           done();
-  //         });
-  //       });
-  //   });
-  //
-  //   it('should not add an acronym without a valid "meaning" parameter', done => {
-  //     chai.request(address)
-  //       .post('/acronyms')
-  //       .send({ name: 'NAME', meaning: undefined })
-  //       .end((error, response) => {
-  //         Acronym.find().exec((error, acronyms) => {
-  //           acronyms.length.should.equal(testData.length);
-  //           done();
-  //         });
-  //       });
-  //   });
-  // });
+  describe('POST /users (Create)', () => {
+    it('should be status 200', (done) => {
+      chai.request(address)
+        .post('/users')
+        .send(validUser)
+        .end((error, response) => {
+          response.should.have.status(200);
+          done();
+        });
+    });
+
+    it('should return a JSON object with an "email" property', done => {
+      chai.request(address)
+        .post('/users')
+        .send(validUser)
+        .end((error, response) => {
+          response.body.should.be.a('object');
+          response.body.should.have.property('email');
+          done();
+        });
+    });
+
+    it('should return the newly-added user\'s email', done => {
+      chai.request(address)
+        .post('/users')
+        .send(validUser)
+        .end((error, response) => {
+          response.body.email.should.equal(validUser.email);
+          done();
+        });
+    });
+
+    it('should add a valid user to the database', done => {
+      chai.request(address)
+        .post('/users')
+        .send(validUser)
+        .end((error, response) => {
+          User.find().exec((error, users) => {
+            users.length.should.equal(testData.length + 1);
+            done();
+          });
+        });
+    });
+
+    it('should not add a user without a valid "email" parameter', done => {
+      chai.request(address)
+        .post('/users')
+        .send({ email: undefined, password: 'password' })
+        .end((error, response) => {
+          User.find().exec((error, users) => {
+            users.length.should.equal(testData.length);
+            done();
+          });
+        });
+    });
+
+    it('should not add an acronym without a valid "meaning" parameter', done => {
+      chai.request(address)
+        .post('/users')
+        .send({ email: 'email@example.com', password: undefined })
+        .end((error, response) => {
+          User.find().exec((error, users) => {
+            users.length.should.equal(testData.length);
+            done();
+          });
+        });
+    });
+  });
 });

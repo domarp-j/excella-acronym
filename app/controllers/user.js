@@ -39,7 +39,7 @@ exports.create = (request, response) => {
     response.send({
       message: 'Warning! User is not properly defined. Please check your parameters.',
       email: request.body.email || 'undefined',
-      password: request.body.password ? 'valid' : 'undefined'
+      password: request.body.password ? '******' : 'undefined'
     });
 
     return;
