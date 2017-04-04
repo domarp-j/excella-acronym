@@ -26,6 +26,7 @@ let User = require('./app/models/user');
 // Controllers
 //
 let AcronymController = require('./app/controllers/acronym');
+// let AuthController = require('./app/controllers/auth');
 let UserController = require('./app/controllers/user');
 
 // ====================
@@ -60,6 +61,8 @@ router.route('/acronyms')
   .post(AcronymController.create);
 router.route('/acronyms/:name')
   .get(AcronymController.show);
+// router.route('/auth')
+//   .post(AuthController.create);
 router.route('/users')
   .get(UserController.index)
   .post(UserController.create);
