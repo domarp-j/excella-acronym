@@ -61,6 +61,7 @@ router.route('/acronyms')
 router.route('/acronyms/:name')
   .get(AcronymController.show);
 router.route('/users')
+  .get(UserController.index)
   .post(UserController.create)
 
 // ====================

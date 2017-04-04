@@ -5,8 +5,29 @@
 let User = require('../models/user');
 
 // ====================
+// Helpers
+// ====================
+
+let appHelper = require('../helpers/app');
+
+// ====================
 // RESTful Methods
 // ====================
+
+//
+// GET Index
+//
+exports.index = (request, response) => {
+  User.find((error, users) => {
+    if (error) response.send(error);
+
+    response.json({
+      message: 'Success! Here are all of the users currently in the database.',
+      count: users.length,
+      acronyms: appHelper.stripAll(users, ['email', 'admin'])
+    });
+  });
+};
 
 //
 // POST Create
