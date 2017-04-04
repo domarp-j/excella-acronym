@@ -24,7 +24,7 @@ exports.index = (request, response) => {
     response.json({
       message: 'Success! Here are all of the users currently in the database.',
       count: users.length,
-      acronyms: appHelper.stripAll(users, ['email', 'admin'])
+      users: appHelper.stripAll(users, ['email', 'admin'])
     });
   });
 };
