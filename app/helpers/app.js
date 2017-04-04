@@ -20,7 +20,7 @@ exports.capitalize = (phrase) => {
 };
 
 //
-// Strip an object so that it only has properties in 'keys' array
+// Strip an object so that it only has properties defined in 'keys' array
 //
 exports.strip = (obj, keys) => {
   let validKey = (value, key) => {
@@ -31,7 +31,7 @@ exports.strip = (obj, keys) => {
 };
 
 //
-// Strip an array of acronym objects
+// Strip an array of acronym objects so that it only has properties defined in 'keys' array
 //
 exports.stripAll = (objs, keys) => {
   return _.map(objs, (obj) => {
