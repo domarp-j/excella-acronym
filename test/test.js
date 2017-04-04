@@ -2,7 +2,6 @@
 // Controllers
 //
 require('./controllers/acronym');
-require('./controllers/user');
 
 //
 // Helpers
