@@ -26,7 +26,7 @@ let should = chai.should();
 // Testing
 // ====================
 
-describe('Acronym Helpers', () => {
+describe('App Helpers', () => {
   describe('capitalize', () => {
     let phrase = appHelper.capitalize('this is a phrase');
 
