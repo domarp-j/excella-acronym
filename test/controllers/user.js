@@ -70,6 +70,12 @@ let validUser = {
 // ====================
 
 describe('User Controller', () => {
+  beforeEach((done) => {
+    User.remove({}, (err) => {
+      done();
+    });
+  });
+
   describe('POST /users (Create)', () => {
     it('should be status 200', (done) => {
       chai.request(address)
@@ -77,6 +83,17 @@ describe('User Controller', () => {
         .send(validUser)
         .end((err, res) => {
           res.should.have.status(200);
+          done();
+        });
+    });
+
+    it('should return a JSON object with an "user" property', (done) => {
+      chai.request(address)
+        .post('/users')
+        .send(validUser)
+        .end((err, res) => {
+          res.body.should.be.a('object');
+          res.body.should.have.property('user');
           done();
         });
     });
