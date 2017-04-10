@@ -38,7 +38,12 @@ exports.create = (req, res) => {
     user.password = req.body.password;
 
     user.save((err) => {
-      if (err) res.send(err);
+      if (err) {
+        res.send({
+          success: false,
+          message: err.errmsg
+        });
+      }
 
       res.json({
         success: true,

@@ -3,6 +3,7 @@
 // ====================
 
 let mongoose = require('mongoose');
+let bcrypt = require('bcrypt'); 
 
 // ====================
 // Schema
@@ -37,7 +38,7 @@ UserSchema.pre('save', function(next) { // can't use '=>' here!
       next();
     });
   } else {
-    return next(); 
+    return next();
   }
 });
 
