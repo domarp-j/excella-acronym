@@ -5,6 +5,12 @@
 let User = require('../models/user');
 
 // ====================
+// Helpers
+// ====================
+
+let appHelper = require('../helpers/app');
+
+// ====================
 // RESTful Methods
 // ====================
 
@@ -37,7 +43,7 @@ exports.create = (req, res) => {
       res.json({
         success: true,
         message: 'A new user has been added to the database.',
-        user: appHelper.strip(acronym, ['email'])
+        user: appHelper.strip(user, ['email'])
       });
     });
   }
