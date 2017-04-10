@@ -39,7 +39,6 @@ exports.stripAll = (objs, keys) => {
   });
 };
 
-
 //
 // Get token from a request
 //
