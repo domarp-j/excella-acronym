@@ -54,7 +54,7 @@ exports.create = (req, res) => {
             res.json({
               success: true,
               email: user.email,
-              token: `JSON Web Token: ${token}`
+              token: `${token}`
             });
           }
         });
