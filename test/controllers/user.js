@@ -97,5 +97,76 @@ describe('User Controller', () => {
           done();
         });
     });
+
+    it('should return the newly-added user as an object', done => {
+      chai.request(address)
+        .post('/users')
+        .send(validUser)
+        .end((err, res) => {
+          res.body.user.should.have.property('email');
+          res.body.user.email.should.equal(validUser.email);
+          done();
+        });
+    });
+
+    it('should add a valid user to the database', done => {
+      chai.request(address)
+        .post('/users')
+        .send(validUser)
+        .end((err, res) => {
+          User.find().exec((err, users) => {
+            users.length.should.equal(1);
+            done();
+          });
+        });
+    });
+
+    it('should not add a user without a valid "email" parameter', done => {
+      chai.request(address)
+        .post('/users')
+        .send({ email: undefined, password: 'test-pass-123', passwordConfirm: 'test-pass-123' })
+        .end((err, res) => {
+          User.find().exec((err, users) => {
+            users.length.should.equal(0);
+            done();
+          });
+        });
+    });
+
+    it('should not add a user without a valid "password" parameter', done => {
+      chai.request(address)
+        .post('/users')
+        .send({ email: 'test@example.com', password: undefined, passwordConfirm: 'test-pass-123' })
+        .end((err, res) => {
+          User.find().exec((err, users) => {
+            users.length.should.equal(0);
+            done();
+          });
+        });
+    });
+
+    it('should not add a user without a valid "passwordConfirm" parameter', done => {
+      chai.request(address)
+        .post('/users')
+        .send({ email: 'test@example.com', password: 'test-pass-123', passwordConfirm: undefined })
+        .end((err, res) => {
+          User.find().exec((err, users) => {
+            users.length.should.equal(0);
+            done();
+          });
+        });
+    });
+
+    it('should not add a user if "password" & "passwordConfirm" parameters do not match', done => {
+      chai.request(address)
+        .post('/users')
+        .send({ email: 'test@example.com', password: 'test-pass-123', passwordConfirm: 'not-a-match' })
+        .end((err, res) => {
+          User.find().exec((err, users) => {
+            users.length.should.equal(0);
+            done();
+          });
+        });
+    });
   });
 });
