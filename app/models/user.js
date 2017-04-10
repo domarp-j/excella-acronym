@@ -19,3 +19,9 @@ let UserSchema = new Schema(
     timestamps: true
   }
 );
+
+// ====================
+// Export
+// ====================
+
+module.exports = mongoose.model('User', UserSchema);
