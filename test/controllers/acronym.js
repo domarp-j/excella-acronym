@@ -93,9 +93,6 @@ let validAcronym = {
 // ====================
 
 describe('Acronym Controller', () => {
-  //
-  // Test Database Seeding
-  //
   beforeEach((done) => {
     Acronym.remove({}, err => {
       testData.forEach((acronym, index) => {
