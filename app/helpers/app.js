@@ -31,10 +31,18 @@ exports.strip = (obj, keys) => {
 };
 
 //
-// Strip an array of acronym objects so that it only has properties defined in 'keys' array
+// Strip an array of acronym objects so that it only has properties in 'keys'
 //
 exports.stripAll = (objs, keys) => {
   return _.map(objs, (obj) => {
     return exports.strip(obj, keys);
   });
+};
+
+
+//
+// Get token from a request
+//
+exports.getToken = (req) => {
+  return req.body.token || req.query.token || req.headers['x-access-token'];
 };
