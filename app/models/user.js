@@ -44,7 +44,7 @@ UserSchema.pre('save', function(next) { // can't use '=>' here!
 // Before Actions
 // ====================
 
-UserSchema.methods.checkPassword = (password, done) => {
+UserSchema.methods.checkPassword = function(password, done) { // can't use '=>' here!
   let user = this;
 
   bcrypt.compare(password, user.password, (err, isMatch) => {
