@@ -38,8 +38,8 @@ exports.create = (req, res) => {
     res.send({
       success: false,
       message: 'Acronym is not properly defined. Please ensure that "name" & "meaning" parameters are valid.',
-      name: req.body.name || undefined,
-      meaning: req.body.meaning || undefined
+      name: req.body.name || 'undefined',
+      meaning: req.body.meaning || 'undefined'
     });
   } else {
     let acronym = new Acronym();

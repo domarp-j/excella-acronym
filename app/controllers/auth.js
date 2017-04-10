@@ -22,8 +22,8 @@ exports.create = (req, res) => {
     res.send({
       success: false,
       message: 'Authorization is not properly defined. Please ensure that "email" & "password" parameters are valid.',
-      email: req.body.email || undefined,
-      password: req.body.password ? '(defined)' : undefined
+      email: req.body.email || 'undefined',
+      password: req.body.password ? '(defined)' : 'undefined'
     });
   }
 };

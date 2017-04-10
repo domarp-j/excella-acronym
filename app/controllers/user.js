@@ -22,9 +22,9 @@ exports.create = (req, res) => {
     res.send({
       success: false,
       message: 'User is not properly defined. Please ensure that "email", "password", and "passwordConfirm" parameters are present.',
-      email: req.body.email || undefined,
-      password: req.body.password ? '(defined)' : undefined,
-      passwordConfirm: req.body.passwordConfirm ? '(defined)' : undefined
+      email: req.body.email || 'undefined',
+      password: req.body.password ? '(defined)' : 'undefined',
+      passwordConfirm: req.body.passwordConfirm ? '(defined)' : 'undefined'
     });
   } else if (req.body.password != req.body.passwordConfirm) {
     res.send({
