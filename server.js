@@ -20,11 +20,13 @@ let db = require('./app/database/connection');
 // Models
 //
 let Acronym = require('./app/models/acronym');
+let User = require('./app/models/user');
 
 //
 // Controllers
 //
 let AcronymController = require('./app/controllers/acronym');
+let UserController = require('./app/controllers/user');
 
 // ====================
 // App Setup
@@ -58,6 +60,8 @@ router.route('/acronyms')
   .post(AcronymController.create);
 router.route('/acronyms/:name')
   .get(AcronymController.show);
+router.route('/users')
+  .post(UserController.create); 
 
 // ====================
 // Register Routes
