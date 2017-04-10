@@ -41,7 +41,7 @@ exports.create = (req, res) => {
       if (err) {
         res.send({
           success: false,
-          message: err
+          message: appHelper.strip(err, ['errmsg'])
         });
       } else {
         res.send({
