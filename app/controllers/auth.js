@@ -47,7 +47,7 @@ exports.create = (req, res) => {
           } else if (!isMatch) {
             res.json({
               success: false,
-              message: 'Authentication failed. Incorrect password.'
+              message: 'Authentication failed. Password was incorrect.'
             })
           } else {
             let token = jwt.sign(user, process.env.JWT_SECRET, { algorithm: 'HS256' });
