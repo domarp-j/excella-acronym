@@ -76,7 +76,7 @@ describe('User Controller', () => {
     });
   });
 
-  describe('POST /users (Create)', () => {
+  describe('POST /users (add)', () => {
     it('should be status 200', (done) => {
       chai.request(address)
         .post('/users')

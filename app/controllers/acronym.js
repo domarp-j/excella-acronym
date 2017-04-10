@@ -15,9 +15,9 @@ let appHelper = require('../helpers/app');
 // ====================
 
 //
-// GET Index
+// Get all acronyms
 //
-exports.index = (req, res) => {
+exports.getAll = (req, res) => {
   Acronym.find((err, acronyms) => {
     if (err) {
       res.json({
@@ -36,9 +36,9 @@ exports.index = (req, res) => {
 };
 
 //
-// POST Create
+// Create an acronym
 //
-exports.create = (req, res) => {
+exports.add = (req, res) => {
   if (!req.body.name || !req.body.meaning) {
     res.json({
       success: false,
@@ -70,9 +70,9 @@ exports.create = (req, res) => {
 };
 
 //
-// GET Show
+// Get a specific acronym
 //
-exports.show = (req, res) => {
+exports.get = (req, res) => {
   let name = req.params.name.toUpperCase();
 
   Acronym.find({ name: name }, (err, acronyms) => {

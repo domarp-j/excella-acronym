@@ -15,9 +15,9 @@ let appHelper = require('../helpers/app');
 // ====================
 
 //
-// POST Create
+// Add a user
 //
-exports.create = (req, res) => {
+exports.add = (req, res) => {
   if (!req.body.email || !req.body.password || !req.body.passwordConfirm) {
     res.send({
       success: false,

@@ -106,7 +106,7 @@ describe('Acronym Controller', () => {
   //
   // GET Index
   //
-  describe('GET /acronyms (Index)', () => {
+  describe('GET /acronyms (getAll)', () => {
     it('should be status 200', (done) => {
       chai.request(address)
         .get('/acronyms')
@@ -154,7 +154,7 @@ describe('Acronym Controller', () => {
   //
   // POST Create
   //
-  describe('POST /acronyms (Create)', () => {
+  describe('POST /acronyms (add)', () => {
     it('should be status 200', (done) => {
       chai.request(address)
         .post('/acronyms')
@@ -229,7 +229,7 @@ describe('Acronym Controller', () => {
   //
   // GET Show
   //
-  describe('GET /acronyms/:name (Show)', () => {
+  describe('GET /acronyms/:name (get)', () => {
     it('should be status 200', (done) => {
       chai.request(address)
         .get('/acronyms/lol')

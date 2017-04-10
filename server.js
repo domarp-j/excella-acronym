@@ -57,14 +57,14 @@ router.get('/', (req, res) => {
 // API Routes
 //
 router.route('/acronyms')
-  .get(AcronymController.index)
-  .post(AcronymController.create);
+  .get(AcronymController.getAll)
+  .post(AcronymController.add);
 router.route('/acronyms/:name')
-  .get(AcronymController.show);
+  .get(AcronymController.get);
 router.route('/auth')
-  .post(AuthController.create);
+  .post(AuthController.authenticate);
 router.route('/users')
-  .post(UserController.create);
+  .post(UserController.add);
 
 // ====================
 // Register Routes

@@ -21,9 +21,9 @@ let appHelper = require('../helpers/app');
 // ====================
 
 //
-// POST Create
+// Authenticate user
 //
-exports.create = (req, res) => {
+exports.authenticate = (req, res) => {
   if (!req.body.email || !req.body.password) {
     res.json({
       success: false,
@@ -71,9 +71,9 @@ exports.create = (req, res) => {
 };
 
 //
-// GET Show
+// Check for token
 //
-exports.show = (req, res, next) => {
+exports.bouncer = (req, res, next) => {
   let token = appHelper.getToken(req);
 
   if (token) {

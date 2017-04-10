@@ -78,7 +78,7 @@ let validUser = {
 // ====================
 
 describe('Auth Controller', () => {
-  describe('POST /auth (Create)', () => {
+  describe('POST /auth (authenticate)', () => {
     it('should be status 200', (done) => {
       chai.request(address)
         .post('/auth')
