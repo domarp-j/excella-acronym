@@ -9,7 +9,7 @@ let Mockgoose = require('mockgoose').Mockgoose;
 
 require('dotenv-safe').load();
 
-// ====================gi
+// ====================
 // Internal Modules
 // ====================
 
@@ -59,9 +59,6 @@ before((done) => {
 // Test Parameters
 // ====================
 
-//
-// Test Data
-//
 let testData = [
   {
     name: 'ATM',
@@ -86,9 +83,6 @@ let testData = [
   }
 ];
 
-//
-// Valid Acronym
-//
 let validAcronym = {
   name: 'SCALP',
   meaning: 'Skin, Connective Tissue, Aponeurosis, Loose Connective Tissue, Pericranium'

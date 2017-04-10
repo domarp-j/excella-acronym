@@ -43,13 +43,13 @@ exports.create = (req, res) => {
           success: false,
           message: err.errmsg
         });
+      } else {
+        res.send({
+          success: true,
+          message: 'A new user has been added to the database.',
+          user: appHelper.strip(user, ['email'])
+        });
       }
-
-      res.json({
-        success: true,
-        message: 'A new user has been added to the database.',
-        user: appHelper.strip(user, ['email'])
-      });
     });
   }
 };
