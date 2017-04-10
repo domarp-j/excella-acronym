@@ -19,14 +19,19 @@ let appHelper = require('../helpers/app');
 //
 exports.index = (req, res) => {
   Acronym.find((err, acronyms) => {
-    if (err) res.send(err);
-
-    res.json({
-      success: true,
-      message: 'Here are all of the Excella acronyms currently in the database.',
-      count: acronyms.length,
-      acronyms: appHelper.stripAll(acronyms, ['name', 'meaning'])
-    });
+    if (err) {
+      res.json({
+        success: false,
+        error: err
+      });
+    } else {
+      res.json({
+        success: true,
+        message: 'Here are all of the Excella acronyms currently in the database.',
+        count: acronyms.length,
+        acronyms: appHelper.stripAll(acronyms, ['name', 'meaning'])
+      });
+    }
   });
 };
 
@@ -35,11 +40,11 @@ exports.index = (req, res) => {
 //
 exports.create = (req, res) => {
   if (!req.body.name || !req.body.meaning) {
-    res.send({
+    res.json({
       success: false,
       message: 'Acronym is not properly defined. Please ensure that "name" & "meaning" parameters are valid.',
-      name: req.body.name || 'undefined',
-      meaning: req.body.meaning || 'undefined'
+      name: req.body.name || '(undefined)',
+      meaning: req.body.meaning || '(undefined)'
     });
   } else {
     let acronym = new Acronym();
@@ -49,9 +54,12 @@ exports.create = (req, res) => {
 
     acronym.save((err) => {
       if (err) {
-        res.send(err);
+        res.json({
+          success: false,
+          error: err
+        });
       } else {
-        res.send({
+        res.json({
           success: true,
           message: 'A new Excella acronym has been added to the database.',
           acronym: appHelper.strip(acronym, ['name', 'meaning'])
@@ -68,13 +76,18 @@ exports.show = (req, res) => {
   let name = req.params.name.toUpperCase();
 
   Acronym.find({ name: name }, (err, acronyms) => {
-    if (err) res.send(err);
-
-    res.json({
-      success: true,
-      message: `Here are all of the Excella acronym meanings for ${name}`,
-      count: acronyms.length,
-      acronyms: appHelper.stripAll(acronyms, ['name', 'meaning'])
-    });
+    if (err) {
+      res.json({
+        success: false,
+        error: err
+      });
+    } else {
+      res.json({
+        success: true,
+        message: `Here are all of the Excella acronym meanings for ${name}`,
+        count: acronyms.length,
+        acronyms: appHelper.stripAll(acronyms, ['name', 'meaning'])
+      });
+    }
   });
 };
