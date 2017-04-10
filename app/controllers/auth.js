@@ -11,6 +11,12 @@ let jwt = require('jsonwebtoken');
 let User = require('../models/user');
 
 // ====================
+// Helpers
+// ====================
+
+let appHelper = require('../helpers/app');
+
+// ====================
 // RESTful Methods
 // ====================
 
@@ -51,6 +57,7 @@ exports.create = (req, res) => {
             });
           } else {
             let token = jwt.sign(user, process.env.JWT_SECRET, { algorithm: 'HS256' });
+
             res.json({
               success: true,
               email: user.email,
@@ -59,6 +66,36 @@ exports.create = (req, res) => {
           }
         });
       }
+    });
+  }
+};
+
+//
+// GET Show
+//
+exports.show = (req, res, next) => {
+  let token = appHelper.getToken(req);
+
+  if (token) {
+    let decoded = jwt.veriy(token, process.env.JWT_SECRET);
+
+    User.findOne({ _id: decoded.userId }, (err, user) => {
+      if (err) {
+        res.json({
+          success: false,
+          message: err
+        });
+      } else if (!user) {
+        res.json({
+          success: false,
+          message: 'Authentication failed. User was not found.'
+        });
+      } else return next();
+    });
+  } else {
+    res.status(403).json({
+      success: false,
+      message: 'Authentication failed. No token provided.'
     });
   }
 };
