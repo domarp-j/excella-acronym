@@ -21,7 +21,7 @@ exports.create = (req, res) => {
   if (!req.body.email || !req.body.password) {
     res.json({
       success: false,
-      message: 'Authentication is not properly defined. Please ensure that "email" & "password" parameters are valid.',
+      message: 'Authentication is not properly defined. Please ensure that "email" & "password" parameters are present.',
       email: req.body.email || '(undefined)',
       password: req.body.password ? '(defined)' : '(undefined)'
     });
@@ -48,7 +48,7 @@ exports.create = (req, res) => {
             res.json({
               success: false,
               message: 'Authentication failed. Password was incorrect.'
-            })
+            });
           } else {
             let token = jwt.sign(user, process.env.JWT_SECRET, { algorithm: 'HS256' });
             res.json({

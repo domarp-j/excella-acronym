@@ -87,7 +87,7 @@ describe('User Controller', () => {
         });
     });
 
-    it('should return a JSON object with an "user" property', (done) => {
+    it('should return a JSON object with a "user" property', (done) => {
       chai.request(address)
         .post('/users')
         .send(validUser)
@@ -121,7 +121,7 @@ describe('User Controller', () => {
         });
     });
 
-    it('should not add a user without a valid "email" parameter', done => {
+    it('should not add a user without an "email" parameter', done => {
       chai.request(address)
         .post('/users')
         .send({ email: undefined, password: 'test-pass-123', passwordConfirm: 'test-pass-123' })
@@ -133,7 +133,7 @@ describe('User Controller', () => {
         });
     });
 
-    it('should not add a user without a valid "password" parameter', done => {
+    it('should not add a user without a "password" parameter', done => {
       chai.request(address)
         .post('/users')
         .send({ email: 'test@example.com', password: undefined, passwordConfirm: 'test-pass-123' })
@@ -145,7 +145,7 @@ describe('User Controller', () => {
         });
     });
 
-    it('should not add a user without a valid "passwordConfirm" parameter', done => {
+    it('should not add a user without a "passwordConfirm" parameter', done => {
       chai.request(address)
         .post('/users')
         .send({ email: 'test@example.com', password: 'test-pass-123', passwordConfirm: undefined })

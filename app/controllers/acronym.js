@@ -42,7 +42,7 @@ exports.create = (req, res) => {
   if (!req.body.name || !req.body.meaning) {
     res.json({
       success: false,
-      message: 'Acronym is not properly defined. Please ensure that "name" & "meaning" parameters are valid.',
+      message: 'Acronym is not properly defined. Please ensure that "name" & "meaning" parameters are present.',
       name: req.body.name || '(undefined)',
       meaning: req.body.meaning || '(undefined)'
     });

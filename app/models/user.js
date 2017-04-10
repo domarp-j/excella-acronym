@@ -48,8 +48,8 @@ UserSchema.methods.checkPassword = function(password, done) { // can't use '=>' 
   let user = this;
 
   bcrypt.compare(password, user.password, (err, isMatch) => {
-    if (err) return done(err)
-    else done(null, isMatch)
+    if (err) return done(err); 
+    else done(null, isMatch);
   });
 };
 

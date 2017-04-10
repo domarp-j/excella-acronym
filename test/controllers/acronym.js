@@ -201,7 +201,7 @@ describe('Acronym Controller', () => {
         });
     });
 
-    it('should not add an acronym without a valid "name" parameter', done => {
+    it('should not add an acronym without a "name" parameter', done => {
       chai.request(address)
         .post('/acronyms')
         .send({ name: undefined, meaning: 'Meaning' })
@@ -213,7 +213,7 @@ describe('Acronym Controller', () => {
         });
     });
 
-    it('should not add an acronym without a valid "meaning" parameter', done => {
+    it('should not add an acronym without a "meaning" parameter', done => {
       chai.request(address)
         .post('/acronyms')
         .send({ name: 'NAME', meaning: undefined })
