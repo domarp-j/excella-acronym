@@ -3,7 +3,7 @@
 // ====================
 
 let mongoose = require('mongoose');
-let bcrypt = require('bcrypt'); 
+let bcrypt = require('bcrypt');
 
 // ====================
 // Schema
@@ -37,10 +37,21 @@ UserSchema.pre('save', function(next) { // can't use '=>' here!
       user.password = hash;
       next();
     });
-  } else {
-    return next();
-  }
+  } else return next();
 });
+
+// ====================
+// Before Actions
+// ====================
+
+UserSchema.methods.checkPassword = (password, done) => {
+  let user = this;
+
+  bcrypt.compare(password, user.password, (err, isMatch) => {
+    if (err) return done(err)
+    else done(null, isMatch)
+  });
+};
 
 // ====================
 // Export
