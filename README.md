@@ -22,14 +22,14 @@ Note: The app has not yet been deployed. In the development environment, it will
 
 * `GET /acronyms` returns all of the acronyms currently within the database
 * `GET /acronyms/:name` returns all acronyms with the given name parameter
-* `POST /acronyms` adds an acronym to the database. The `name` of the acronym, along with its `meaning`, must be provided as parameters.
+* `POST /acronyms` adds an acronym to the database. The `name` of the acronym, its `meaning`, and a user authentication `token` must be provided as parameters.
 
 ## Installation Instructions
 
 * Fork and clone the git repository
 * Make sure that you `$ cd` into the excella-acronym-api directory
 * Run `$ npm install` to install all of the Node.js packages & libraries
-* Run `$ node database/seeds.js` to seed test data for the database (optional)
+* Run `$ node database/seeds.dev.js` to seed test data for the database (optional)
 * Run `$ node .`, `$ node server.js`, or `$ npm start`  to run the application
 
 ## Maintenance
