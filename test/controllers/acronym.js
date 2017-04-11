@@ -59,7 +59,7 @@ before((done) => {
 // Test Parameters
 // ====================
 
-let testData = [
+let testAcronyms = [
   {
     name: 'ATM',
     meaning: 'At The Moment',
@@ -95,9 +95,9 @@ let validAcronym = {
 describe('Acronym Controller', () => {
   beforeEach((done) => {
     Acronym.remove({}, err => {
-      testData.forEach((acronym, index) => {
+      testAcronyms.forEach((acronym, index) => {
         Acronym.collection.insert(acronym).then(() => {
-          if (index === testData.length - 1) done();
+          if (index === testAcronyms.length - 1) done();
         });
       });
     });
@@ -132,7 +132,7 @@ describe('Acronym Controller', () => {
         .get('/acronyms')
         .end((err, res) => {
           res.body.acronyms.should.be.a('array');
-          res.body.acronyms.should.have.length(testData.length);
+          res.body.acronyms.should.have.length(testAcronyms.length);
           done();
         });
     });
@@ -195,7 +195,7 @@ describe('Acronym Controller', () => {
         .send(validAcronym)
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {
-            acronyms.length.should.equal(testData.length + 1);
+            acronyms.length.should.equal(testAcronyms.length + 1);
             done();
           });
         });
@@ -207,7 +207,7 @@ describe('Acronym Controller', () => {
         .send({ name: undefined, meaning: 'Meaning' })
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {
-            acronyms.length.should.equal(testData.length);
+            acronyms.length.should.equal(testAcronyms.length);
             done();
           });
         });
@@ -219,7 +219,7 @@ describe('Acronym Controller', () => {
         .send({ name: 'NAME', meaning: undefined })
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {
-            acronyms.length.should.equal(testData.length);
+            acronyms.length.should.equal(testAcronyms.length);
             done();
           });
         });
