@@ -77,9 +77,11 @@ exports.bouncer = (req, res, next) => {
   let token = appHelper.getToken(req);
 
   if (token) {
-    let decoded = jwt.veriy(token, process.env.JWT_SECRET);
+    let decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    User.findOne({ _id: decoded.userId }, (err, user) => {
+    User.findOne({ email: decoded._doc.email }, (err, user) => {
+      console.log(decoded);
+
       if (err) {
         res.json({
           success: false,
