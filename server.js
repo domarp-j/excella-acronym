@@ -51,7 +51,7 @@ let router = express.Router();
 //
 router.get('/', (req, res) => {
   res.json({
-    message: 'Welcome to the Excella Acronyms API! Please see the link below for details on how the API works.'
+    message: 'Welcome to the Excella Acronyms API! Please see the link below for details on how the API works.',
     link: 'https://github.com/domarp-j/excella-acronym-api'
   });
 });
