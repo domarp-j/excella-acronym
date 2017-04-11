@@ -18,11 +18,13 @@ The Excella Acronym API provides quick and easy access to all of the acronyms fr
 
 ## Using the API
 
-Note: The app has not yet been deployed. In the development environment, it will run by default on `localhost:8080`.
+Heroku: https://excella-acronym-api.herokuapp.com/
 
 * `GET /acronyms` returns all of the acronyms currently within the database
 * `GET /acronyms/:name` returns all acronyms with the given name parameter
 * `POST /acronyms` adds an acronym to the database. The `name` of the acronym, its `meaning`, and a user authentication `token` must be provided as parameters.
+* `POST /users` adds a user to the database. An `email`, `password`, and `passwordConfirm` must be provided as parameters. Please note that this route is currently disabled in production.
+* `POST /auth` authenticates a user & returns a token for use in other routes. An `email` and `password` must be provided as parameters.
 
 ## Installation Instructions
 
