@@ -70,7 +70,7 @@ let validUser = {
 // ====================
 
 describe('User Controller', () => {
-  beforeEach((done) => {
+  afterEach(done => {
     User.remove({}, (err) => {
       done();
     });

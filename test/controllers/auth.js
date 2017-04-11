@@ -64,10 +64,6 @@ let testUser = new User({
   password: 'test-pass-123'
 });
 
-testUser.save(err => {
-  if (err) throw err;
-});
-
 let validUser = {
   email: testUser.email,
   password: testUser.password
@@ -78,6 +74,22 @@ let validUser = {
 // ====================
 
 describe('Auth Controller', () => {
+  before(done => {
+    User.remove({}, err => {
+      testUser.save(err => {
+        if (err) throw err;
+        done();
+      });
+    });
+  });
+
+  after(done => {
+    User.remove({}, err => {
+      if (err) throw err;
+      done();
+    });
+  });
+
   describe('POST /auth (authenticate)', () => {
     it('should be status 200', (done) => {
       chai.request(address)
@@ -116,7 +128,7 @@ describe('Auth Controller', () => {
     it('should return a JSON object with a fail message if user is not found', (done) => {
       chai.request(address)
         .post('/auth')
-        .send({ email: `invalid-${testUser.email}`, password: testUser.password })
+        .send({ email: `invalid-${validUser.email}`, password: validUser.password })
         .end((err, res) => {
           res.body.message.should.eq('Authentication failed. User was not found.');
           done();
@@ -126,7 +138,7 @@ describe('Auth Controller', () => {
     it('should return a JSON object with a fail message if password is not correct', (done) => {
       chai.request(address)
         .post('/auth')
-        .send({ email: testUser.email, password: `invalid-${testUser.password}` })
+        .send({ email: validUser.email, password: `invalid-${validUser.password}` })
         .end((err, res) => {
           res.body.message.should.eq('Authentication failed. Password was incorrect.');
           done();

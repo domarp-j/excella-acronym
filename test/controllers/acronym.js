@@ -17,6 +17,7 @@ require('dotenv-safe').load();
 // Models
 //
 let Acronym = require('../../app/models/acronym');
+let User = require('../../app/models/user');
 
 //
 // Server
