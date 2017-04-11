@@ -60,7 +60,7 @@ before((done) => {
 // ====================
 
 let testUser = new User({
-  email: 'test-user@example.com',
+  email: 'test@example.com',
   password: 'test-pass-123'
 });
 
