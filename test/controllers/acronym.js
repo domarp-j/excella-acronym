@@ -86,7 +86,18 @@ let testAcronyms = [
 
 let validAcronym = {
   name: 'SCALP',
-  meaning: 'Skin, Connective Tissue, Aponeurosis, Loose Connective Tissue, Pericranium'
+  meaning: 'Skin, Connective Tissue, Aponeurosis, Loose Connective Tissue, Pericranium',
+  token: undefined
+};
+
+let testUser = new User({
+  email: 'test@example.com',
+  password: 'test-pass-123'
+});
+
+let validUser = {
+  email: testUser.email,
+  password: testUser.password
 };
 
 // ====================
@@ -94,13 +105,35 @@ let validAcronym = {
 // ====================
 
 describe('Acronym Controller', () => {
-  beforeEach((done) => {
+  before(done => {
+    User.remove({}, err => {
+      testUser.save(err => {
+        if (err) throw err;
+        chai.request(address)
+          .post('/auth')
+          .send(validUser)
+          .end((err, res) => {
+            validAcronym.token = res.body.token;
+            done();
+          });
+      });
+    });
+  });
+
+  beforeEach(done => {
     Acronym.remove({}, err => {
       testAcronyms.forEach((acronym, index) => {
         Acronym.collection.insert(acronym).then(() => {
           if (index === testAcronyms.length - 1) done();
         });
       });
+    });
+  });
+
+  after(done => {
+    User.remove({}, err => {
+      if (err) throw err;
+      done();
     });
   });
 

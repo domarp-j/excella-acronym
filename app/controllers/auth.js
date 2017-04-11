@@ -80,8 +80,6 @@ exports.bouncer = (req, res, next) => {
     let decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     User.findOne({ email: decoded._doc.email }, (err, user) => {
-      console.log(decoded);
-
       if (err) {
         res.json({
           success: false,
