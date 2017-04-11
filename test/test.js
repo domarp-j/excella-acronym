@@ -3,7 +3,7 @@
 //
 require('./controllers/acronym');
 require('./controllers/auth');
-require('./controllers/user');
+// require('./controllers/user');
 
 //
 // Helpers

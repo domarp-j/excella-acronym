@@ -27,7 +27,7 @@ let User = require('./app/models/user');
 //
 let AcronymController = require('./app/controllers/acronym');
 let AuthController = require('./app/controllers/auth');
-let UserController = require('./app/controllers/user');
+// let UserController = require('./app/controllers/user');
 
 // ====================
 // App Setup
@@ -50,7 +50,9 @@ let router = express.Router();
 // Base Route
 //
 router.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the Excella Acronyms API!' });
+  res.json({
+    message: 'Welcome to the Excella Acronyms API! Please see https://github.com/domarp-j/excella-acronym-api for details on how the API works.' 
+  });
 });
 
 //
@@ -63,8 +65,8 @@ router.route('/acronyms/:name')
   .get(AcronymController.get);
 router.route('/auth')
   .post(AuthController.authenticate);
-router.route('/users')
-  .post(UserController.add);
+// router.route('/users')
+  // .post(UserController.add);
 
 // ====================
 // Register Routes

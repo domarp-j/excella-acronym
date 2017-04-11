@@ -14,42 +14,42 @@ let appHelper = require('../helpers/app');
 // RESTful Methods
 // ====================
 
+// //
+// // Add a user
+// //
+// exports.add = (req, res) => {
+//   if (!req.body.email || !req.body.password || !req.body.passwordConfirm) {
+//     res.send({
+//       success: false,
+//       message: 'User is not properly defined. Please ensure that "email", "password", and "passwordConfirm" parameters are present.',
+//       email: req.body.email || '(undefined)',
+//       password: req.body.password ? '(defined)' : '(undefined)',
+//       passwordConfirm: req.body.passwordConfirm ? '(defined)' : '(undefined)'
+//     });
+//   } else if (req.body.password != req.body.passwordConfirm) {
+//     res.send({
+//       success: false,
+//       message: 'Password and password confirmation do not match.'
+//     });
+//   } else {
+//     let user = new User();
 //
-// Add a user
+//     user.email = req.body.email;
+//     user.password = req.body.password;
 //
-exports.add = (req, res) => {
-  if (!req.body.email || !req.body.password || !req.body.passwordConfirm) {
-    res.send({
-      success: false,
-      message: 'User is not properly defined. Please ensure that "email", "password", and "passwordConfirm" parameters are present.',
-      email: req.body.email || '(undefined)',
-      password: req.body.password ? '(defined)' : '(undefined)',
-      passwordConfirm: req.body.passwordConfirm ? '(defined)' : '(undefined)'
-    });
-  } else if (req.body.password != req.body.passwordConfirm) {
-    res.send({
-      success: false,
-      message: 'Password and password confirmation do not match.'
-    });
-  } else {
-    let user = new User();
-
-    user.email = req.body.email;
-    user.password = req.body.password;
-
-    user.save((err) => {
-      if (err) {
-        res.send({
-          success: false,
-          message: appHelper.strip(err, ['errmsg'])
-        });
-      } else {
-        res.send({
-          success: true,
-          message: 'A new user has been added to the database.',
-          user: appHelper.strip(user, ['email'])
-        });
-      }
-    });
-  }
-};
+//     user.save((err) => {
+//       if (err) {
+//         res.send({
+//           success: false,
+//           message: appHelper.strip(err, ['errmsg'])
+//         });
+//       } else {
+//         res.send({
+//           success: true,
+//           message: 'A new user has been added to the database.',
+//           user: appHelper.strip(user, ['email'])
+//         });
+//       }
+//     });
+//   }
+// };
