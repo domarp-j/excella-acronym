@@ -9,3 +9,4 @@ require('./controllers/auth');
 // Helpers
 //
 require('./helpers/app');
+require('./helpers/slack');
