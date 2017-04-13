@@ -15,6 +15,7 @@ let User = require('../models/user');
 // ====================
 
 let appHelper = require('../helpers/app');
+let slackHelper = require('../helpers/slack');
 
 // ====================
 // RESTful Methods
@@ -72,9 +73,18 @@ exports.authenticate = (req, res) => {
 
 //
 // Check for token
+// Includes a Slack "backdoor" shortcut that checks for a token & teamID match
+// TODO: requires testing
 //
 exports.bouncer = (req, res, next) => {
   let token = appHelper.getToken(req);
+
+  let slackToken = req.body.slackToken;
+  let slackTeamId = req.body.slackTeamId;
+
+  if (slackToken && slackTeamId && slackHelper.match(slackToken, slackTeamId)) {
+    return next();
+  }
 
   if (token) {
     let decoded = jwt.verify(token, process.env.JWT_SECRET);
