@@ -41,4 +41,4 @@ Heroku: https://excella-acronym-api.herokuapp.com/
 
 ## License
 
-ISC
+ISC License (Open Source)
