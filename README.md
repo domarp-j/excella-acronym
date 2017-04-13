@@ -41,4 +41,4 @@ Heroku: https://excella-acronym-api.herokuapp.com/
 
 ## License
 
-(TBD)
+ISC
