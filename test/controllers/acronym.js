@@ -105,6 +105,9 @@ let validUser = {
 // ====================
 
 describe('Acronym Controller', () => {
+  //
+  // Need to sign in with a user & get token
+  //
   before(done => {
     User.remove({}, err => {
       testUser.save(err => {
@@ -120,6 +123,9 @@ describe('Acronym Controller', () => {
     });
   });
 
+  //
+  // Reset acronym in database
+  //
   beforeEach(done => {
     Acronym.remove({}, err => {
       testAcronyms.forEach((acronym, index) => {
@@ -130,6 +136,9 @@ describe('Acronym Controller', () => {
     });
   });
 
+  //
+  // Delete all users 
+  //
   after(done => {
     User.remove({}, err => {
       if (err) throw err;
