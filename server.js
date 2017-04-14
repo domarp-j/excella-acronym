@@ -27,7 +27,7 @@ let User = require('./app/models/user');
 //
 let AcronymController = require('./app/controllers/acronym');
 let AuthController = require('./app/controllers/auth');
-let SlackSlashController = require('./app/controllers/slack.slash')
+let SlackController = require('./app/controllers/slack')
 // let UserController = require('./app/controllers/user');
 
 // ====================
@@ -67,8 +67,8 @@ router.route('/acronyms/:name')
   .get(AcronymController.get);
 router.route('/auth')
   .post(AuthController.authenticate);
-router.route('/slack/slash')
-  .post(SlackSlashController.handle);
+router.route('/slack')
+  .post(SlackController.handle);
 // router.route('/users')
   // .post(UserController.add);
 
