@@ -137,7 +137,7 @@ describe('Acronym Controller', () => {
   });
 
   //
-  // Delete all users 
+  // Delete all users
   //
   after(done => {
     User.remove({}, err => {
@@ -163,7 +163,6 @@ describe('Acronym Controller', () => {
       chai.request(address)
         .get('/acronyms')
         .end((err, res) => {
-          res.body.should.be.a('object');
           res.body.should.have.property('count');
           res.body.should.have.property('acronyms');
           done();
@@ -213,7 +212,6 @@ describe('Acronym Controller', () => {
         .post('/acronyms')
         .send(validAcronym)
         .end((err, res) => {
-          res.body.should.be.a('object');
           res.body.should.have.property('acronym');
           done();
         });

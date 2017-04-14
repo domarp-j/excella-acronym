@@ -92,7 +92,6 @@ describe('User Controller', () => {
         .post('/users')
         .send(validUser)
         .end((err, res) => {
-          res.body.should.be.a('object');
           res.body.should.have.property('user');
           done();
         });

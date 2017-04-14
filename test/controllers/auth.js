@@ -106,19 +106,6 @@ describe('Auth Controller', () => {
         .post('/auth')
         .send(validUser)
         .end((err, res) => {
-          res.body.should.be.a('object');
-          res.body.should.have.property('email');
-          res.body.should.have.property('token');
-          done();
-        });
-    });
-
-    it('should return a JSON object with "email" and "token" properties', (done) => {
-      chai.request(address)
-        .post('/auth')
-        .send(validUser)
-        .end((err, res) => {
-          res.body.should.be.a('object');
           res.body.should.have.property('email');
           res.body.should.have.property('token');
           done();
