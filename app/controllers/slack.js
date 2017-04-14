@@ -49,8 +49,7 @@ exports.handle = (req, res) => {
       if (err) {
         res.json({
           response_type: 'ephemeral',
-          text: 'Sorry, we couldn\'t process the request. There was an error with the request. Please check the attachment for details.',
-          attachments: err.messages
+          text: 'Sorry, we couldn\'t process the request. There was an error with the request. Please check the attachment for details.'
         });
       } else res.json(slackRes);
     });
