@@ -74,6 +74,30 @@ let slackReqParams = {
 
 let slackReq = Object.assign({}, slackReqParams);
 
+let testAcronyms = [
+  {
+    name: 'ATM',
+    meaning: 'At The Moment',
+    createdAt: Date.now(),
+    updatedAt: Date.now()
+  }, {
+    name: 'ATM',
+    meaning: 'Automated Transaction Machine',
+    createdAt: Date.now(),
+    updatedAt: Date.now()
+  }, {
+    name: 'IRL',
+    meaning: 'In Real Life',
+    createdAt: Date.now(),
+    updatedAt: Date.now()
+  }, {
+    name: 'LOL',
+    meaning: 'Laughing Out Loud',
+    createdAt: Date.now(),
+    updatedAt: Date.now()
+  }
+];
+
 // ====================
 // Testing
 // ====================
@@ -84,13 +108,91 @@ describe('Slack Controller', () => {
     done();
   });
 
-  describe('POST /slack (handle)', () => {
-    it('should be status 200', (done) => {
+  it('should be status 200', done => {
+    chai.request(address)
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it('should have "response_type" and "text" parameters', done => {
+    chai.request(address)
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.should.have.property('response_type');
+        res.body.should.have.property('text');
+        done();
+      });
+  });
+
+  describe('POST /slack (handle) - valid submissions', () => {
+    beforeEach(done => {
+      Acronym.remove({}, err => {
+        testAcronyms.forEach((acronym, index) => {
+          Acronym.collection.insert(acronym).then(() => {
+            if (index === testAcronyms.length - 1) done();
+          });
+        });
+      });
+    });
+
+    // it('should get all acronyms upon request', done => {
+    //   slackReq.text = 'Get All';
+    //   chai.request(address)
+    //     .post('/slack')
+    //     .send(slackReq)
+    //     .end((err, res) => {
+    //       res.should.have.status(200);
+    //       done();
+    //     });
+    // });
+  });
+
+  describe('POST /slack (handle) - invalid submissions', () => {
+    it('should respond with an error message if "token" is not present', done => {
+      slackReq.token = undefined;
       chai.request(address)
         .post('/slack')
         .send(slackReq)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.body.text.should.include('Sorry, we couldn\'t process the request.');
+          done();
+        });
+    });
+
+    it('should respond with an error message if "team_id" is not present', done => {
+      slackReq.team_id = undefined;
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.text.should.include('Sorry, we couldn\'t process the request.');
+          done();
+        });
+    });
+
+    it('should respond with an error message if token does not match token on file', done => {
+      slackReq.token = slackReq.token + 'invalid';
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.text.should.include('Sorry, we couldn\'t process the request.');
+          done();
+        });
+    });
+
+    it('should respond with an error message if token does not match team ID on file', done => {
+      slackReq.token = slackReq.team_id + 'invalid';
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.text.should.include('Sorry, we couldn\'t process the request.');
           done();
         });
     });

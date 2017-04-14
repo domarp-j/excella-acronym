@@ -35,8 +35,8 @@ exports.handle = (req, res) => {
       response_type: 'ephemeral',
       text: 'Sorry, we couldn\'t process the request. Either a token or a team ID is missing from the Slack request. Please contact the admin for troubleshooting.',
       attachments: [
-        { text: `The token is ${token ? 'defined' : 'undefined'}` },
-        { text: `The team ID is ${teamId ? 'defined' : 'undefined'}` }
+        { text: `The token is ${token ? 'defined' : 'not defined'}` },
+        { text: `The team ID is ${teamId ? 'defined' : 'not defined'}` }
       ]
     });
   } else if (!slackHelper.match(token, teamId)) {
