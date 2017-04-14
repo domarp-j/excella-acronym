@@ -140,16 +140,18 @@ describe('Slack Controller', () => {
       });
     });
 
-    // it('should get all acronyms upon request', done => {
-    //   slackReq.text = 'Get All';
-    //   chai.request(address)
-    //     .post('/slack')
-    //     .send(slackReq)
-    //     .end((err, res) => {
-    //       res.should.have.status(200);
-    //       done();
-    //     });
-    // });
+    it('should get all acronyms upon request', done => {
+      slackReq.text = 'Get All';
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.text.eq('Here are all of the acronyms currently in the database.');
+          res.body.attachments.should.be.a('array');
+          res.body.attachments.should.have.length(testAcronyms.length);
+          done();
+        });
+    });
   });
 
   describe('POST /slack (handle) - invalid submissions', () => {
