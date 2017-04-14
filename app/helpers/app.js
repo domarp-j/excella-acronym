@@ -38,10 +38,3 @@ exports.stripAll = (objs, keys) => {
     return exports.strip(obj, keys);
   });
 };
-
-//
-// Get token from a request
-//
-exports.getToken = (req) => {
-  return req.body.token || req.query.token || req.headers['x-access-token'];
-};

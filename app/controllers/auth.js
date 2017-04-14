@@ -76,7 +76,7 @@ exports.authenticate = (req, res) => {
 // TODO: requires testing
 //
 exports.bouncer = (req, res, next) => {
-  let token = appHelper.getToken(req);
+  let token = req.body.token;
 
   if (token) {
     let decoded = jwt.verify(token, process.env.JWT_SECRET);
