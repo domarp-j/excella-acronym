@@ -1,0 +1,58 @@
+// ====================
+// Helpers
+// ====================
+
+let slackHelper = require('../helpers/slack');
+
+// ====================
+// Example Request Body
+// ====================
+
+// {
+//   "token":"~",
+//   "team_id":"~"
+//   "team_domain":"~",
+//   "channel_id":"~",
+//   "channel_name":"~",
+//   "user_id":"~",
+//   "user_name":"~",
+//   "command":"~",
+//   "text":"~",
+//   "response_url":"~"
+// }
+
+// ====================
+// RESTful Methods
+// ====================
+
+exports.handle = (req, res) => {
+  let slackReq = req.body;
+  let token = slackReq.token;
+  let teamId = slackReq.team_id;
+
+  if (!token || !teamId) {
+    res.json({
+      response_type: 'ephemeral',
+      text: 'Sorry, we couldn\'t process the request. Either a token or a team ID is missing from the Slack request. Please contact the admin for troubleshooting.',
+      attachments: [
+        { text: `The token is ${token ? 'defined' : 'undefined'}` },
+        { text: `The team ID is ${teamId ? 'defined' : 'undefined'}` }
+      ]
+    });
+  } else if (!slackHelper.match(token, teamId)) {
+    res.json({
+      response_type: 'ephemeral',
+      text: 'Sorry, we couldn\'t process the request. The Slack slash token & team ID sent with the request do not match the token & team ID on file with the API. Please contact the admin for troubleshooting.'
+    });
+  } else {
+    slackHelper.handleReq(slackReq, (err, slackRes) => {
+      if (err) {
+        res.json({
+          response_type: 'ephemeral',
+          text: 'Sorry, we couldn\'t process the request. There was an error with the request. Please check the attachment for details.',
+          attachments: err.messages
+        });
+      } else res.json(slackRes);
+    });
+  }
+};
