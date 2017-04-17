@@ -365,7 +365,7 @@ describe('Acronym Controller', () => {
   //
   // DELETE /acronyms
   //
-  describe('DELETE /acronyms (delete)', () => {
+  describe('DELETE /acronyms (remove)', () => {
     it('should be status 200', (done) => {
       chai.request(address)
         .delete('/acronyms')

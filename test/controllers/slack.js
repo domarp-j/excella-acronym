@@ -130,6 +130,7 @@ describe('Slack Controller', () => {
           res.body.attachments[0].text.should.eq('Enter "/acronym <acronym>" to get its meaning.');
           res.body.attachments[1].text.should.eq('Enter "/acronym get all" to get all known Excella acronyms and their definitions.');
           res.body.attachments[2].text.should.eq('Enter "/acronym add <acronym> <meaning>" to add a new Excella acronym to the database.');
+          res.body.attachments[3].text.should.eq('Enter "/acronym remove <acronym> <meaning>" to remove an existing Excella acronym from the database.');
           done();
         });
     });
@@ -265,16 +266,16 @@ describe('Slack Controller', () => {
     });
   });
 
-  describe('POST /slack (handle) - /acronyms delete (name) (meaning)', () => {
-    it('should be able to delete an acronym from the database', done => {
+  describe('POST /slack (handle) - /acronyms remove (name) (meaning)', () => {
+    it('should be able to remove an acronym from the database', done => {
       let acro = testAcronyms[0]
-      slackReq.text = `delete ${acro.name} ${acro.meaning}`;
+      slackReq.text = `remove ${acro.name} ${acro.meaning}`;
       chai.request(address)
       .post('/slack')
       .send(slackReq)
       .end((err, res) => {
         res.body.response_type.should.eq('ephemeral');
-        res.body.text.should.include(`Success! You deleted ${acro.name} ("${acro.meaning}") from the database.`);
+        res.body.text.should.include(`Success! You removed ${acro.name} ("${acro.meaning}") from the database.`);
         Acronym.find().exec((err, acronyms) => {
           acronyms.length.should.equal(testAcronyms.length - 1);
         });
@@ -284,7 +285,7 @@ describe('Slack Controller', () => {
 
     it('should let the user know if they tried to delete an acronym without a meaning', done => {
       let acro = testAcronyms[0];
-      slackReq.text = `delete ${acro.name}`;
+      slackReq.text = `remove ${acro.name}`;
       chai.request(address)
       .post('/slack')
       .send(slackReq)

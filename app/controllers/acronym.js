@@ -104,7 +104,7 @@ exports.add = (req, res) => {
 //
 // Delete an acronym
 //
-exports.delete = (req, res) => {
+exports.remove = (req, res) => {
   if (!req.body.name || !req.body.meaning) {
     res.json({
       success: false,

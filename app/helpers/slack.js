@@ -29,7 +29,7 @@ let acronymMap = {
   get:      1,
   getAll:   2,
   add:      3,
-  delete:   4,
+  remove:   4,
   invalid:  5
 };
 
@@ -40,7 +40,7 @@ let welcomeMessage = {
     { text: 'Enter "/acronym <acronym>" to get its meaning.' },
     { text: 'Enter "/acronym get all" to get all known Excella acronyms and their definitions.' },
     { text: 'Enter "/acronym add <acronym> <meaning>" to add a new Excella acronym to the database.' },
-    { text: 'Enter "/acronym delete <acronym> <meaning>" to delete an existing Excella acronym from the database.' }
+    { text: 'Enter "/acronym remove <acronym> <meaning>" to remove an existing Excella acronym from the database.' }
   ]
 };
 
@@ -66,7 +66,7 @@ let parse = text => {
   else if (words.length === 1) return acronymMap.get;
   else if (text.toLowerCase() === 'get all') return acronymMap.getAll;
   else if (words[0].toLowerCase() === 'add') return acronymMap.add;
-  else if (words[0].toLowerCase() === 'delete') return acronymMap.delete;
+  else if (words[0].toLowerCase() === 'remove') return acronymMap.remove;
   else return acronymMap.invalid;
 };
 
@@ -182,7 +182,7 @@ let addAcronym = (text, next) => {
 //
 // Delete an acronym to database & return Slack response
 //
-let deleteAcronym = (text, next) => {
+let removeAcronym = (text, next) => {
   let words = getWords(text);
 
   let acronym = new Acronym();
@@ -204,7 +204,7 @@ let deleteAcronym = (text, next) => {
     } else {
       next({
         response_type: 'ephemeral',
-        text: `Success! You deleted ${acronym.name} ("${acronym.meaning}") from the database.`
+        text: `Success! You removed ${acronym.name} ("${acronym.meaning}") from the database.`
       });
     }
   });
@@ -247,8 +247,8 @@ exports.handleReq = (slackReq, done) => {
       done(null, slackRes);
     });
     break;
-  case acronymMap.delete:
-    deleteAcronym(text, slackRes => {
+  case acronymMap.remove:
+    removeAcronym(text, slackRes => {
       done(null, slackRes);
     });
     break;
