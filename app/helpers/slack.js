@@ -82,7 +82,7 @@ let displayAcronyms = (acronyms, showName) => {
   return _.map(acronyms, acronym => {
     if (showName) return { text: `${acronym.name} - ${acronym.meaning}` };
     else return { text: `${acronym.meaning}` };
-  });
+  }).sort();
 };
 
 //
