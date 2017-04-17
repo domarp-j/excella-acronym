@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha --timeout 120000",
-    "linter": "./node_modules/.bin/eslint ."
+    "linter": "./node_modules/.bin/eslint .",
+    "linter-fix": "./node_modules/.bin/eslint . --fix"
   },
   "repository": {
     "type": "git",
