@@ -365,10 +365,10 @@ describe('Acronym Controller', () => {
   //
   // DELETE /acronyms
   //
-  describe('POST /acronyms (add)', () => {
+  describe('DELETE /acronyms (delete)', () => {
     it('should be status 200', (done) => {
       chai.request(address)
-        .post('/acronyms')
+        .delete('/acronyms')
         .send(existingAcronym)
         .end((err, res) => {
           res.should.have.status(200);
@@ -378,7 +378,7 @@ describe('Acronym Controller', () => {
 
     it('should return a JSON object with an "acronym" property', done => {
       chai.request(address)
-        .post('/acronyms')
+        .delete('/acronyms')
         .send(existingAcronym)
         .end((err, res) => {
           res.body.should.have.property('acronym');
@@ -388,8 +388,8 @@ describe('Acronym Controller', () => {
 
     it('should return the deleted acronym as an object', done => {
       chai.request(address)
-        .post('/acronyms')
-        .send(validAcronym)
+        .delete('/acronyms')
+        .send(existingAcronym)
         .end((err, res) => {
           res.body.acronym.should.have.property('name');
           res.body.acronym.should.have.property('meaning');
@@ -401,8 +401,20 @@ describe('Acronym Controller', () => {
 
     it('should remove the acronym from the database', done => {
       chai.request(address)
-        .post('/acronyms')
+        .delete('/acronyms')
         .send(existingAcronym)
+        .end((err, res) => {
+          Acronym.find().exec((err, acronyms) => {
+            acronyms.length.should.equal(testAcronyms.length - 1);
+            done();
+          });
+        });
+    });
+
+    it('should remove the acronym from the database, regarless of caps', done => {
+      chai.request(address)
+        .delete('/acronyms')
+        .send({ name: existingAcronym.name.toLowerCase(), meaning: existingAcronym.meaning.toLowerCase(), token: existingAcronym.token })
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testAcronyms.length - 1);
@@ -413,7 +425,7 @@ describe('Acronym Controller', () => {
 
     it('should not delete an acronym without a "name" parameter', done => {
       chai.request(address)
-        .post('/acronyms')
+        .delete('/acronyms')
         .send({ name: undefined, meaning: existingAcronym.meaning, token: existingAcronym.token })
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {
@@ -423,9 +435,9 @@ describe('Acronym Controller', () => {
         });
     });
 
-    it('should not add an acronym without a "meaning" parameter', done => {
+    it('should not delete an acronym without a "meaning" parameter', done => {
       chai.request(address)
-        .post('/acronyms')
+        .delete('/acronyms')
         .send({ name: existingAcronym.name, meaning: undefined, token: existingAcronym.token })
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {

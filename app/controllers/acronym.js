@@ -100,3 +100,37 @@ exports.add = (req, res) => {
     });
   }
 };
+
+//
+// Delete an acronym
+//
+exports.delete = (req, res) => {
+  if (!req.body.name || !req.body.meaning) {
+    res.json({
+      success: false,
+      message: 'Acronym is not properly defined. Please ensure that "name" & "meaning" parameters are present.',
+      name: req.body.name || '(undefined)',
+      meaning: req.body.meaning || '(undefined)'
+    });
+  } else {
+    let acronym = new Acronym();
+
+    acronym.name = req.body.name.toUpperCase();
+    acronym.meaning = appHelper.capitalize(req.body.meaning);
+
+    Acronym.remove({ name: acronym.name, meaning: acronym.meaning }, (err, acronyms) => {
+      if (err) {
+        res.json({
+          success: false,
+          error: err
+        });
+      } else {
+        res.json({
+          success: true,
+          message: 'The Excella acronym has been removed from the database.',
+          acronym: appHelper.strip(acronym, ['name', 'meaning'])
+        });
+      }
+    });
+  }
+};
