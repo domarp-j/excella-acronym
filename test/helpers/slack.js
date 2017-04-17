@@ -61,4 +61,6 @@ describe('Slack Helpers', () => {
       done();
     });
   });
+
+  // TODO: add tests for slackHelper.handleReq()
 });
