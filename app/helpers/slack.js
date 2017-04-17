@@ -7,6 +7,12 @@ let _ = require('lodash');
 require('dotenv-safe').load();
 
 // ====================
+// Helpers
+// ====================
+
+let appHelper = require('../helpers/app');
+
+// ====================
 // Models
 // ====================
 
@@ -139,22 +145,31 @@ let addAcronym = (text, next) => {
 
   let acronym = new Acronym();
 
-  acronym.name = words[1];
+  acronym.name = words[1].toUpperCase();
   acronym.meaning = words.slice(2).join(' ');
 
-  acronym.save(err => {
-    if (err) {
+  Acronym.find({ name: acronym.name, meaning: acronym.meaning }, (err, acronyms) => {
+    if (acronyms.length !== 0) {
       next({
         response_type: 'ephemeral',
-        text: `Sorry, we couldn\'t process the request. Something is preventing us from adding a new acronym to the database. Please contact admin for troubleshooting.`
+        text: `Thank you, but ${acronym.name} with the definition ${acronym.meaning} is already in the database.`
       });
     } else {
-      next({
-        response_type: 'ephemeral',
-        text: `Success! Thanks for adding ${acronym.name} to the database!`
+      acronym.save(err => {
+        if (err) {
+          next({
+            response_type: 'ephemeral',
+            text: `Sorry, we couldn\'t process the request. Something is preventing us from adding a new acronym to the database. Please contact admin for troubleshooting.`
+          });
+        } else {
+          next({
+            response_type: 'ephemeral',
+            text: `Success! Thanks for adding ${acronym.name} to the database!`
+          });
+        }
       });
     }
-  });
+  })
 };
 
 // ====================

@@ -49,8 +49,8 @@ exports.add = (req, res) => {
   } else {
     let acronym = new Acronym();
 
-    acronym.name = req.body.name;
-    acronym.meaning = req.body.meaning;
+    acronym.name = req.body.name.toUpperCase();
+    acronym.meaning = appHelper.capitalize(req.body.meaning);
 
     Acronym.find({ name: acronym.name, meaning: acronym.meaning }, (err, acronyms) => {
       if (acronyms.length !== 0) {
