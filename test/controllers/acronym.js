@@ -245,7 +245,7 @@ describe('Acronym Controller', () => {
     it('should not add an acronym without a "name" parameter', done => {
       chai.request(address)
         .post('/acronyms')
-        .send({ name: undefined, meaning: 'Meaning' })
+        .send({ name: undefined, meaning: 'Meaning', token: validAcronym.token })
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testAcronyms.length);
@@ -257,12 +257,24 @@ describe('Acronym Controller', () => {
     it('should not add an acronym without a "meaning" parameter', done => {
       chai.request(address)
         .post('/acronyms')
-        .send({ name: 'NAME', meaning: undefined })
+        .send({ name: 'NAME', meaning: undefined, token: validAcronym.token })
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testAcronyms.length);
             done();
           });
+        });
+    });
+
+    it('should not add an acronym that already exists', done => {
+      let existingAcronym = testAcronyms[0];
+      chai.request(address)
+        .post('/acronyms')
+        .send({ name: existingAcronym.name, meaning: existingAcronym.meaning, token: validAcronym.token })
+        .end((err, res) => {
+          res.body.should.have.property('message');
+          res.body.message.should.eq(`An acronym with the name ${existingAcronym.name} and meaning ${existingAcronym.meaning} is already present within the database.`);
+          done();
         });
     });
   });

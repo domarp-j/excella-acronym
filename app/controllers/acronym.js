@@ -52,17 +52,26 @@ exports.add = (req, res) => {
     acronym.name = req.body.name;
     acronym.meaning = req.body.meaning;
 
-    acronym.save((err) => {
-      if (err) {
+    Acronym.find({ name: acronym.name, meaning: acronym.meaning }, (err, acronyms) => {
+      if (acronyms.length !== 0) {
         res.json({
           success: false,
-          error: err
+          message: `An acronym with the name ${acronym.name} and meaning ${acronym.meaning} is already present within the database.`
         });
       } else {
-        res.json({
-          success: true,
-          message: 'A new Excella acronym has been added to the database.',
-          acronym: appHelper.strip(acronym, ['name', 'meaning'])
+        acronym.save((err) => {
+          if (err) {
+            res.json({
+              success: false,
+              error: err
+            });
+          } else {
+            res.json({
+              success: true,
+              message: 'A new Excella acronym has been added to the database.',
+              acronym: appHelper.strip(acronym, ['name', 'meaning'])
+            });
+          }
         });
       }
     });
