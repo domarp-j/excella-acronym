@@ -23,9 +23,10 @@ Heroku: https://excella-acronym-api.herokuapp.com/
 * `GET /acronyms` returns all of the acronyms currently within the database
 * `GET /acronyms/:name` returns all acronyms with the given name parameter
 * `POST /acronyms` adds an acronym to the database. The `name` of the acronym, its `meaning`, and a user authentication `token` must be provided as parameters.
-* `POST /users` adds a user to the database. An `email`, `password`, and `passwordConfirm` must be provided as parameters. 
+* `POST /users` adds a user to the database. An `email`, `password`, and `passwordConfirm` must be provided as parameters.
   * This route is currently disabled in production.
 * `POST /auth` authenticates a user & returns a token for use in other routes. An `email` and `password` must be provided as parameters.
+* `POST /slack` is a way for the Excella Slack team's slash command integration (/acronym) to communicate with the API. The `token` and `team_id` parameters are required to access any of the API routes. 
 
 ## Installation Instructions
 
