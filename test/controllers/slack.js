@@ -103,43 +103,22 @@ let testAcronyms = [
 // ====================
 
 describe('Slack Controller', () => {
+  beforeEach(done => {
+    Acronym.remove({}, err => {
+      testAcronyms.forEach((acronym, index) => {
+        Acronym.collection.insert(acronym).then(() => {
+          if (index === testAcronyms.length - 1) done();
+        });
+      });
+    });
+  });
+
   afterEach(done => {
     slackReq = Object.assign({}, slackReqParams);
     done();
   });
 
-  it('should be status 200', done => {
-    chai.request(address)
-      .post('/slack')
-      .send(slackReq)
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
-
-  it('should have "response_type" and "text" parameters', done => {
-    chai.request(address)
-      .post('/slack')
-      .send(slackReq)
-      .end((err, res) => {
-        res.body.should.have.property('response_type');
-        res.body.should.have.property('text');
-        done();
-      });
-  });
-
-  describe('POST /slack (handle) - valid submissions', () => {
-    beforeEach(done => {
-      Acronym.remove({}, err => {
-        testAcronyms.forEach((acronym, index) => {
-          Acronym.collection.insert(acronym).then(() => {
-            if (index === testAcronyms.length - 1) done();
-          });
-        });
-      });
-    });
-
+  describe('POST /slack (handle) - /acronym (no text)', () => {
     it('should return a welcome message if text is blank', done => {
       slackReq.text = '';
       chai.request(address)
@@ -154,130 +133,135 @@ describe('Slack Controller', () => {
           done();
         });
     });
+  });
 
+  describe('POST /slack (handle) - /acronym get all', () => {
     it('should get all acronyms upon request', done => {
       slackReq.text = 'Get All';
       chai.request(address)
-        .post('/slack')
-        .send(slackReq)
-        .end((err, res) => {
-          res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.eq('Here are all of the acronyms currently in the database.');
-          res.body.attachments.should.be.a('array');
-          res.body.attachments.should.have.length(testAcronyms.length);
-          done();
-        });
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.eq('Here are all of the acronyms currently in the database.');
+        res.body.attachments.should.be.a('array');
+        res.body.attachments.should.have.length(testAcronyms.length);
+        done();
+      });
     });
+  });
 
+  describe('POST /slack (handle) - /acronym (name)', () => {
     it('should get a specific acronym upon request', done => {
       slackReq.text = 'IRL';
       chai.request(address)
-        .post('/slack')
-        .send(slackReq)
-        .end((err, res) => {
-          res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.eq('IRL means \"In Real Life\".');
-          done();
-        });
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.eq('IRL means \"In Real Life\".');
+        done();
+      });
     });
 
     it('should get a specific acronym upon request, regardless of caps', done => {
       slackReq.text = 'irl';
       chai.request(address)
-        .post('/slack')
-        .send(slackReq)
-        .end((err, res) => {
-          res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.eq('IRL means \"In Real Life\".');
-          done();
-        });
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.eq('IRL means \"In Real Life\".');
+        done();
+      });
     });
 
     it('should get a specific acronym upon request, even if it has multiple meanings', done => {
       slackReq.text = 'ATM';
       chai.request(address)
-        .post('/slack')
-        .send(slackReq)
-        .end((err, res) => {
-          res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.eq('ATM could mean one of the following:');
-          res.body.attachments.should.be.a('array');
-          res.body.attachments[0].text.should.include('At The Moment');
-          res.body.attachments[1].text.should.include('Automated Transaction Machine');
-          done();
-        });
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.eq('ATM could mean one of the following:');
+        res.body.attachments.should.be.a('array');
+        res.body.attachments[0].text.should.include('At The Moment');
+        res.body.attachments[1].text.should.include('Automated Transaction Machine');
+        done();
+      });
     });
 
     it('should respond properly when an acronym isn\'t in the database', done => {
       slackReq.text = 'GGG',
       chai.request(address)
-        .post('/slack')
-        .send(slackReq)
-        .end((err, res) => {
-          res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.include(`Sorry, we couldn\'t find the meaning of ${slackReq.text}.`);
-          done();
-        });
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.include(`Sorry, we couldn\'t find the meaning of ${slackReq.text}.`);
+        done();
+      });
     });
+  });
 
+  describe('POST /slack (handle) - /acronyms add (name) (meaning)', () => {
     it('should be able to add an acronym to the database', done => {
       slackReq.text = 'add nba national basketball association';
       chai.request(address)
-        .post('/slack')
-        .send(slackReq)
-        .end((err, res) => {
-          res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.include('Success! Thanks for adding NBA ("National Basketball Association") to the database!');
-          Acronym.find().exec((err, acronyms) => {
-            acronyms.length.should.equal(testAcronyms.length + 1);
-          });
-          done();
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.include('Success! Thanks for adding NBA ("National Basketball Association") to the database!');
+        Acronym.find().exec((err, acronyms) => {
+          acronyms.length.should.equal(testAcronyms.length + 1);
         });
+        done();
+      });
     });
 
     it('should not be able to add a duplicate acronym/meaning to the database', done => {
       let acro = testAcronyms[0];
       slackReq.text = `add ${acro.name} ${acro.meaning}`;
       chai.request(address)
-        .post('/slack')
-        .send(slackReq)
-        .end((err, res) => {
-          res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.include(`Thank you, but ${acro.name} with the definition "${acro.meaning}" is already in the database.`);
-          Acronym.find().exec((err, acronyms) => {
-            acronyms.length.should.equal(testAcronyms.length);
-          });
-          done();
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.include(`Thank you, but ${acro.name} with the definition "${acro.meaning}" is already in the database.`);
+        Acronym.find().exec((err, acronyms) => {
+          acronyms.length.should.equal(testAcronyms.length);
         });
+        done();
+      });
     });
-
     it('should not be able to add a duplicate acronym/meaning to the database, regardless of caps', done => {
       let acro = testAcronyms[0];
       slackReq.text = `ADD ${acro.name.toLowerCase()} ${acro.meaning.toLowerCase()}`;
       chai.request(address)
-        .post('/slack')
-        .send(slackReq)
-        .end((err, res) => {
-          res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.include(`Thank you, but ${acro.name} with the definition "${acro.meaning}" is already in the database.`);
-          Acronym.find().exec((err, acronyms) => {
-            acronyms.length.should.equal(testAcronyms.length);
-          });
-          done();
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.include(`Thank you, but ${acro.name} with the definition "${acro.meaning}" is already in the database.`);
+        Acronym.find().exec((err, acronyms) => {
+          acronyms.length.should.equal(testAcronyms.length);
         });
+        done();
+      });
     });
 
     it('should let the user know if they tried to add an acronym without a meaning', done => {
       let acro = testAcronyms[0];
       slackReq.text = `add ${acro.name}`;
       chai.request(address)
-        .post('/slack')
-        .send(slackReq)
-        .end((err, res) => {
-          res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.eq(`Please include the meaning of ${acro.name} to add it to the database.`);
-          done();
-        });
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.eq(`Please include the meaning of ${acro.name} to add it to the database.`);
+        done();
+      });
     });
   });
 
