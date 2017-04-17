@@ -2,7 +2,15 @@
 // Third-Party Modules
 // ====================
 
+let _ = require('lodash');
+
 require('dotenv-safe').load();
+
+// ====================
+// Models
+// ====================
+
+let Acronym = require('../models/acronym');
 
 // ====================
 // Setup
@@ -60,6 +68,36 @@ let parse = text => {
   else return acronymMap.invalid;
 };
 
+//
+// Break down acronym objects into an array of strings with the format:
+// <acronym> - <meaning>
+//
+let displayAllAcronyms = acronyms => {
+  return _.map(acronyms, acronym => {
+    return { text: `${acronym.name} - ${acronym.meaning}` };
+  });
+};
+
+//
+// Get all acronyms & return object for Slack
+//
+let getAllAcronyms = next => {
+  Acronym.find((err, acronyms) => {
+    if (err) {
+      next({
+        response_type: 'ephemeral',
+        text: 'Sorry, we couldn\'t process the request. Something is preventing us from getting a list of all acronyms. Please contact admin for troubleshooting.'
+      });
+    } else {
+      next({
+        response_type: 'ephemeral',
+        text: 'Here are all of the acronyms currently in the database.',
+        attachments: displayAllAcronyms(acronyms)
+      });
+    }
+  });
+};
+
 // ====================
 // Public Helpers
 // ====================
@@ -81,6 +119,11 @@ exports.handleReq = (slackReq, done) => {
   switch (textType) {
   case acronymMap.blank:
     done(null, welcomeMessage);
+    break;
+  case acronymMap.getAll:
+    getAllAcronyms(slackRes => {
+      done(null, slackRes);
+    });
     break;
   default:
     done(true, null)
