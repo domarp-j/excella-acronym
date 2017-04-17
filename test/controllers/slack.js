@@ -176,7 +176,7 @@ describe('Slack Controller', () => {
         .send(slackReq)
         .end((err, res) => {
           res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.eq('IRL means \"In Real Life\"');
+          res.body.text.should.eq('IRL means \"In Real Life\".');
           done();
         });
     });
@@ -188,10 +188,10 @@ describe('Slack Controller', () => {
         .send(slackReq)
         .end((err, res) => {
           res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.eq('ATM could mean one of the following:')
+          res.body.text.should.eq('ATM could mean one of the following:');
           res.body.attachments.should.be.a('array');
-          res.body.attachments[0].should.include('At The Moment');
-          res.body.attachments[1].should.include('Automated Transaction Machine');
+          res.body.attachments[0].text.should.include('At The Moment');
+          res.body.attachments[1].text.should.include('Automated Transaction Machine');
           done();
         });
     });
@@ -203,7 +203,7 @@ describe('Slack Controller', () => {
         .send(slackReq)
         .end((err, res) => {
           res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.include(`Sorry, we couldn\'t find the meaning of ${slackReq.text}`);
+          res.body.text.should.include(`Sorry, we couldn\'t find the meaning of ${slackReq.text}.`);
           done();
         });
     });

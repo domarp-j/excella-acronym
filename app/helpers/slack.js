@@ -72,14 +72,15 @@ let parse = text => {
 // Break down acronym objects into an array of strings with the format:
 // <acronym> - <meaning>
 //
-let displayAllAcronyms = acronyms => {
+let displayAcronyms = (acronyms, showName) => {
   return _.map(acronyms, acronym => {
-    return { text: `${acronym.name} - ${acronym.meaning}` };
+    if (showName) return { text: `${acronym.name} - ${acronym.meaning}` };
+    else return { text: `${acronym.meaning}` };
   });
 };
 
 //
-// Get all acronyms & return object for Slack
+// Get all acronyms & return object as Slack response
 //
 let getAllAcronyms = next => {
   Acronym.find((err, acronyms) => {
@@ -92,7 +93,37 @@ let getAllAcronyms = next => {
       next({
         response_type: 'ephemeral',
         text: 'Here are all of the acronyms currently in the database.',
-        attachments: displayAllAcronyms(acronyms)
+        attachments: displayAcronyms(acronyms, true)
+      });
+    }
+  });
+};
+
+//
+// Get a specific acronym & return object as Slack response
+//
+let getAcronym = (name, next) => {
+  Acronym.find({ name: name }, (err, acronyms) => {
+    if (err) {
+      next({
+        response_type: 'ephemeral',
+        text: `Sorry, we couldn\'t process the request. Something is preventing us from getting the maning of ${name}. Please contact admin for troubleshooting.`
+      });
+    } else if (acronyms.length === 0) {
+      next({
+        response_type: 'ephemeral',
+        text: `Sorry, we couldn\'t find the meaning of ${name}.`
+      });
+    } else if (acronyms.length === 1) {
+      next({
+        response_type: 'ephemeral',
+        text: `${name} means "${acronyms[0].meaning}".`
+      });
+    } else { // acronyms.length > 1
+      next({
+        response_type: 'ephemeral',
+        text: `${name} could mean one of the following:`,
+        attachments: displayAcronyms(acronyms)
       });
     }
   });
@@ -122,6 +153,11 @@ exports.handleReq = (slackReq, done) => {
     break;
   case acronymMap.getAll:
     getAllAcronyms(slackRes => {
+      done(null, slackRes);
+    });
+    break;
+  case acronymMap.get:
+    getAcronym(text, slackRes => {
       done(null, slackRes);
     });
     break;
