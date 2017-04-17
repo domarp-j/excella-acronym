@@ -28,8 +28,8 @@ Heroku: https://excella-acronym-api.herokuapp.com/
 * `POST /auth` authenticates a user & returns a token for use in other routes. An `email` and `password` must be provided as parameters.
 * `POST /slack` is a way for the Excella Slack team's slash command integration (/acronym) to communicate with the API. The `token` and `team_id` parameters are required to access any of the API routes. The /acronym slash commands are the following:
   * /acronym - Get instructions on how the acronym works
-  * /acronym <acronym> - Get the meaning of <acronym>
-  * /acronym <acronym> <meaning> - Add <acronym> and its meaning <meaning> to the database
+  * /acronym (acronym) - Get the meaning of (acronym)
+  * /acronym (acronym) (meaning) - Add (acronym) and its (meaning) to the database
   * /acronym get all - Get all acronyms in the database
 
 
