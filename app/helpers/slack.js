@@ -155,7 +155,12 @@ let addAcronym = (text, next) => {
   acronym.meaning = appHelper.capitalize(words.slice(2).join(' '));
 
   Acronym.find({ name: acronym.name, meaning: acronym.meaning }, (err, acronyms) => {
-    if (acronyms.length !== 0) {
+    if (words.length === 2) {
+      next({
+        response_type: 'ephemeral',
+        text: `Please add the meaning of ${acronym.name} to add it to the database.`
+      });
+    } else if (acronyms.length !== 0) {
       next({
         response_type: 'ephemeral',
         text: `Thank you, but ${acronym.name} with the definition "${acronym.meaning}" is already in the database.`
@@ -170,7 +175,7 @@ let addAcronym = (text, next) => {
         } else {
           next({
             response_type: 'ephemeral',
-            text: `Success! Thanks for adding ${acronym.name} to the database!`
+            text: `Success! Thanks for adding ${acronym.name} ("${acronym.meaning}") to the database!`
           });
         }
       });

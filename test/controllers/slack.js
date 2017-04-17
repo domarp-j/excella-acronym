@@ -227,7 +227,7 @@ describe('Slack Controller', () => {
         .send(slackReq)
         .end((err, res) => {
           res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.include('Success! Thanks for adding NBA to the database!');
+          res.body.text.should.include('Success! Thanks for adding NBA ("National Basketball Association") to the database!');
           Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testAcronyms.length + 1);
           });
@@ -263,6 +263,19 @@ describe('Slack Controller', () => {
           Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testAcronyms.length);
           });
+          done();
+        });
+    });
+
+    it('should let the user know if they tried to add an acronym without a meaning', done => {
+      let acro = testAcronyms[0];
+      slackReq.text = `add ${acro.name}`;
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.response_type.should.eq('ephemeral');
+          res.body.text.should.eq(`Please add the meaning of ${acro.name} to add it to the database.`);
           done();
         });
     });
