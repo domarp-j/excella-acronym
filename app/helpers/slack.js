@@ -77,12 +77,18 @@ let parse = text => {
 //
 // Break down acronym objects into an array of strings with the format:
 // <acronym> - <meaning>
+// Sort acronyms in alphabetical order
 //
 let displayAcronyms = (acronyms, showName) => {
-  return _.map(acronyms, acronym => {
+  let meanings = _.map(acronyms, acronym => {
     if (showName) return { text: `${acronym.name} - ${acronym.meaning}` };
     else return { text: `${acronym.meaning}` };
-  }).sort();
+  });
+
+  return meanings.sort((prev, curr) => {
+    if (prev.text < curr.text) return -1;
+    else return 1;
+  });
 };
 
 //
