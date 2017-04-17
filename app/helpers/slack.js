@@ -39,8 +39,7 @@ let welcomeMessage = {
     { text: 'Enter "/acronym <acronym>" to get its meaning.' },
     { text: 'Enter "/acronym get all" to get all known Excella acronyms and their definitions.' },
     { text: 'Enter "/acronym add <acronym> <meaning>" to add a new Excella acronym to the database.' },
-  ],
-  text: 'Check out the source code by following this link: https://github.com/domarp-j/excella-acronym-api'
+  ]
 };
 
 // ====================
