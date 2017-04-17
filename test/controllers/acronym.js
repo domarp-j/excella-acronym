@@ -197,6 +197,74 @@ describe('Acronym Controller', () => {
   });
 
   //
+  // GET /acronyms/:name
+  //
+  describe('GET /acronyms/:name (get)', () => {
+    it('should be status 200', (done) => {
+      chai.request(address)
+        .get('/acronyms/lol')
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+
+    it('should return a JSON object with the "count" and "acronyms" properties', (done) => {
+      chai.request(address)
+        .get('/acronyms/lol')
+        .end((err, res) => {
+          res.body.should.be.a('object');
+          res.body.should.have.property('count');
+          res.body.should.have.property('acronyms');
+          done();
+        });
+    });
+
+    it('should return all matching acronyms as an array of objects', (done) => {
+      chai.request(address)
+        .get('/acronyms/lol')
+        .end((err, res) => {
+          res.body.acronyms.should.be.a('array');
+          res.body.acronyms.should.have.length(1);
+          done();
+        });
+    });
+
+    it('should return all matching acronyms as an array of objects, regardless of caps', (done) => {
+      chai.request(address)
+        .get('/acronyms/LOL')
+        .end((err, res) => {
+          res.body.acronyms.should.be.a('array');
+          res.body.acronyms.should.have.length(1);
+          done();
+        });
+    });
+
+    it('should return more than one matching acronym, if necessary, as an array of objects', (done) => {
+      chai.request(address)
+        .get('/acronyms/atm')
+        .end((err, res) => {
+          res.body.acronyms.should.be.a('array');
+          res.body.acronyms.should.have.length(2);
+          done();
+        });
+    });
+
+    it('should return matching acronym objects with just the name & meaning', (done) => {
+      chai.request(address)
+        .get('/acronyms/lol')
+        .end((err, res) => {
+          res.body.acronyms.forEach(acronym => {
+            Object.keys(acronym).length.should.equal(2);
+            acronym.should.have.property('name');
+            acronym.should.have.property('meaning');
+          });
+          done();
+        });
+    });
+  });
+
+  //
   // POST /acronyms
   //
   describe('POST /acronyms (add)', () => {
@@ -289,74 +357,6 @@ describe('Acronym Controller', () => {
         .end((err, res) => {
           res.body.should.have.property('message');
           res.body.message.should.eq(`An acronym with the name ${existingAcronym.name} and meaning ${existingAcronym.meaning} is already present within the database.`);
-          done();
-        });
-    });
-  });
-
-  //
-  // GET /acronyms/:name
-  //
-  describe('GET /acronyms/:name (get)', () => {
-    it('should be status 200', (done) => {
-      chai.request(address)
-        .get('/acronyms/lol')
-        .end((err, res) => {
-          res.should.have.status(200);
-          done();
-        });
-    });
-
-    it('should return a JSON object with the "count" and "acronyms" properties', (done) => {
-      chai.request(address)
-        .get('/acronyms/lol')
-        .end((err, res) => {
-          res.body.should.be.a('object');
-          res.body.should.have.property('count');
-          res.body.should.have.property('acronyms');
-          done();
-        });
-    });
-
-    it('should return all matching acronyms as an array of objects', (done) => {
-      chai.request(address)
-        .get('/acronyms/lol')
-        .end((err, res) => {
-          res.body.acronyms.should.be.a('array');
-          res.body.acronyms.should.have.length(1);
-          done();
-        });
-    });
-
-    it('should return all matching acronyms as an array of objects, regardless of caps', (done) => {
-      chai.request(address)
-        .get('/acronyms/LOL')
-        .end((err, res) => {
-          res.body.acronyms.should.be.a('array');
-          res.body.acronyms.should.have.length(1);
-          done();
-        });
-    });
-
-    it('should return more than one matching acronym, if necessary, as an array of objects', (done) => {
-      chai.request(address)
-        .get('/acronyms/atm')
-        .end((err, res) => {
-          res.body.acronyms.should.be.a('array');
-          res.body.acronyms.should.have.length(2);
-          done();
-        });
-    });
-
-    it('should return matching acronym objects with just the name & meaning', (done) => {
-      chai.request(address)
-        .get('/acronyms/lol')
-        .end((err, res) => {
-          res.body.acronyms.forEach(acronym => {
-            Object.keys(acronym).length.should.equal(2);
-            acronym.should.have.property('name');
-            acronym.should.have.property('meaning');
-          });
           done();
         });
     });

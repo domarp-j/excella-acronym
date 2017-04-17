@@ -36,6 +36,29 @@ exports.getAll = (req, res) => {
 };
 
 //
+// Get a specific acronym
+//
+exports.get = (req, res) => {
+  let name = req.params.name.toUpperCase();
+
+  Acronym.find({ name: name }, (err, acronyms) => {
+    if (err) {
+      res.json({
+        success: false,
+        error: err
+      });
+    } else {
+      res.json({
+        success: true,
+        message: `Here are all of the Excella acronym meanings for ${name}`,
+        count: acronyms.length,
+        acronyms: appHelper.stripAll(acronyms, ['name', 'meaning'])
+      });
+    }
+  });
+};
+
+//
 // Create an acronym
 //
 exports.add = (req, res) => {
@@ -76,27 +99,4 @@ exports.add = (req, res) => {
       }
     });
   }
-};
-
-//
-// Get a specific acronym
-//
-exports.get = (req, res) => {
-  let name = req.params.name.toUpperCase();
-
-  Acronym.find({ name: name }, (err, acronyms) => {
-    if (err) {
-      res.json({
-        success: false,
-        error: err
-      });
-    } else {
-      res.json({
-        success: true,
-        message: `Here are all of the Excella acronym meanings for ${name}`,
-        count: acronyms.length,
-        acronyms: appHelper.stripAll(acronyms, ['name', 'meaning'])
-      });
-    }
-  });
 };
