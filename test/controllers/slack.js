@@ -140,13 +140,29 @@ describe('Slack Controller', () => {
       });
     });
 
+    it('should return a welcome message if text is blank', done => {
+      slackReq.text = '';
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.response_type.should.eq('ephemeral');
+          res.body.text.should.eq('Not sure what an acronym at Excella stands for? Just ask /acronym!');
+          res.body.attachments[0].text.should.eq('Enter "/acronym <acronym>" to get its meaning.');
+          res.body.attachments[1].text.should.eq('Enter "/acronym get all" to get all known Excella acronyms and their definitions.');
+          res.body.attachments[2].text.should.eq('Enter "/acronym add <acronym> <meaning>" to add a new Excella acronym to the database.');
+          done();
+        });
+    });
+
     it('should get all acronyms upon request', done => {
       slackReq.text = 'Get All';
       chai.request(address)
         .post('/slack')
         .send(slackReq)
         .end((err, res) => {
-          res.body.text.eq('Here are all of the acronyms currently in the database.');
+          res.body.response_type.should.eq('ephemeral');
+          res.body.text.should.eq('Here are all of the acronyms currently in the database.');
           res.body.attachments.should.be.a('array');
           res.body.attachments.should.have.length(testAcronyms.length);
           done();
