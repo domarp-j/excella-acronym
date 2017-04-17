@@ -146,13 +146,13 @@ let addAcronym = (text, next) => {
   let acronym = new Acronym();
 
   acronym.name = words[1].toUpperCase();
-  acronym.meaning = words.slice(2).join(' ');
+  acronym.meaning = appHelper.capitalize(words.slice(2).join(' '));
 
   Acronym.find({ name: acronym.name, meaning: acronym.meaning }, (err, acronyms) => {
     if (acronyms.length !== 0) {
       next({
         response_type: 'ephemeral',
-        text: `Thank you, but ${acronym.name} with the definition ${acronym.meaning} is already in the database.`
+        text: `Thank you, but ${acronym.name} with the definition "${acronym.meaning}" is already in the database.`
       });
     } else {
       acronym.save(err => {

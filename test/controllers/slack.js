@@ -243,7 +243,23 @@ describe('Slack Controller', () => {
         .send(slackReq)
         .end((err, res) => {
           res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.include(`Thank you, but ${acro.name} with the definition ${acro.meaning} is already in the database.`);
+          res.body.text.should.include(`Thank you, but ${acro.name} with the definition "${acro.meaning}" is already in the database.`);
+          Acronym.find().exec((err, acronyms) => {
+            acronyms.length.should.equal(testAcronyms.length);
+          });
+          done();
+        });
+    });
+
+    it('should not be able to add a duplicate acronym/meaning to the database, regardless of caps', done => {
+      let acro = testAcronyms[0];
+      slackReq.text = `ADD ${acro.name.toLowerCase()} ${acro.meaning.toLowerCase()}`;
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.response_type.should.eq('ephemeral');
+          res.body.text.should.include(`Thank you, but ${acro.name} with the definition "${acro.meaning}" is already in the database.`);
           Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testAcronyms.length);
           });
