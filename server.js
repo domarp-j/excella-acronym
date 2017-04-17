@@ -62,7 +62,8 @@ router.get('/', (req, res) => {
 //
 router.route('/acronyms')
   .get(AcronymController.getAll)
-  .post(AuthController.bouncer, AcronymController.add);
+  .post(AuthController.bouncer, AcronymController.add)
+  .delete(AuthController.bouncer, AcronymController.delete);
 router.route('/acronyms/:name')
   .get(AcronymController.get);
 router.route('/auth')
