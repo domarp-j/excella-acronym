@@ -90,6 +90,8 @@ let validAcronym = {
   token: undefined
 };
 
+let existingAcronym = Object.assign({}, testAcronyms[0]);
+
 let testUser = new User({
   email: 'test@example.com',
   password: 'test-pass-123'
@@ -117,6 +119,7 @@ describe('Acronym Controller', () => {
           .send(validUser)
           .end((err, res) => {
             validAcronym.token = res.body.token;
+            existingAcronym.token = res.body.token;
             done();
           });
       });
@@ -147,7 +150,7 @@ describe('Acronym Controller', () => {
   });
 
   //
-  // GET Index
+  // GET /acronyms
   //
   describe('GET /acronyms (getAll)', () => {
     it('should be status 200', (done) => {
@@ -194,7 +197,7 @@ describe('Acronym Controller', () => {
   });
 
   //
-  // POST Create
+  // POST /acronyms
   //
   describe('POST /acronyms (add)', () => {
     it('should be status 200', (done) => {
@@ -245,7 +248,7 @@ describe('Acronym Controller', () => {
     it('should not add an acronym without a "name" parameter', done => {
       chai.request(address)
         .post('/acronyms')
-        .send({ name: undefined, meaning: 'Meaning', token: validAcronym.token })
+        .send({ name: undefined, meaning: validAcronym.meaning, token: validAcronym.token })
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testAcronyms.length);
@@ -257,7 +260,19 @@ describe('Acronym Controller', () => {
     it('should not add an acronym without a "meaning" parameter', done => {
       chai.request(address)
         .post('/acronyms')
-        .send({ name: 'NAME', meaning: undefined, token: validAcronym.token })
+        .send({ name: validAcronym.name, meaning: undefined, token: validAcronym.token })
+        .end((err, res) => {
+          Acronym.find().exec((err, acronyms) => {
+            acronyms.length.should.equal(testAcronyms.length);
+            done();
+          });
+        });
+    });
+
+    it('should not add an acronym if a token is not provided', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send({ name: validAcronym.name, meaning: validAcronym.meaning, token: undefined })
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testAcronyms.length);
@@ -280,7 +295,7 @@ describe('Acronym Controller', () => {
   });
 
   //
-  // GET Show
+  // GET /acronyms/:name
   //
   describe('GET /acronyms/:name (get)', () => {
     it('should be status 200', (done) => {
@@ -343,6 +358,92 @@ describe('Acronym Controller', () => {
             acronym.should.have.property('meaning');
           });
           done();
+        });
+    });
+  });
+
+  //
+  // DELETE /acronyms
+  //
+  describe('POST /acronyms (add)', () => {
+    it('should be status 200', (done) => {
+      chai.request(address)
+        .post('/acronyms')
+        .send(existingAcronym)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+
+    it('should return a JSON object with an "acronym" property', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send(existingAcronym)
+        .end((err, res) => {
+          res.body.should.have.property('acronym');
+          done();
+        });
+    });
+
+    it('should return the deleted acronym as an object', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send(validAcronym)
+        .end((err, res) => {
+          res.body.acronym.should.have.property('name');
+          res.body.acronym.should.have.property('meaning');
+          res.body.acronym.name.should.equal(existingAcronym.name);
+          res.body.acronym.meaning.should.equal(existingAcronym.meaning);
+          done();
+        });
+    });
+
+    it('should remove the acronym from the database', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send(existingAcronym)
+        .end((err, res) => {
+          Acronym.find().exec((err, acronyms) => {
+            acronyms.length.should.equal(testAcronyms.length - 1);
+            done();
+          });
+        });
+    });
+
+    it('should not delete an acronym without a "name" parameter', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send({ name: undefined, meaning: existingAcronym.meaning, token: existingAcronym.token })
+        .end((err, res) => {
+          Acronym.find().exec((err, acronyms) => {
+            acronyms.length.should.equal(testAcronyms.length);
+            done();
+          });
+        });
+    });
+
+    it('should not add an acronym without a "meaning" parameter', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send({ name: existingAcronym.name, meaning: undefined, token: existingAcronym.token })
+        .end((err, res) => {
+          Acronym.find().exec((err, acronyms) => {
+            acronyms.length.should.equal(testAcronyms.length);
+            done();
+          });
+        });
+    });
+
+    it('should not delete an acronym if a token is not provided', done => {
+      chai.request(address)
+        .post('/acronyms')
+        .send({ name: existingAcronym.name, meaning: existingAcronym.token, token: undefined })
+        .end((err, res) => {
+          Acronym.find().exec((err, acronyms) => {
+            acronyms.length.should.equal(testAcronyms.length);
+            done();
+          });
         });
     });
   });
