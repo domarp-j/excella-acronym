@@ -103,7 +103,7 @@ let getAllAcronyms = next => {
 // Get a specific acronym & return object as Slack response
 //
 let getAcronym = (name, next) => {
-  Acronym.find({ name: name }, (err, acronyms) => {
+  Acronym.find({ name: name.toUpperCase() }, (err, acronyms) => {
     if (err) {
       next({
         response_type: 'ephemeral',
