@@ -449,7 +449,7 @@ describe('Acronym Controller', () => {
 
     it('should not delete an acronym if a token is not provided', done => {
       chai.request(address)
-        .post('/acronyms')
+        .delete('/acronyms')
         .send({ name: existingAcronym.name, meaning: existingAcronym.token, token: undefined })
         .end((err, res) => {
           Acronym.find().exec((err, acronyms) => {
