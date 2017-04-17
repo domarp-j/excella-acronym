@@ -290,7 +290,7 @@ describe('Slack Controller', () => {
       .send(slackReq)
       .end((err, res) => {
         res.body.response_type.should.eq('ephemeral');
-        res.body.text.should.eq(`Please include the meaning of ${acro.name} to delete it from the database.`);
+        res.body.text.should.eq(`Please include the meaning of ${acro.name} to remove it from the database.`);
         done();
       });
     });

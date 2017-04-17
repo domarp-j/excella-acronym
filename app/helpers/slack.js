@@ -29,7 +29,8 @@ let acronymMap = {
   get:      1,
   getAll:   2,
   add:      3,
-  invalid:  4
+  delete:   4,
+  invalid:  5
 };
 
 let welcomeMessage = {
@@ -39,6 +40,7 @@ let welcomeMessage = {
     { text: 'Enter "/acronym <acronym>" to get its meaning.' },
     { text: 'Enter "/acronym get all" to get all known Excella acronyms and their definitions.' },
     { text: 'Enter "/acronym add <acronym> <meaning>" to add a new Excella acronym to the database.' },
+    { text: 'Enter "/acronym delete <acronym> <meaning>" to delete an existing Excella acronym from the database.' }
   ]
 };
 
@@ -54,13 +56,6 @@ let getWords = text => {
 };
 
 //
-// Based on text, determine whether an acronym is trying to be added
-//
-let addingAcronym = words => {
-  return words[0].toLowerCase() === 'add';
-};
-
-//
 // Parse Slack request text & determine what action was requested
 // acronymMap shows the type of requests that are possible
 //
@@ -70,7 +65,8 @@ let parse = text => {
   if (!text) return acronymMap.blank;
   else if (words.length === 1) return acronymMap.get;
   else if (text.toLowerCase() === 'get all') return acronymMap.getAll;
-  else if (addingAcronym(words)) return acronymMap.add;
+  else if (words[0].toLowerCase() === 'add') return acronymMap.add;
+  else if (words[0].toLowerCase() === 'delete') return acronymMap.delete;
   else return acronymMap.invalid;
 };
 
@@ -183,6 +179,37 @@ let addAcronym = (text, next) => {
   });
 };
 
+//
+// Delete an acronym to database & return Slack response
+//
+let deleteAcronym = (text, next) => {
+  let words = getWords(text);
+
+  let acronym = new Acronym();
+
+  acronym.name = words[1].toUpperCase();
+  acronym.meaning = appHelper.capitalize(words.slice(2).join(' '));
+
+  Acronym.remove({ name: acronym.name, meaning: acronym.meaning }, (err, acronyms) => {
+    if (err) {
+      next({
+        response_type: 'ephemeral',
+        text: `Sorry, we couldn\'t process the request. Something is preventing us from removing the acronym from the database. Please contact admin for troubleshooting.`
+      });
+    } else if (words.length === 2) {
+      next({
+        response_type: 'ephemeral',
+        text: `Please include the meaning of ${acronym.name} to remove it from the database.`
+      });
+    } else {
+      next({
+        response_type: 'ephemeral',
+        text: `Success! You deleted ${acronym.name} ("${acronym.meaning}") from the database.`
+      });
+    }
+  });
+};
+
 // ====================
 // Public Helpers
 // ====================
@@ -217,6 +244,11 @@ exports.handleReq = (slackReq, done) => {
     break;
   case acronymMap.add:
     addAcronym(text, slackRes => {
+      done(null, slackRes);
+    });
+    break;
+  case acronymMap.delete:
+    deleteAcronym(text, slackRes => {
       done(null, slackRes);
     });
     break;
