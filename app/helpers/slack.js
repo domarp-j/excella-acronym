@@ -158,7 +158,7 @@ let addAcronym = (text, next) => {
     if (words.length === 2) {
       next({
         response_type: 'ephemeral',
-        text: `Please add the meaning of ${acronym.name} to add it to the database.`
+        text: `Please include the meaning of ${acronym.name} to add it to the database.`
       });
     } else if (acronyms.length !== 0) {
       next({

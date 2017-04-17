@@ -275,7 +275,7 @@ describe('Slack Controller', () => {
         .send(slackReq)
         .end((err, res) => {
           res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.eq(`Please add the meaning of ${acro.name} to add it to the database.`);
+          res.body.text.should.eq(`Please include the meaning of ${acro.name} to add it to the database.`);
           done();
         });
     });
