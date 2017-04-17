@@ -219,6 +219,21 @@ describe('Slack Controller', () => {
           done();
         });
     });
+
+    it('should be able to add an acronym to the database', done => {
+      slackReq.text = 'add nba national basketball association';
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.response_type.should.eq('ephemeral');
+          res.body.text.should.include(`Success! Thanks for adding NBA to the database!`);
+          Acronym.find().exec((err, acronyms) => {
+            acronyms.length.should.equal(testAcronyms.length + 1);
+          });
+          done();
+        });
+    });
   });
 
   describe('POST /slack (handle) - invalid submissions', () => {

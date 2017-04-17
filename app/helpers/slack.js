@@ -109,7 +109,7 @@ let getAcronym = (name, next) => {
     if (err) {
       next({
         response_type: 'ephemeral',
-        text: `Sorry, we couldn\'t process the request. Something is preventing us from getting the maning of ${nameUpper}. Please contact admin for troubleshooting.`
+        text: `Sorry, we couldn\'t process the request. Something is preventing us from getting the meaning of ${nameUpper}. Please contact admin for troubleshooting.`
       });
     } else if (acronyms.length === 0) {
       next({
@@ -126,6 +126,32 @@ let getAcronym = (name, next) => {
         response_type: 'ephemeral',
         text: `${nameUpper} could mean one of the following:`,
         attachments: displayAcronyms(acronyms)
+      });
+    }
+  });
+};
+
+//
+// Add an acronym to database & return Slack response
+//
+let addAcronym = (text, next) => {
+  let words = getWords(text);
+
+  let acronym = new Acronym();
+
+  acronym.name = words[1];
+  acronym.meaning = words.slice(2).join(' ');
+
+  acronym.save(err => {
+    if (err) {
+      next({
+        response_type: 'ephemeral',
+        text: `Sorry, we couldn\'t process the request. Something is preventing us from adding a new acronym to the database. Please contact admin for troubleshooting.`
+      });
+    } else {
+      next({
+        response_type: 'ephemeral',
+        text: `Success! Thanks for adding ${acronym.name} to the database!`
       });
     }
   });
@@ -160,6 +186,11 @@ exports.handleReq = (slackReq, done) => {
     break;
   case acronymMap.get:
     getAcronym(text, slackRes => {
+      done(null, slackRes);
+    });
+    break;
+  case acronymMap.add:
+    addAcronym(text, slackRes => {
       done(null, slackRes);
     });
     break;
