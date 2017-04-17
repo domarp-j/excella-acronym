@@ -181,6 +181,18 @@ describe('Slack Controller', () => {
         });
     });
 
+    it('should get a specific acronym upon request, regardless of caps', done => {
+      slackReq.text = 'irl';
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.response_type.should.eq('ephemeral');
+          res.body.text.should.eq('IRL means \"In Real Life\".');
+          done();
+        });
+    });
+
     it('should get a specific acronym upon request, even if it has multiple meanings', done => {
       slackReq.text = 'ATM';
       chai.request(address)

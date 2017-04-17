@@ -103,26 +103,28 @@ let getAllAcronyms = next => {
 // Get a specific acronym & return object as Slack response
 //
 let getAcronym = (name, next) => {
-  Acronym.find({ name: name.toUpperCase() }, (err, acronyms) => {
+  let nameUpper = name.toUpperCase();
+
+  Acronym.find({ name: nameUpper }, (err, acronyms) => {
     if (err) {
       next({
         response_type: 'ephemeral',
-        text: `Sorry, we couldn\'t process the request. Something is preventing us from getting the maning of ${name}. Please contact admin for troubleshooting.`
+        text: `Sorry, we couldn\'t process the request. Something is preventing us from getting the maning of ${nameUpper}. Please contact admin for troubleshooting.`
       });
     } else if (acronyms.length === 0) {
       next({
         response_type: 'ephemeral',
-        text: `Sorry, we couldn\'t find the meaning of ${name}.`
+        text: `Sorry, we couldn\'t find the meaning of ${nameUpper}.`
       });
     } else if (acronyms.length === 1) {
       next({
         response_type: 'ephemeral',
-        text: `${name} means "${acronyms[0].meaning}".`
+        text: `${nameUpper} means "${acronyms[0].meaning}".`
       });
     } else { // acronyms.length > 1
       next({
         response_type: 'ephemeral',
-        text: `${name} could mean one of the following:`,
+        text: `${nameUpper} could mean one of the following:`,
         attachments: displayAcronyms(acronyms)
       });
     }
