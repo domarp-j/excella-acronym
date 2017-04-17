@@ -168,6 +168,45 @@ describe('Slack Controller', () => {
           done();
         });
     });
+
+    it('should get a specific acronym upon request', done => {
+      slackReq.text = 'IRL';
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.response_type.should.eq('ephemeral');
+          res.body.text.should.eq('IRL means \"In Real Life\"');
+          done();
+        });
+    });
+
+    it('should get a specific acronym upon request, even if it has multiple meanings', done => {
+      slackReq.text = 'ATM';
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.response_type.should.eq('ephemeral');
+          res.body.text.should.eq('ATM could mean one of the following:')
+          res.body.attachments.should.be.a('array');
+          res.body.attachments[0].should.include('At The Moment');
+          res.body.attachments[1].should.include('Automated Transaction Machine');
+          done();
+        });
+    });
+
+    it('should respond properly when an acronym isn\'t in the database', done => {
+      slackReq.text = 'GGG',
+      chai.request(address)
+        .post('/slack')
+        .send(slackReq)
+        .end((err, res) => {
+          res.body.response_type.should.eq('ephemeral');
+          res.body.text.should.include(`Sorry, we couldn\'t find the meaning of ${slackReq.text}`);
+          done();
+        });
+    });
   });
 
   describe('POST /slack (handle) - invalid submissions', () => {
