@@ -70,7 +70,7 @@ let slackReqParams = {
   command: '/command',
   text: '',
   response_url: ''
-}
+};
 
 let slackReq = Object.assign({}, slackReqParams);
 
@@ -227,7 +227,7 @@ describe('Slack Controller', () => {
         .send(slackReq)
         .end((err, res) => {
           res.body.response_type.should.eq('ephemeral');
-          res.body.text.should.include(`Success! Thanks for adding NBA to the database!`);
+          res.body.text.should.include('Success! Thanks for adding NBA to the database!');
           Acronym.find().exec((err, acronyms) => {
             acronyms.length.should.equal(testAcronyms.length + 1);
           });

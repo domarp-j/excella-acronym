@@ -27,7 +27,7 @@ let User = require('./app/models/user');
 //
 let AcronymController = require('./app/controllers/acronym');
 let AuthController = require('./app/controllers/auth');
-let SlackController = require('./app/controllers/slack')
+let SlackController = require('./app/controllers/slack');
 // let UserController = require('./app/controllers/user');
 
 // ====================

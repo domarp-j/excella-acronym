@@ -40,7 +40,7 @@ let welcomeMessage = {
     { text: 'Enter "/acronym get all" to get all known Excella acronyms and their definitions.' },
     { text: 'Enter "/acronym add <acronym> <meaning>" to add a new Excella acronym to the database.' },
   ]
-}
+};
 
 // ====================
 // Helper Methods
@@ -50,7 +50,7 @@ let welcomeMessage = {
 // Get words for a given text, filtering out white spaces
 //
 let getWords = text => {
-  return text.split(' ').filter(value => { return !!value });
+  return text.split(' ').filter(value => { return !!value; });
 };
 
 //
@@ -159,7 +159,7 @@ let addAcronym = (text, next) => {
         if (err) {
           next({
             response_type: 'ephemeral',
-            text: `Sorry, we couldn\'t process the request. Something is preventing us from adding a new acronym to the database. Please contact admin for troubleshooting.`
+            text: 'Sorry, we couldn\'t process the request. Something is preventing us from adding a new acronym to the database. Please contact admin for troubleshooting.'
           });
         } else {
           next({
@@ -169,7 +169,7 @@ let addAcronym = (text, next) => {
         }
       });
     }
-  })
+  });
 };
 
 // ====================
@@ -210,6 +210,6 @@ exports.handleReq = (slackReq, done) => {
     });
     break;
   default:
-    done(true, null)
+    done(true, null);
   }
 };
