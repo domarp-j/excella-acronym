@@ -265,6 +265,37 @@ describe('Slack Controller', () => {
     });
   });
 
+  describe('POST /slack (handle) - /acronyms delete (name) (meaning)', () => {
+    it('should be able to delete an acronym from the database', done => {
+      let acro = testAcronyms[0]
+      slackReq.text = `delete ${acro.name} ${acro.meaning}`;
+      chai.request(address)
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.include(`Success! You deleted ${acro.name} ("${acro.meaning}") from the database.`);
+        Acronym.find().exec((err, acronyms) => {
+          acronyms.length.should.equal(testAcronyms.length - 1);
+        });
+        done();
+      });
+    });
+
+    it('should let the user know if they tried to delete an acronym without a meaning', done => {
+      let acro = testAcronyms[0];
+      slackReq.text = `delete ${acro.name}`;
+      chai.request(address)
+      .post('/slack')
+      .send(slackReq)
+      .end((err, res) => {
+        res.body.response_type.should.eq('ephemeral');
+        res.body.text.should.eq(`Please include the meaning of ${acro.name} to delete it from the database.`);
+        done();
+      });
+    });
+  });
+
   describe('POST /slack (handle) - invalid submissions', () => {
     it('should respond with an error message if "token" is not present', done => {
       slackReq.token = undefined;
