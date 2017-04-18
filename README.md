@@ -46,6 +46,7 @@ Heroku: https://excella-acronym-api.herokuapp.com/
 
 * Run `$ npm test` to run test suite
 * Run `$ npm run linter` to run linter
+* Run `$ npm run linter-fix` to run linter & automatically make fixes (where possible)
 
 ## License
 
