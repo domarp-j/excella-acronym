@@ -194,7 +194,7 @@ let removeAcronym = (text, next) => {
     if (err) {
       next({
         response_type: 'ephemeral',
-        text: `Sorry, we couldn\'t process the request. Something is preventing us from removing the acronym from the database. Please contact admin for troubleshooting.`
+        text: 'Sorry, we couldn\'t process the request. Something is preventing us from removing the acronym from the database. Please contact admin for troubleshooting.'
       });
     } else if (words.length === 2) {
       next({

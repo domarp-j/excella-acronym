@@ -268,7 +268,7 @@ describe('Slack Controller', () => {
 
   describe('POST /slack (handle) - /acronyms remove (name) (meaning)', () => {
     it('should be able to remove an acronym from the database', done => {
-      let acro = testAcronyms[0]
+      let acro = testAcronyms[0];
       slackReq.text = `remove ${acro.name} ${acro.meaning}`;
       chai.request(address)
       .post('/slack')
