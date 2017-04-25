@@ -27,7 +27,7 @@ let apiLink = 'https://excella-acronym-api.herokuapp.com/acronyms';
 let acronymMap = {
   blank:    0,
   get:      1,
-  getAll:   2,
+  // getAll:   2,
   add:      3,
   remove:   4,
   invalid:  5
@@ -35,10 +35,10 @@ let acronymMap = {
 
 let welcomeMessage = {
   response_type: 'ephemeral',
-  text: 'Not sure what an acronym at Excella stands for? Just ask /acronym!',
+  text: 'Not sure what an acronym at Excella stands for? Just ask /acronym! (Source: https://github.com/domarp-j/excella-acronym-api/).',
   attachments: [
     { text: 'Enter "/acronym <acronym>" to get its meaning.' },
-    { text: 'Enter "/acronym get all" to get all known Excella acronyms and their definitions.' },
+    // { text: 'Enter "/acronym get all" to get all known Excella acronyms and their definitions.' },
     { text: 'Enter "/acronym add <acronym> <meaning>" to add a new Excella acronym to the database.' },
     { text: 'Enter "/acronym remove <acronym> <meaning>" to remove an existing Excella acronym from the database.' }
   ]
@@ -64,7 +64,7 @@ let parse = text => {
 
   if (!text) return acronymMap.blank;
   else if (words.length === 1) return acronymMap.get;
-  else if (text.toLowerCase() === 'get all') return acronymMap.getAll;
+  // else if (text.toLowerCase() === 'get all') return acronymMap.getAll;
   else if (words[0].toLowerCase() === 'add') return acronymMap.add;
   else if (words[0].toLowerCase() === 'remove') return acronymMap.remove;
   else return acronymMap.invalid;
@@ -90,22 +90,22 @@ let displayAcronyms = (acronyms, showName) => {
 //
 // Get all acronyms & return object as Slack response
 //
-let getAllAcronyms = next => {
-  Acronym.find((err, acronyms) => {
-    if (err) {
-      next({
-        response_type: 'ephemeral',
-        text: 'Sorry, we couldn\'t process the request. Something is preventing us from getting a list of all acronyms. Please contact admin for troubleshooting.'
-      });
-    } else {
-      next({
-        response_type: 'ephemeral',
-        text: 'Here are all of the acronyms currently in the database.',
-        attachments: displayAcronyms(acronyms, true)
-      });
-    }
-  });
-};
+// let getAllAcronyms = next => {
+//   Acronym.find((err, acronyms) => {
+//     if (err) {
+//       next({
+//         response_type: 'ephemeral',
+//         text: 'Sorry, we couldn\'t process the request. Something is preventing us from getting a list of all acronyms. Please contact admin for troubleshooting.'
+//       });
+//     } else {
+//       next({
+//         response_type: 'ephemeral',
+//         text: 'Here are all of the acronyms currently in the database.',
+//         attachments: displayAcronyms(acronyms, true)
+//       });
+//     }
+//   });
+// };
 
 //
 // Get a specific acronym & return object as Slack response
@@ -232,11 +232,11 @@ exports.handleReq = (slackReq, done) => {
   case acronymMap.blank:
     done(null, welcomeMessage);
     break;
-  case acronymMap.getAll:
-    getAllAcronyms(slackRes => {
-      done(null, slackRes);
-    });
-    break;
+  // case acronymMap.getAll:
+  //   getAllAcronyms(slackRes => {
+  //     done(null, slackRes);
+  //   });
+  //   break;
   case acronymMap.get:
     getAcronym(text, slackRes => {
       done(null, slackRes);

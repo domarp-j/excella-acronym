@@ -31,6 +31,7 @@ Heroku: https://excella-acronym-api.herokuapp.com/
   * /acronym - Get instructions on how the acronym works
   * /acronym (acronym) - Get the meaning of (acronym)
   * /acronym get all - Get all acronyms in the database
+    * Since only 100 attachments (acronyms) can be returned on Slack, this command is currently disabled in production.
   * /acronym add (acronym) (meaning) - Add (acronym) and its (meaning) to the database
   * /acronym remove (acronym) (meaning) - Remove (acronym) and its (meaning) from the database
 
