@@ -27,14 +27,13 @@ Heroku: https://excella-acronym-api.herokuapp.com/
 * `POST /users` adds a user to the database. An `email`, `password`, and `passwordConfirm` must be provided as parameters.
   * This route is currently disabled in production.
 * `POST /auth` authenticates a user & returns a token for use in other routes. An `email` and `password` must be provided as parameters.
-* `POST /slack` is a way for the Excella Slack team's slash command integration (/acronym) to communicate with the API. The `token` and `team_id` parameters are required to access any of the API routes. The /acronym slash commands are the following:
+* `POST /slack` is a way for the Excella Slack team's slash command integration (/acronym) to communicate with the API. The `token` and `team_id` parameters are required to access any of the API routes. Check out [this link](https://api.slack.com/slash-commands) for details on integrating Slack slash commands. The /acronym slash commands are the following:
   * /acronym - Get instructions on how the acronym works
   * /acronym (acronym) - Get the meaning of (acronym)
   * /acronym get all - Get all acronyms in the database
     * Since only 100 attachments (acronyms) can be returned on Slack, this command is currently disabled in production.
   * /acronym add (acronym) (meaning) - Add (acronym) and its (meaning) to the database
   * /acronym remove (acronym) (meaning) - Remove (acronym) and its (meaning) from the database
-
 
 ## Installation Instructions
 
@@ -48,6 +47,7 @@ Heroku: https://excella-acronym-api.herokuapp.com/
 
 * Run `$ npm test` to run test suite
 * Run `$ npm run linter` to run linter
+* Run `$ npm run linter-fix` to run linter & automatically make fixes (where possible)
 
 ## License
 
