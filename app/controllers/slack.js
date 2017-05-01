@@ -59,6 +59,18 @@ exports.handle = (req, res) => {
           text: 'Sorry, we couldn\'t process the request. Please try again. If the error persists, contact the admin for troubleshooting.'
         });
       } else {
+        request({
+          url: slackReq.response_url,
+          method: 'POST',
+          headers: {
+            'User-Agent': 'Super Agent/0.0.1',
+            'Content-Type': 'application/json'
+          },
+          form: {
+            response_type: 'ephemeral',
+            text: 'Got it! Processing your request...'
+          }
+        });
 
         res.json(slackRes);
       }
