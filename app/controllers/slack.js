@@ -1,4 +1,11 @@
 // ====================
+// Modules
+// ====================
+
+let jwt = require('jsonwebtoken');
+let request = require('request');
+
+// ====================
 // Helpers
 // ====================
 
@@ -51,7 +58,10 @@ exports.handle = (req, res) => {
           response_type: 'ephemeral',
           text: 'Sorry, we couldn\'t process the request. Please try again. If the error persists, contact the admin for troubleshooting.'
         });
-      } else res.json(slackRes);
+      } else {
+
+        res.json(slackRes);
+      }
     });
   }
 };
