@@ -70,9 +70,9 @@ exports.handle = (req, res) => {
         };
 
         rp(options)
-          .then({
-            console.log('Successful API request')
-            res.json(slackRes))
+          .then(() => {
+            console.log('Successful API request');
+            res.json(slackRes);
           })
           .catch(err => {
             console.log('API hit an error')
