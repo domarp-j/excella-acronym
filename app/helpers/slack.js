@@ -41,7 +41,8 @@ let welcomeMessage = {
     // { text: 'Enter "/acronym get all" to get all known Excella acronyms and their definitions.' },
     { text: 'Enter "/acronym add <acronym> <meaning>" to add a new Excella acronym to the database.' },
     { text: 'Enter "/acronym remove <acronym> <meaning>" to remove an existing Excella acronym from the database.' }
-  ]
+  ],
+  replace_original: true
 };
 
 // ====================
@@ -117,23 +118,27 @@ let getAcronym = (name, next) => {
     if (err) {
       next({
         response_type: 'ephemeral',
-        text: `Sorry, we couldn\'t process the request. Something is preventing us from getting the meaning of ${nameUpper}. Please contact admin for troubleshooting.`
+        text: `Sorry, we couldn\'t process the request. Something is preventing us from getting the meaning of ${nameUpper}. Please contact admin for troubleshooting.`,
+        replace_original: true
       });
     } else if (acronyms.length === 0) {
       next({
         response_type: 'ephemeral',
-        text: `Sorry, we couldn\'t find the meaning of ${nameUpper}.`
+        text: `Sorry, we couldn\'t find the meaning of ${nameUpper}.`,
+        replace_original: true
       });
     } else if (acronyms.length === 1) {
       next({
         response_type: 'ephemeral',
-        text: `${nameUpper} means "${acronyms[0].meaning}".`
+        text: `${nameUpper} means "${acronyms[0].meaning}".`,
+        replace_original: true
       });
     } else { // acronyms.length > 1
       next({
         response_type: 'ephemeral',
         text: `${nameUpper} could mean one of the following:`,
-        attachments: displayAcronyms(acronyms)
+        attachments: displayAcronyms(acronyms),
+        replace_original: true
       });
     }
   });
@@ -154,24 +159,28 @@ let addAcronym = (text, next) => {
     if (words.length === 2) {
       next({
         response_type: 'ephemeral',
-        text: `Please include the meaning of ${acronym.name} to add it to the database.`
+        text: `Please include the meaning of ${acronym.name} to add it to the database.`,
+        replace_original: true
       });
     } else if (acronyms.length !== 0) {
       next({
         response_type: 'ephemeral',
-        text: `Thank you, but ${acronym.name} with the definition "${acronym.meaning}" is already in the database.`
+        text: `Thank you, but ${acronym.name} with the definition "${acronym.meaning}" is already in the database.`,
+        replace_original: true
       });
     } else {
       acronym.save(err => {
         if (err) {
           next({
             response_type: 'ephemeral',
-            text: 'Sorry, we couldn\'t process the request. Something is preventing us from adding a new acronym to the database. Please contact admin for troubleshooting.'
+            text: 'Sorry, we couldn\'t process the request. Something is preventing us from adding a new acronym to the database. Please contact admin for troubleshooting.',
+            replace_original: true
           });
         } else {
           next({
             response_type: 'ephemeral',
-            text: `Success! Thanks for adding ${acronym.name} ("${acronym.meaning}") to the database!`
+            text: `Success! Thanks for adding ${acronym.name} ("${acronym.meaning}") to the database!`,
+            replace_original: true
           });
         }
       });
@@ -194,17 +203,20 @@ let removeAcronym = (text, next) => {
     if (err) {
       next({
         response_type: 'ephemeral',
-        text: 'Sorry, we couldn\'t process the request. Something is preventing us from removing the acronym from the database. Please contact admin for troubleshooting.'
+        text: 'Sorry, we couldn\'t process the request. Something is preventing us from removing the acronym from the database. Please contact admin for troubleshooting.',
+        replace_original: true
       });
     } else if (words.length === 2) {
       next({
         response_type: 'ephemeral',
-        text: `Please include the meaning of ${acronym.name} to remove it from the database.`
+        text: `Please include the meaning of ${acronym.name} to remove it from the database.`,
+        replace_original: true
       });
     } else {
       next({
         response_type: 'ephemeral',
-        text: `Success! You removed ${acronym.name} ("${acronym.meaning}") from the database.`
+        text: `Success! You removed ${acronym.name} ("${acronym.meaning}") from the database.`,
+        replace_original: true
       });
     }
   });
