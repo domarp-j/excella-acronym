@@ -2,13 +2,13 @@
 // Models
 // ====================
 
-let User = require('../models/user');
+// let User = require('../models/user');
 
 // ====================
 // Helpers
 // ====================
 
-let appHelper = require('../helpers/app');
+// let appHelper = require('../helpers/app');
 
 // ====================
 // RESTful Methods
