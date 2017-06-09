@@ -64,7 +64,7 @@ exports.handle = (req, res) => {
           uri: slackReq.response_url,
           body: {
             response_type: 'ephemeral',
-            text: 'Got it! Processing your request...'
+            text: 'Got it! Processing your acronym request...'
           },
           json: true
         };
