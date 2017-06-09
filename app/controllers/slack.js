@@ -40,7 +40,7 @@ exports.handle = (req, res) => {
   if (!token || !teamId) {
     res.json({
       response_type: 'ephemeral',
-      text: 'Sorry, we couldn\'t process the request. Either a token or a team ID is missing from the Slack request. Please contact the admin for troubleshooting.',
+      text: 'Sorry, the request couldn\'t be processed. Either a token or a team ID is missing from the Slack request. Please reach out to Pramod Jacob to troubleshoot the problem.',
       attachments: [
         { text: `The token is ${token ? 'defined' : 'not defined'}` },
         { text: `The team ID is ${teamId ? 'defined' : 'not defined'}` }
@@ -49,14 +49,14 @@ exports.handle = (req, res) => {
   } else if (!slackHelper.match(token, teamId)) {
     res.json({
       response_type: 'ephemeral',
-      text: 'Sorry, we couldn\'t process the request. The Slack slash token & team ID sent with the request do not match the token & team ID on file with the API. Please contact the admin for troubleshooting.'
+      text: 'Sorry, the request couldn\'t be processed. The Slack slash token & team ID sent with the request do not match the token & team ID on file with the API. Please reach out to Pramod Jacob to troubleshoot the problem.'
     });
   } else {
     slackHelper.handleReq(slackReq, (err, slackRes) => {
       if (err) {
         res.json({
           response_type: 'ephemeral',
-          text: 'Sorry, we couldn\'t process the request. Please try again. If the error persists, contact the admin for troubleshooting.'
+          text: 'Sorry, the request couldn\'t be processed. Try sending your request again. If the error persists, reach out to Pramod Jacob to troubleshoot the problem.'
         });
       } else {
         let options = {
