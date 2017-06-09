@@ -41,7 +41,7 @@
 //
 // Chai HTTP
 //
-chai.use(chaiHttp);
+// chai.use(chaiHttp);
 
 //
 // Mockgoose (Test Database Connection)
