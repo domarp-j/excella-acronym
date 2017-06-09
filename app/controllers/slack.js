@@ -3,7 +3,7 @@
 // ====================
 
 let jwt = require('jsonwebtoken');
-let request = require('request');
+let rp = require('request-promise');
 
 // ====================
 // Helpers
@@ -62,11 +62,21 @@ exports.handle = (req, res) => {
         let options = {
           method: 'POST',
           uri: slackReq.response_url,
-          body: slackRes,
+          body: {
+            response_type: 'ephemeral',
+            text: 'Got it! Processing your request...'
+          },
           json: true
         };
 
-        request(options);
+        rp(options)
+          .then(body => {
+            console.log(body);
+            res.json(slackRes);
+          })
+          .catc(err => {
+            console.log(err);
+          });
       }
     });
   }
