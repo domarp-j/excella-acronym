@@ -63,7 +63,7 @@ exports.handle = (req, res) => {
 
         let options = {
           method: 'POST',
-          uri: 'http://api.posttestserver.com/post',
+          uri: slackReq.response_url,
           body: slackRes,
           json: {
             response_type: 'ephemeral',
