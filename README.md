@@ -49,6 +49,11 @@ Heroku: https://excella-acronym-api.herokuapp.com/
 * Run `$ npm run linter` to run linter
 * Run `$ npm run linter-fix` to run linter & automatically make fixes (where possible)
 
+## To-Do
+
+* Re-implement Slack tests by stubbing out requests with Sinon
+* Test Auth bouncer 
+
 ## License
 
 ISC License (Open Source)
