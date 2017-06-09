@@ -74,7 +74,7 @@ exports.handle = (req, res) => {
             console.log(body);
             res.json(slackRes);
           })
-          .catc(err => {
+          .catch(err => {
             console.log(err);
           });
       }
