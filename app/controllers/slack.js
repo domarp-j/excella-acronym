@@ -62,11 +62,22 @@ exports.handle = (req, res) => {
         let options = {
           method: 'POST',
           uri: slackReq.response_url,
-          body: slackRes,
+          body: {
+            response_type: 'ephemeral',
+            text: 'Got it! Processing your acronym request...'
+          },
           json: true
         };
 
-        rp(options); 
+        rp(options)
+          .then({
+            console.log('Successful API request')
+            res.json(slackRes))
+          })
+          .catch(err => {
+            console.log('API hit an error')
+            console.log(err);
+          });
       }
     });
   }
