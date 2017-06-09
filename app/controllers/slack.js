@@ -3,7 +3,7 @@
 // ====================
 
 let jwt = require('jsonwebtoken');
-let rp = require('request-promise');
+let request = require('request');
 
 // ====================
 // Helpers
@@ -66,14 +66,7 @@ exports.handle = (req, res) => {
           json: true
         };
 
-        rp(options)
-          .then(() => {
-            console.log('Successful API request');
-          })
-          .catch(err => {
-            console.log('API hit an error')
-            console.log(err);
-          });
+        request(options);
       }
     });
   }
