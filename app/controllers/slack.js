@@ -71,9 +71,8 @@ exports.handle = (req, res) => {
           json: true
         };
 
-        request(options, (err, body) => {
+        request(options, err => {
           if (err) console.log(err);
-          else console.log(body);
         });
       }
     });
