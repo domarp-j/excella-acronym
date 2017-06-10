@@ -3,7 +3,7 @@
 // ====================
 
 let jwt = require('jsonwebtoken');
-let rp = require('request-promise');
+let request = require('request');
 
 // ====================
 // Helpers
@@ -59,24 +59,22 @@ exports.handle = (req, res) => {
           text: 'Sorry, the request couldn\'t be processed. Try sending your request again. If the error persists, reach out to Pramod Jacob to troubleshoot the problem.'
         });
       } else {
-        let options = {
-          method: 'POST',
-          uri: slackReq.response_url,
-          body: {
-            response_type: 'ephemeral',
-            text: 'Got it! Processing your acronym request...'
-          },
-          json: true
-        };
+        res.json({
+          response_type: 'ephemeral',
+          text: 'Got it! Processing your acronym request...'
+        }).then(() => {
+          let options = {
+            method: 'POST',
+            uri: slackReq.response_url,
+            body: slackRes,
+            json: true
+          };
 
-        rp(options)
-          .then(body => {
-            console.log(body);
-            res.json(slackRes);
-          })
-          .catch(err => {
-            console.log(err);
+          request(options, (err, body) => {
+            if (err) console.log(err);
+            else console.log(body);
           });
+        });
       }
     });
   }
