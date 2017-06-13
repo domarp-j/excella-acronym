@@ -59,21 +59,7 @@ exports.handle = (req, res) => {
           text: 'Sorry, the request couldn\'t be processed. Try sending your request again. If the error persists, reach out to Pramod Jacob to troubleshoot the problem.'
         });
       } else {
-        res.json({
-          response_type: 'ephemeral',
-          text: 'Got it! Processing your acronym request...'
-        })
-
-        let options = {
-          method: 'POST',
-          uri: slackReq.response_url,
-          body: slackRes,
-          json: true
-        };
-
-        request(options, err => {
-          if (err) console.log(err);
-        });
+        res.json(slackRes);
       }
     });
   }

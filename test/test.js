@@ -3,7 +3,7 @@
 //
 require('./controllers/acronym');
 require('./controllers/auth');
-// require('./controllers/slack'); 
+require('./controllers/slack'); 
 // require('./controllers/user');
 
 //
