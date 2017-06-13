@@ -304,7 +304,7 @@ describe('Slack Controller', () => {
         .post('/slack')
         .send(slackReq)
         .end((err, res) => {
-          res.body.text.should.include('Sorry, we couldn\'t process the request.');
+          res.body.text.should.include('Sorry, the request couldn\'t be processed.');
           done();
         });
     });
@@ -315,7 +315,7 @@ describe('Slack Controller', () => {
         .post('/slack')
         .send(slackReq)
         .end((err, res) => {
-          res.body.text.should.include('Sorry, we couldn\'t process the request.');
+          res.body.text.should.include('Sorry, the request couldn\'t be processed.');
           done();
         });
     });
@@ -326,7 +326,7 @@ describe('Slack Controller', () => {
         .post('/slack')
         .send(slackReq)
         .end((err, res) => {
-          res.body.text.should.include('Sorry, we couldn\'t process the request.');
+          res.body.text.should.include('Sorry, the request couldn\'t be processed.');
           done();
         });
     });
@@ -337,7 +337,7 @@ describe('Slack Controller', () => {
         .post('/slack')
         .send(slackReq)
         .end((err, res) => {
-          res.body.text.should.include('Sorry, we couldn\'t process the request.');
+          res.body.text.should.include('Sorry, the request couldn\'t be processed.');
           done();
         });
     });
