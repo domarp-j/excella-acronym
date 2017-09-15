@@ -6,6 +6,7 @@ let express = require('express');
 let bodyParser = require('body-parser');
 
 require('dotenv-safe').load();
+require('newrelic');
 
 // ====================
 // Internal Modules
