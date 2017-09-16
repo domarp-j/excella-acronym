@@ -4,6 +4,7 @@
 
 let express = require('express');
 let bodyParser = require('body-parser');
+let http = require('http'); 
 
 require('dotenv-safe').load();
 
@@ -86,3 +87,14 @@ app.use('/', router);
 app.listen(port, () => {
   console.log(`The API is currently running on localhost: ${port}.` );
 });
+
+
+// ====================
+// Prevent Sleep
+// ====================
+
+const intervalMins = 15; 
+
+setInterval(function() {
+  http.get("https://excella-acronym-api.herokuapp.com");
+}, intervalMins * 60 * 1000); 
