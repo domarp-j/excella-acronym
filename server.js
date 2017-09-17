@@ -97,4 +97,5 @@ const intervalMins = 15;
 
 setInterval(function() {
   http.get("https://excella-acronym-api.herokuapp.com");
+  console.log('Ping!');
 }, intervalMins * 60 * 1000); 
