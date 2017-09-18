@@ -39,8 +39,8 @@ let welcomeMessage = {
   attachments: [
     { text: 'Enter "/acronym <acronym>" to get its meaning.' },
     // { text: 'Enter "/acronym get all" to get all known Excella acronyms and their definitions.' },
-    { text: 'Enter "/acronym add <acronym> <meaning>" to add a new Excella acronym to the database.' },
-    { text: 'Enter "/acronym remove <acronym> <meaning>" to remove an existing Excella acronym from the database.' }
+    { text: 'Enter "/acronym add <acronym> <meaning>" to add a new Excella acronym to the database. Example: "/acronym add nba national basketball association".' },
+    { text: 'Enter "/acronym remove <acronym> <meaning>" to remove an existing Excella acronym from the database. Example: "/acronym remove nba national basketball association".' }
   ]
 };
 
